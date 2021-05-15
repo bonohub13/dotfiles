@@ -1,8 +1,10 @@
 "===== color settings ====="
+cnoremap 3636 <c-u>undo<CR>
 syntax enable
 set t_Co=256
-set bg=dark
-colorscheme gruvbox 
+colorscheme gruvbox
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
 
 "===== indent settings =====" 
 set autoindent
@@ -33,7 +35,6 @@ inoremap { {}<left>
 augroup fileTypeClosingBrackets
     autocmd!
     autocmd BufNewFile,BufRead *.md inoremap < <><left>
-    autocmd BufNewFile,BufRead *.html inoremap < <><left>
 augroup END
 
 set showmatch
@@ -51,6 +52,7 @@ filetype plugin on
 filetype indent on
 
 set mouse=a
+set nohlsearch
 
 " neocomplete " 
 let g:neocomplete#enable_at_startup = 1
@@ -64,4 +66,3 @@ nmap vp :vsplit<CR>
 nnoremap nw <C-w><C-w>p
 nnoremap wp <C-w>p
 nmap ND :NERDTREE<CR>
-"let g:vimade.detecttermcolors=0"
