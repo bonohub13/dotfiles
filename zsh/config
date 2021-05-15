@@ -1,3 +1,10 @@
 #!/usr/bin/zsh
-source $HOME/.config/zsh/alias.zsh
-source $HOME/.config/zsh/init.zsh
+
+# init runs
+. ~/.config/zsh/init.zsh
+
+# alias
+. ~/.config/zsh/alias.zsh
+
+# bureau colorscheme
+source ~/.config/zsh/bureau/prompt_bureau_setup.zsh blue cyan red

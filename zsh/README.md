@@ -6,3 +6,7 @@
 ## How to use
 - source this dotfiles by adding the line below to ~/.zshrc
     - ```source $HOME/.config/zsh/config```<br/>
+
+## Dependencies
+- bureau shell prompt
+    - [Isqua/bureau](https://github.com/Isqua/bureau)
