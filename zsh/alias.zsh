@@ -5,9 +5,10 @@ alias ls="ls --color=auto"
 alias cls=clear
 alias reboot="systemctl reboot -i"
 alias shutdown="systemctl poweroff -i"
-alias vim=nvim
-alias cmake-init=". /home/kensuke/.cmake_init/cmake_init.bash"
+alias cmake-init=". /home/kensuke/.cmake_init/cmake_init.sh"
 alias sudo="sudo "
+alias update-archmirror="sudo /home/kensuke/.config/zsh/update_archmirror/update-archmirror.sh"
+alias pacman-autoremove="yay -Rns $(pacman -Qdtq)"
 
 function ssh-keygen-strong {
     ssh-keygen -t ed25519
@@ -37,27 +38,6 @@ function check-weather {
     curl v2.wttr.in/Tokyo
 }
 
-function update-archmirror {
-    mirrorlist=`curl "https://archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on"`
-    mirrorlist_filtered=`echo $mirrorlist | sed -e "s/^#Server/Server/" -r -e "s/## +[^_]+//" -e "s/##//"`
-
-    less $mirrorlist_filtered
-    echo "rankmirrors and update mirror? [Y/N]"
-    read ask
-    if [ $ask = "Y" -o $ask = "y" ]; then
-        sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
-        sudo dash -c 'echo $mirrorlist_filtered | rankmirrors -n 20 - | tee /etc/pacman.d/mirrorlist.pacnew mirrorlist.bak'
-        if [ $? = 0 ]; then
-            echo "Updated mirrorlist to /etch/pacman.d/mirrorlist"
-        else
-            echo "Failed to update mirrorlist"
-            echo "update-archmirror terminated..."
-        fi
-    else
-        echo "update-archmirror terminated..."
-    fi
-}
-
 function check-port {
     port=$1
     process=`netstat -tulpn | grep $1 | awk '{print $7}'`
@@ -79,6 +59,10 @@ function check-port {
     fi
 
     return 0
+}
+
+function youtube-flac {
+    youtube-dl -f bestaudio --extract-audio --audio-format flac --audio-quality 0 "$1"
 }
 
 function shebang {

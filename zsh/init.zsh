@@ -2,8 +2,8 @@
 
 ### init runs #####
 # root-less docker ENV
-export PATH=~/bin:$PATH
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+export PATH=/home/kensuke/bin:$PATH
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
 . ~/.config/zsh/.commands/run_sshAgent.sh
 # nitrogen --restore && clear
 export EDITOR=nvim
