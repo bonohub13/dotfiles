@@ -2,9 +2,10 @@
 cnoremap 3636 <c-u>undo<CR>
 syntax enable
 set t_Co=256
+set termguicolors
 colorscheme gruvbox
-highlight Normal ctermbg=none
-highlight NonText ctermbg=none
+highlight Normal guibg=NONE ctermbg=NONE
+highlight NonText guibg=none ctermbg=none
 
 "===== indent settings =====" 
 set autoindent
