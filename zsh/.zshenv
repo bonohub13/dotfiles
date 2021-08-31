@@ -1,6 +1,6 @@
-which ibus && keyboard="ibus" \
-    || which fcitx && keyboard="fcitx" \
-    || which fcitx5 && keyboard="fcitx5" || keyboard=""
+command -v ibus &> /dev/null && keyboard="ibus" \
+    || command -v fcitx &> /dev/null && keyboard="fcitx" \
+    || command -v fcitx5 &> /dev/null && keyboard="fcitx5" || keyboard=""
 export GTK_IM_MODULE="$keyboard"
 export QT_IM_MODULE="$keyboard"
 export XMODIFIERS="@im=$keyboard"
