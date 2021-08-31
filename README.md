@@ -4,6 +4,8 @@
 - zsh
 - neovim
 - tmux
+- alacritty
+- kitty
 
 ## Not a dotfile but...
 - installed\_arch\_pkgs
