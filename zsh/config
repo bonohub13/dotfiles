@@ -7,4 +7,7 @@
 . ~/.config/zsh/alias.zsh
 
 # bureau colorscheme
-source ~/.config/zsh/bureau/prompt_bureau_setup.zsh blue cyan red
+# source ~/.config/zsh/bureau/prompt_bureau_setup.zsh blue cyan red
+# source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+# source ~/.p10k.zsh
+# POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true

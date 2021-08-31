@@ -5,10 +5,12 @@ alias ls="ls --color=auto"
 alias cls=clear
 alias reboot="systemctl reboot -i"
 alias shutdown="systemctl poweroff -i"
+alias vim=nvim
 alias cmake-init=". /home/kensuke/.cmake_init/cmake_init.sh"
 alias sudo="sudo "
 alias update-archmirror="sudo /home/kensuke/.config/zsh/update_archmirror/update-archmirror.sh"
 alias pacman-autoremove="yay -Rns $(pacman -Qdtq)"
+alias tmux="tmux -u -2"
 
 function ssh-keygen-strong {
     ssh-keygen -t ed25519
@@ -67,6 +69,10 @@ function youtube-flac {
 
 function shebang {
     echo "#!"`which $1`
+}
+
+function clock {
+    tty-clock -s -x -c -b -B
 }
 
 function help {

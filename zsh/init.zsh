@@ -1,9 +1,8 @@
 #!/usr/bin/zsh
 
 ### init runs #####
-# root-less docker ENV
 . ~/.config/zsh/.commands/run_sshAgent.sh
-# nitrogen --restore && clear
+source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 neofetch | lolcat -f
 ###################
 
