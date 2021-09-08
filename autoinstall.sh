@@ -3,21 +3,24 @@
 copy_configs() {
 	echo "Copying dotfiles under $HOME/.config or $HOME... (depending on package)"
 	sleep 1
-	find -max-depth 1 -type d | while read dir_name; do
-		[ `echo "$dir_name" | grep "\./\." | wc -c` -eq 0 ] \
-			&& target="$(echo "$dir_name" | sed "s./. ." | awk '{print$2}')"
+	find -maxdepth 1 -type d | while read dir_name; do
+        [ "$dir_name" != '.' ] || [ "$dir_name" != './.git' ] \
+			&& [ `echo "$dir_name" | grep "\./\." | wc -c` -eq 0 ] \
+			&& target="$(echo "$dir_name" | sed "s./. ." | awk '{print$2}')" \
 			&& ([ -d "$HOME.config" ] || mkdir -p "$HOME/.config") \
-			&& ([ "$dirname" = "./tmux" ] && cp -f "$dirname/.tmux.conf" "$HOME" \
-				|| cp -rf "$dirname" "$HOME/.config" \
-				&& [ "$dirname" = "./zsh" ] \
+			&& ([ "$dir_name" = "./tmux" ] && cp "$dir_name/.tmux.conf" "$HOME" \
+				|| cp -rf "$dir_name" "$HOME/.config" \
+				&& [ "$dir_name" = "./zsh" ] \
 				&& find "$HOME/.config/$dir_name" -type f | while read file; do
-						[ `echo "$dir_name" | grep "\.z" | wc -c` -gt 0 ] \
+						[ `echo "$file" | grep "\.z" | wc -c` -gt 0 ] \
 							&& mv "$file" "$HOME"
-				   done) \
-			|| [ "$dirname" = "./nvim" ] \
+				   done \
+                || return 0) \
+			|| [ "$dir_name" = "./nvim" ] \
 			&& command -v vim \
 			&& [ "$(ls -l '/usr/bin/vim' | awk '{print$NF}')" = "vim" ] \
-			&& cp -f "$dirname/init.vim" "$HOME/.vimrc"
+			&& cp -f "$dir_name/init.vim" "$HOME/.vimrc" \
+            || return 0
 	done
 }
 
@@ -32,7 +35,7 @@ neovim_setup() {
 
 zsh_setup() {
 	echo "zsh..."
-	zsh -c "git clone --recursive https://github.com/sorin-ionescu/prezto ${ZDOTDIR:-$HOME/.zprezto}"
+	zsh -c "git clone --recursive https://github.com/sorin-ionescu/prezto ${ZDOTDIR:-$HOME/.zprezto}" || return 0
 	echo 'setopt EXTENDED_GLOB
 		for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
 			[ -f "$rcfile" ] || ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
@@ -42,7 +45,7 @@ zsh_setup() {
 tmux_setup() {
 	echo "tmux..."
 	mkdir -p "$HOME/.tmux/plugins"
-	git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+	git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm" || return 0
 	echo "Press <Ctrl+b> then I in tmux to load plugins"
 }
 
@@ -59,10 +62,10 @@ echo "Are you sure you want to run the automated installer? [Y/N]"
 read question
 [ "$question" = "Y" ] || [ "$question" = "y" ] \
 	&& copy_configs \
-	&& echo "Downloading dependencies..."
-	&& sleep 1
+	&& echo "Downloading dependencies..." \
+	&& sleep 1 \
 	&& (command -v vim || command -v nvim \
-		&& neovim_setup || echo "Neovim nor Vim is not in your system. Skipping...") \
+		&& neovim_setup || echo "Neovim nor Vim is in your system. Skipping...") \
 	&& (command -v zsh \
 		&& zsh_setup || echo "Zsh is not in your system, skipping...") \
 	&& (command -v tmux \
