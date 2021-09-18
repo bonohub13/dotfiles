@@ -9,12 +9,16 @@ copy_configs() {
             && target="$(echo "$dir_name" | sed "s./. ." | awk '{print$2}')" \
             && ([ -d "$HOME.config" ] || mkdir -p "$HOME/.config") \
             && ([ "$dir_name" = "./tmux" ] && cp "$dir_name/.tmux.conf" "$HOME" \
-                || cp -rf "$dir_name" "$HOME/.config" \
+                || [ "$dir_name" = "./zsh" ] \
+                && (find "$dir_name" -type f -name ".z*" | while read line; do
+                        mv -f "$line" "$HOME"
+                    done) \
+                && cp -rf "$dir_name" "$HOME/.config" \
                 && [ "$dir_name" = "./zsh" ] \
                 && find "$HOME/.config/$dir_name" -type f | while read file; do
-                        [ `echo "$file" | grep "\.z" | wc -c` -gt 0 ] \
-                            && mv "$file" "$HOME"
-                   done \
+                    [ `echo "$file" | grep "\.z" | wc -c` -gt 0 ] \
+                        && mv "$file" "$HOME"
+                    done \
                 || return 0) \
             || [ "$dir_name" = "./nvim" ] \
             && command -v vim \
