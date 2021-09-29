@@ -15,9 +15,8 @@ copy_configs() {
                     done) \
                 && cp -rf "$dir_name" "$HOME/.config" \
                 && [ "$dir_name" = "./zsh" ] \
-                && find "$HOME/.config/$dir_name" -type f | while read file; do
-                    [ `echo "$file" | grep "\.z" | wc -c` -gt 0 ] \
-                        && mv "$file" "$HOME"
+                && find "$HOME/.config/$dir_name" -type f -name ".z*" | while read file; do
+                        mv "$file" "$HOME"
                     done \
                 || return 0) \
             || [ "$dir_name" = "./nvim" ] \
