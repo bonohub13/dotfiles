@@ -8,9 +8,10 @@ alias shutdown="systemctl poweroff -i"
 alias vim=nvim
 alias cmake-init=". /home/kensuke/.cmake_init/cmake_init.sh"
 alias sudo="sudo "
-alias update-archmirror="sudo /home/kensuke/.config/zsh/update_archmirror/update-archmirror.sh"
-alias pacman-autoremove="yay -Rns $(pacman -Qdtq)"
 alias tmux="tmux -u -2"
+command -v pacman \
+    && alias update-archmirror="sudo /home/kensuke/.config/zsh/update_archmirror/update-archmirror.sh" \
+    && alias pacman-autoremove="yay -Rns $(pacman -Qdtq)"
 
 function ssh-keygen-strong {
     ssh-keygen -t ed25519

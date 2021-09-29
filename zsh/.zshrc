@@ -70,7 +70,7 @@ bindkey '^e' edit-command-line
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
-[ -f "/home/kensuke/.config/zsh/config" ] && source "/home/kensuke/.config/zsh/config"
+[ -f "$HOME/.config/zsh/config" ] && source "$HOME/.config/zsh/config"
 
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null

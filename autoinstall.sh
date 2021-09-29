@@ -4,7 +4,7 @@ copy_configs() {
     echo "Copying dotfiles under $HOME/.config or $HOME... (depending on package)"
     sleep 1
     find -maxdepth 1 -type d | while read dir_name; do
-        [ "$dir_name" != '.' ] || [ "$dir_name" != './.git' ] \
+        [ "$dir_name" != '.' ] || [ "$dir_name" != './.git' ] || [ "$dir_name" != './docker' ] \
             && [ `echo "$dir_name" | grep "\./\." | wc -c` -eq 0 ] \
             && target="$(echo "$dir_name" | sed "s./. ." | awk '{print$2}')" \
             && ([ -d "$HOME.config" ] || mkdir -p "$HOME/.config") \

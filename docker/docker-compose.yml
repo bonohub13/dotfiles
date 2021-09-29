@@ -1,0 +1,8 @@
+version: '3'
+services:
+  autoinstall-testenv:
+    build: # autoinstall-testenv
+      context: autoinstall-testenv
+    image: autoinstall-testenv
+    container_name: autoinstall-testenv
+    tty: true
