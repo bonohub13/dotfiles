@@ -24,7 +24,7 @@ copy_configs() {
             && command -v vim \
             && [ "$(ls -l '/usr/bin/vim' | awk '{print$NF}')" = "vim" ] \
             && cp -f "$dir_name/init.vim" "$HOME/.vimrc" \
-            || return 0
+            || cp -rf "$dir_name" "$HOME/.config"
     done
 }
 
@@ -35,15 +35,6 @@ neovim_setup() {
     [ "$vim_or_nvim" = "Neovim" ] && mv /tmp/gruvbox/colors "$HOME/.config/nvim/" ||
         mkdir -p "$HOME/.vim" && mv /tmp/gruvbox/colors "$HOME/.vim/"
     rm -rf /tmp/gruvbox
-}
-
-zsh_setup() {
-    echo "zsh..."
-    zsh -c "git clone --recursive https://github.com/sorin-ionescu/prezto ${ZDOTDIR:-$HOME/.zprezto}" || return 0
-    echo 'setopt EXTENDED_GLOB
-        for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-            [ -f "$rcfile" ] || ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-        done' | zsh
 }
 
 tmux_setup() {
@@ -71,6 +62,6 @@ read question
     && (command -v vim || command -v nvim \
         && neovim_setup || echo "Neovim nor Vim is in your system. Skipping...") \
     && (command -v zsh \
-        && zsh_setup || echo "Zsh is not in your system, skipping...") \
+        && ./zsh_setup.zsh || echo "Zsh is not in your system, skipping...") \
     && (command -v tmux \
         && tmux_setup || echo "Tmux is not in your system, skipping...")
