@@ -123,10 +123,26 @@ augroup END
 
 let g:NetrwIsOpen=0
 
+" Vundle initialization "
+set rtp+=~/.config/nvim/bundle/Vundle.vim
+call vundle#begin("~/.config/nvim/bundle/Vundle.vim")
+Plugin 'VundleVim/Vundle.vim'
+
+" Airline-vim "
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tmuxline#enabled = 0
+let g:airline_theme = 'dracula'
+let g:airline_powerline_fonts = 1
+
+" dracula "
+Plugin 'dracula/vim'
+
+call vundle#end()
+
 " normal settings " 
-nmap tt :terminal<CR>
-nmap tv :vertical terminal<CR>
-nmap sp :split<CR>
-nmap vp :vsplit<CR>
-nnoremap nw <C-w><C-w>p
-nnoremap wp <C-w>p
+nmap tt :tabnew<CR>
+nmap tn :tabnext<CR>
+nmap tp :tabprevious<CR>
