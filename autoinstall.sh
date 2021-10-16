@@ -31,9 +31,15 @@ neovim_setup() {
     local vim_or_nvim="$([ -d "$HOME/.config/nvim" ] && echo "Neovim" || echo Vim)"
     echo "$vim_or_nvim..."
     git clone https://github.com/morhetz/gruvbox /tmp/gruvbox
-    [ "$vim_or_nvim" = "Neovim" ] && mv /tmp/gruvbox/colors "$HOME/.config/nvim/" ||
-        mkdir -p "$HOME/.vim" && mv /tmp/gruvbox/colors "$HOME/.vim/"
+    [ "$vim_or_nvim" = "Neovim" ] \
+        && mv /tmp/gruvbox/colors "$HOME/.config/nvim/" \
+        || mkdir -p "$HOME/.vim" && mv /tmp/gruvbox/colors "$HOME/.vim/"
     rm -rf /tmp/gruvbox
+    [ "$vim_or_nvim" = "Neovim" ] \
+        && git clone https://github.com/VundleVim/Vundle.vim "$HOME/.config/nvim/bundle/Vundle.vim" \
+        || mkdir -p "$HOME/.vim/bunle" \
+        && git clone https://github.com/VundleVim/Vundle.vim "$HOME/.vim/bundle/Vundle.vim" \
+        && sed -i "s;config/nvim;vim;" "$HOME/.vimrc"
 }
 
 tmux_setup() {
