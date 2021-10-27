@@ -1,4 +1,4 @@
-#!/usr/bin/sh -eux
+#!/usr/bin/sh -eu
 
 copy_configs() {
     echo "Copying dotfiles under $HOME/.config or $HOME... (depending on package)"
@@ -58,8 +58,10 @@ warning() {
         done' | sed -e "s/{/'{/" -e "s/}/}'/" | sh
 }
 warning
-echo "Are you sure you want to run the automated installer? [Y/N]"
-read question
+[ $# -eq 1 ] && question="$1"
+[ $# -ne 1 ] \
+    && echo "Are you sure you want to run the automated installer? [Y/N]" \
+    && read question
 [ "$question" = "Y" ] || [ "$question" = "y" ] \
     && copy_configs \
     && echo "Downloading dependencies..." \
