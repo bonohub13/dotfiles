@@ -13,7 +13,14 @@ set smartindent
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set expandtab
+set expandtab smarttab
+set encoding=utf-8
+set colorcolumn=80
+
+"===== simple stuff ====="
+let $RTP=split(&runtimepath, ',')[0]
+let $RC="/home/kensuke/.config/nvim/init.vim"
+set path=.,/usr/include/,**
 
 " ==== for html/xml files, 2 spaces ====="
 augroup fileTypeIndent
@@ -136,6 +143,8 @@ let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tmuxline#enabled = 0
 let g:airline_theme = 'dracula'
 let g:airline_powerline_fonts = 1
+Plugin 'vim-scripts/AutoComplPop'
+set completeopt=menuone,longest
 
 " dracula "
 Plugin 'dracula/vim'
@@ -146,3 +155,4 @@ call vundle#end()
 nmap tt :tabnew<CR>
 nmap tn :tabnext<CR>
 nmap tp :tabprevious<CR>
+nmap qq :quit!<CR>
