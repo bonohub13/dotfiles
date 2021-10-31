@@ -8,10 +8,9 @@ alias shutdown="systemctl poweroff -i"
 alias vim=nvim
 alias cmake-init=". /home/kensuke/.cmake_init/cmake_init.sh"
 alias sudo="sudo "
+command -v pacman > /dev/null 2>&1 \
+    && alias update-archmirror="sudo /home/kensuke/.config/zsh/update_archmirror/update-archmirror.sh"
 alias tmux="tmux -u -2"
-command -v pacman \
-    && alias update-archmirror="sudo /home/kensuke/.config/zsh/update_archmirror/update-archmirror.sh" \
-    && alias pacman-autoremove="yay -Rns $(pacman -Qdtq)"
 
 function ssh-keygen-strong {
     ssh-keygen -t ed25519
@@ -74,6 +73,19 @@ function shebang {
 
 function clock {
     tty-clock -s -x -c -b -B
+}
+
+function pacman-autoremove {
+    command -v pacman > /dev/null 2>&1 || return 1
+    pkgs="$(pacman -Qdtq)"
+
+    if [ "$(echo $pkgs | grep -E "[A-Z | a-z | 0-9]" | wc -c)" -eq 0 ]; then
+        echo "No packages available..."
+    else
+        sudo pacman -Rns "$pkgs"
+    fi
+
+    return 0
 }
 
 function help {

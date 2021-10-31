@@ -1,9 +1,10 @@
 #!/usr/bin/zsh
 
 ### init runs #####
-. ~/.config/zsh/run_sshAgent.zsh
+. ~/.config/zsh/.commands/run_sshAgent.sh
 source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-command -v neofetch && command -v lolcat \
+command -v neofetch > /dev/null 2>&1 \
+    && command -v lolcat > /dev/null 2>&1 \
     && neofetch | lolcat -f
 ###################
 

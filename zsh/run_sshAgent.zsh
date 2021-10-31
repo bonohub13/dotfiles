@@ -17,7 +17,5 @@ if [ -f "${SSH_ENV}" ]; then
         start-agent;
     }
 else
-    mkdir "$HOME/.ssh"
-    touch "$SSH_ENV"
-    start-agent
+    start-agent;
 fi
