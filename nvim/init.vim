@@ -3,7 +3,6 @@ cnoremap 3636 <c-u>undo<CR>
 syntax enable
 set t_Co=256
 set termguicolors
-colorscheme gruvbox
 highlight Normal guibg=NONE ctermbg=NONE
 highlight NonText guibg=none ctermbg=none
 
@@ -147,9 +146,11 @@ Plugin 'vim-scripts/AutoComplPop'
 set completeopt=menuone,longest
 
 " dracula "
-Plugin 'dracula/vim'
+Plugin 'dracula/vim', {'name': 'dracula'}
 
 call vundle#end()
+
+colorscheme dracula
 
 " normal settings " 
 nmap tt :tabnew<CR>
