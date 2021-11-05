@@ -44,6 +44,15 @@ tmux_setup() {
     echo "Press <Ctrl+b> then I in tmux to load plugins"
 }
 
+kitty_setup() {
+    echo "Kitty..."
+    mkdir -p "$HOME/.config/kitty"
+    curl https://raw.githubusercontent.com/dracula/kitty/master/dracula.conf | \
+        tee "$HOME/.config/kitty/dracula.conf" > /dev/null 2>&1
+    curl https://raw.githubusercontent.com/dracula/kitty/master/diff.conf | \
+        tee "$HOME/.config/kitty/diff.conf" > /dev/null 2>&1
+}
+
 neofetch_setup() {
     echo "Neofetch..."
     mkdir -p "$HOME/.config/neofetch"
@@ -78,5 +87,7 @@ warning
         && ./zsh_setup.zsh || echo "Zsh is not in your system, skipping...") \
     && (command -v tmux \
         && tmux_setup || echo "Tmux is not in your system, skipping...") \
+    && (command -v kitty \
+        && kitty_setup || echo "Kitty is not in your system, skipping...") \
     && (command -v neofetch \
         && neovim_setup || echo "Neofetch is not in your system. Skipping...")
