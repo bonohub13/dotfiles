@@ -44,6 +44,17 @@ tmux_setup() {
     echo "Press <Ctrl+b> then I in tmux to load plugins"
 }
 
+neofetch_setup() {
+    echo "Neofetch..."
+    mkdir -p "$HOME/.config/neofetch"
+    curl https://raw.githubusercontent.com/tralph3/.dotfiles/master/.config/neofetch/config.conf | tee "$HOME/.config/neofetch/config.conf" > /dev/null 2>&1
+    sleep 1
+    echo "This config for neofetch is from https://github.com/tralph3/.dotfiles"
+    echo "Check out his/her repository for more info!"
+    echo "Power to this person!"
+    sleep 1
+}
+
 warning() {
     echo 'echo "Warning! Running the automated script replaces any configurations you may have with the following..."
         find -maxdepth 1 -type d | while read program; do
@@ -66,4 +77,6 @@ warning
     && (command -v zsh \
         && ./zsh_setup.zsh || echo "Zsh is not in your system, skipping...") \
     && (command -v tmux \
-        && tmux_setup || echo "Tmux is not in your system, skipping...")
+        && tmux_setup || echo "Tmux is not in your system, skipping...") \
+    && (command -v neofetch \
+        && neovim_setup || echo "Neofetch is not in your system. Skipping...")
