@@ -90,4 +90,4 @@ warning
     && (command -v kitty \
         && kitty_setup || echo "Kitty is not in your system, skipping...") \
     && (command -v neofetch \
-        && neovim_setup || echo "Neofetch is not in your system. Skipping...")
+        && neofetch_setup || echo "Neofetch is not in your system. Skipping...")
