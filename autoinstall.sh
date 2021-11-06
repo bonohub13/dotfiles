@@ -3,23 +3,24 @@
 copy_configs() {
     echo "Copying dotfiles under $HOME/.config or $HOME... (depending on package)"
     sleep 1
-    (find -maxdepth 1 -type d | \
-        sed -e "s;\./;;" \
+    pkgs="$(find -maxdepth 1 -type d | sed -e "s;\./;;" \
             -e "/\.git/d" \
             -e "/docker/d" \
-            -e "/installed_arch_pkgs/d" | xargs echo) | while read dir_name; do
-        ([ -d "$HOME.config" ] || mkdir -p "$HOME/.config") \
-            && ([ "$dir_name" = "tmux" ] \
-                && cp "$dir_name/.tmux.conf" "$HOME") \
-            || ([ "$dir_name" = "zsh" ] \
-                && find "$dir_name" -type f -name "\.z*" | while read file; do
-                    mv -f "$file" "$HOME"
-                done) \
-            || ([ "$dir_name" = "nvim" ] \
-                && command -v vim \
-                && [ "$(ls -l '/usr/bin/vim' | awk '{print$NF}')" = "vim" ] \
-                && mv -f "$dir_name/init.vim" "$HOME/.vimrc") \
-            || cp -rf "$dir_name" "$HOME/.config"
+            -e "/installed_arch_pkgs/d")"
+    echo "$pkgs" | while read dir_name; do
+        ([ -d "$HOME.config" ] || mkdir -p "$HOME/.config")
+        if [ "$dir_name" = "tmux" ]; then
+            cp "$dir_name/.tmux.conf" "$HOME"
+        elif [ "$dir_name" = "zsh" ]; then
+            find "$dir_name" -type f -name "\.z*" | while read file; do
+                mv -f "$file" "$HOME"
+            done
+        elif [ "$dir_name" = "nvim" ] && command -v vim \
+            && [ "$(ls -l '/usr/bin/vim' | awk '{print$NF}')" = "vim" ]; then
+            mv -f "$dir_name/init.vim" "$HOME/.vimrc"
+        else
+            cp -rf "$dir_name" "$HOME/.config"
+        fi
     done
 
     return 0
