@@ -7,8 +7,7 @@ copy_configs() {
         sed -e "s;\./;;" \
             -e "/\.git/d" \
             -e "/docker/d" \
-            -e "/installed_arch_pkgs/d" | \
-    while read dir_name; do
+            -e "/installed_arch_pkgs/d" | while read dir_name; do
         ([ -d "$HOME.config" ] || mkdir -p "$HOME/.config") \
             && ([ "$dir_name" = "tmux" ] \
                 && cp "$dir_name/.tmux.conf" "$HOME") \
