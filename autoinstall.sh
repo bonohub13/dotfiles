@@ -6,7 +6,8 @@ copy_configs() {
     pkgs="$(find -maxdepth 1 -type d | sed -e "s;\./;;" \
             -e "/\.git/d" \
             -e "/docker/d" \
-            -e "/installed_arch_pkgs/d")"
+            -e "/installed_arch_pkgs/d"\
+            -e "1d")"
     echo "$pkgs" | while read dir_name; do
         ([ -d "$HOME.config" ] || mkdir -p "$HOME/.config")
         if [ "$dir_name" = "tmux" ]; then
