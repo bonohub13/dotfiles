@@ -86,10 +86,11 @@ warning() {
     return 0
 }
 warning
-[ $# -eq 1 ] && question="$1" \
-    || [ $# -ne 1 ] \
+local question
+[ $# -eq 1 ] && question="$1"
+[ $# -ne 1 ] \
     && echo "Are you sure you want to run the automated installer? [Y/N]" \
-    && read question
+    && read question)
 [ "$question" = "Y" ] || [ "$question" = "y" ] || [ "$question" = "yes" ] \
     && copy_configs \
     && echo "Downloading dependencies..." \
