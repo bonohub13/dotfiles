@@ -16,6 +16,7 @@ copy_configs() {
             find "$dir_name" -type f -name "\.z*" | while read file; do
                 mv -f "$file" "$HOME"
             done
+            cp -rf "$dir_name" "$HOME/.config"
         elif [ "$dir_name" = "nvim" ] && command -v vim \
             && [ "$(ls -l '/usr/bin/vim' | awk '{print$NF}')" = "vim" ]; then
             mv -f "$dir_name/init.vim" "$HOME/.vimrc"
