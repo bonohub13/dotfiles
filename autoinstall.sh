@@ -3,11 +3,11 @@
 copy_configs() {
     echo "Copying dotfiles under $HOME/.config or $HOME... (depending on package)"
     sleep 1
-    find -maxdepth 1 -type d | \
+    (find -maxdepth 1 -type d | \
         sed -e "s;\./;;" \
             -e "/\.git/d" \
             -e "/docker/d" \
-            -e "/installed_arch_pkgs/d" | while read dir_name; do
+            -e "/installed_arch_pkgs/d" | xargs echo) | while read dir_name; do
         ([ -d "$HOME.config" ] || mkdir -p "$HOME/.config") \
             && ([ "$dir_name" = "tmux" ] \
                 && cp "$dir_name/.tmux.conf" "$HOME") \
