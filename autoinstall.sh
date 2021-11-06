@@ -16,10 +16,9 @@ copy_configs() {
                     mv -f "$file" "$HOME"
                 done) \
             || ([ "$dir_name" = "nvim" ] \
-                && command -v vim \
+                && command -v vim || command -v nvim \
                 && [ "$(ls -l '/usr/bin/vim' | awk '{print$NF}')" = "vim" ] \
-                && mv -f "$dir_name/init.vim" "$HOME/.vimrc" \
-                || cp -rf "$dir_name" "$HOME/.config") \
+                && mv -f "$dir_name/init.vim" "$HOME/.vimrc" || true) \
             || cp -rf "$dir_name" "$HOME/.config"
     done
 
@@ -31,13 +30,15 @@ neovim_setup() {
         && echo "Neovim" || echo Vim)"
     echo "$vim_or_nvim..."
     [ "$vim_or_nvim" = "Neovim" ] \
-        && git clone https://github.com/VundleVim/Vundle.vim "$HOME/.config/nvim/bundle/Vundle.vim" \
+        && git clone https://github.com/VundleVim/Vundle.vim \
+            "$HOME/.config/nvim/bundle/Vundle.vim" \
         || mkdir -p "$HOME/.vim/bundle" \
-        && git clone https://github.com/VundleVim/Vundle.vim "$HOME/.vim/bundle/Vundle.vim" \
+        && git clone https://github.com/VundleVim/Vundle.vim \
+            "$HOME/.vim/bundle/Vundle.vim" \
         && sed -i "s;config/nvim;vim;" "$HOME/.vimrc"
     [ "$vim_or_nvim" = "Neovim" ] \
         && nvim -c PluginInstall -c quit \
-        || nvim -c PluginInstall -c quit
+        || vim -c PluginInstall -c quit
 
     return 0
 }
@@ -45,7 +46,8 @@ neovim_setup() {
 tmux_setup() {
     echo "tmux..."
     mkdir -p "$HOME/.tmux/plugins"
-    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm" || return 0
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm" \
+        || return 0
     echo "Press <Ctrl+b> then I in tmux to load plugins"
 
     return 0
