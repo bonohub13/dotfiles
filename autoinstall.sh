@@ -16,9 +16,9 @@ copy_configs() {
                     mv -f "$file" "$HOME"
                 done) \
             || ([ "$dir_name" = "nvim" ] \
-                && command -v vim || command -v nvim \
+                && command -v vim \
                 && [ "$(ls -l '/usr/bin/vim' | awk '{print$NF}')" = "vim" ] \
-                && mv -f "$dir_name/init.vim" "$HOME/.vimrc" || true) \
+                && mv -f "$dir_name/init.vim" "$HOME/.vimrc") \
             || cp -rf "$dir_name" "$HOME/.config"
     done
 
