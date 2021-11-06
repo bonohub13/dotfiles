@@ -35,6 +35,9 @@ neovim_setup() {
         || mkdir -p "$HOME/.vim/bunle" \
         && git clone https://github.com/VundleVim/Vundle.vim "$HOME/.vim/bundle/Vundle.vim" \
         && sed -i "s;config/nvim;vim;" "$HOME/.vimrc"
+    [ "$vim_or_nvim" = "Neovim" ] \
+        && nvim -c PluginInstall -c quit \
+        || nvim -c PluginInstall -c quit
 }
 
 tmux_setup() {
