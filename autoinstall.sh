@@ -1,4 +1,4 @@
-#!/usr/bin/sh -eu
+#!/usr/bin/sh -eux
 
 copy_configs() {
     echo "Copying dotfiles under $HOME/.config or $HOME... (depending on package)"
