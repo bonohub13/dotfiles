@@ -1,4 +1,4 @@
-#!/usr/bin/sh -eux
+#!/usr/bin/sh -eu
 
 copy_configs() {
     echo "Copying dotfiles under $HOME/.config or $HOME... (depending on package)"
@@ -90,7 +90,7 @@ question=""
 [ $# -eq 1 ] && question="$1"
 [ $# -ne 1 ] \
     && echo "Are you sure you want to run the automated installer? [Y/N]" \
-    && read question)
+    && read question
 [ "$question" = "Y" ] || [ "$question" = "y" ] || [ "$question" = "yes" ] \
     && copy_configs \
     && echo "Downloading dependencies..." \
