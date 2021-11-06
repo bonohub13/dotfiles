@@ -86,7 +86,7 @@ warning() {
     return 0
 }
 warning
-local question
+question=""
 [ $# -eq 1 ] && question="$1"
 [ $# -ne 1 ] \
     && echo "Are you sure you want to run the automated installer? [Y/N]" \
