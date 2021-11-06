@@ -3,38 +3,33 @@
 copy_configs() {
     echo "Copying dotfiles under $HOME/.config or $HOME... (depending on package)"
     sleep 1
-    find -maxdepth 1 -type d | while read dir_name; do
-        [ "$dir_name" != '.' ] || [ "$dir_name" != './.git' ] || [ "$dir_name" != './docker' ] \
-            && [ `echo "$dir_name" | grep "\./\." | wc -c` -eq 0 ] \
-            && target="$(echo "$dir_name" | sed "s./. ." | awk '{print$2}')" \
-            && ([ -d "$HOME.config" ] || mkdir -p "$HOME/.config") \
-            && ([ "$dir_name" = "./tmux" ] && cp "$dir_name/.tmux.conf" "$HOME" \
-                || [ "$dir_name" = "./zsh" ] \
-                && (find "$dir_name" -type f -name ".z*" | while read line; do
-                        mv -f "$line" "$HOME"
-                    done) \
-                && cp -rf "$dir_name" "$HOME/.config" \
-                && [ "$dir_name" = "./zsh" ] \
-                && find "$HOME/.config/$dir_name" -type f -name ".z*" | while read file; do
-                        mv "$file" "$HOME"
-                    done \
-                || return 0) \
-            || [ "$dir_name" = "./nvim" ] \
-            && command -v vim \
-            && [ "$(ls -l '/usr/bin/vim' | awk '{print$NF}')" = "vim" ] \
-            && cp -f "$dir_name/init.vim" "$HOME/.vimrc" \
-            || cp -rf "$dir_name" "$HOME/.config"
+    find -maxdepth 1 -type d | sed -e "s;\./;;" \
+            -e "/\.git/d" -e "/docker/d" -e "/installed_arch_pkgs/d" | \
+    while read dir_name; do
+        ([ -d "$HOME.config" ] || mkdir -p "$HOME/.config") \
+            && ([ "$dir_name" = "tmux" ] && cp "$dir_name/.tmux.conf" "$HOME" \
+            || ([ "$dir_name" = "zsh" ] \
+                && find "$dir_name" -type f -name "\.z*" | while read file; do
+                    mv -f "$file" "$HOME"
+                done) \
+            && cp -rf "$dir_name" "$HOME/.config" \
+            || ([ "$dir_name" = "nvim" ] \
+                && command -v vim \
+                && [ "$(ls -l '/usr/bin/vim' | awk '{print$NF}')" = "vim" ] \
+                && mv -f "$dir_name/init.vim" "$HOME/.vimrc" \
+                || cp -rf "$dir_name" "$HOME/.config)"
     done
 
     return 0
 }
 
 neovim_setup() {
-    local vim_or_nvim="$([ -d "$HOME/.config/nvim" ] && echo "Neovim" || echo Vim)"
+    local vim_or_nvim="$([ -d "$HOME/.config/nvim" ] \
+        && echo "Neovim" || echo Vim)"
     echo "$vim_or_nvim..."
     [ "$vim_or_nvim" = "Neovim" ] \
         && git clone https://github.com/VundleVim/Vundle.vim "$HOME/.config/nvim/bundle/Vundle.vim" \
-        || mkdir -p "$HOME/.vim/bunle" \
+        || mkdir -p "$HOME/.vim/bundle" \
         && git clone https://github.com/VundleVim/Vundle.vim "$HOME/.vim/bundle/Vundle.vim" \
         && sed -i "s;config/nvim;vim;" "$HOME/.vimrc"
     [ "$vim_or_nvim" = "Neovim" ] \
@@ -88,10 +83,13 @@ warning() {
     return 0
 }
 warning
-[ $# -eq 1 ] && question="$1"
-[ $# -ne 1 ] \
+[ $# -eq 1 ] && question="$1" \
+    || [ $# -ne 1 ] \
     && echo "Are you sure you want to run the automated installer? [Y/N]" \
     && read question
+    || [ $# -gt 1 ] \
+    && echo "ERROR: Expected arguments either value of {\"yes\", \"y\",\"Y\"}" \
+    && exit 1
 [ "$question" = "Y" ] || [ "$question" = "y" ] || [ "$question" = "yes" ] \
     && copy_configs \
     && echo "Downloading dependencies..." \
