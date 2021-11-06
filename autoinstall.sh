@@ -25,6 +25,8 @@ copy_configs() {
             && cp -f "$dir_name/init.vim" "$HOME/.vimrc" \
             || cp -rf "$dir_name" "$HOME/.config"
     done
+
+    return 0
 }
 
 neovim_setup() {
@@ -38,6 +40,8 @@ neovim_setup() {
     [ "$vim_or_nvim" = "Neovim" ] \
         && nvim -c PluginInstall -c quit \
         || nvim -c PluginInstall -c quit
+
+    return 0
 }
 
 tmux_setup() {
@@ -45,6 +49,8 @@ tmux_setup() {
     mkdir -p "$HOME/.tmux/plugins"
     git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm" || return 0
     echo "Press <Ctrl+b> then I in tmux to load plugins"
+
+    return 0
 }
 
 kitty_setup() {
@@ -54,6 +60,8 @@ kitty_setup() {
         tee "$HOME/.config/kitty/dracula.conf" > /dev/null 2>&1
     curl https://raw.githubusercontent.com/dracula/kitty/master/diff.conf | \
         tee "$HOME/.config/kitty/diff.conf" > /dev/null 2>&1
+
+    return 0
 }
 
 neofetch_setup() {
@@ -65,6 +73,8 @@ neofetch_setup() {
     echo "Check out his/her repository for more info!"
     echo "Power to this person!"
     sleep 1
+
+    return 0
 }
 
 warning() {
@@ -74,6 +84,8 @@ warning() {
                 && [ `echo "$program" | wc -c` -gt 2 ] \
                 && echo "$program" | sed "s./. .g" | awk {print$2} | sed "s/^/\t/"
         done' | sed -e "s/{/'{/" -e "s/}/}'/" | sh
+
+    return 0
 }
 warning
 [ $# -eq 1 ] && question="$1"
