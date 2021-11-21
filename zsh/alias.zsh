@@ -11,6 +11,8 @@ alias sudo="sudo "
 command -v pacman > /dev/null 2>&1 \
     && alias update-archmirror="sudo /home/kensuke/.config/zsh/update_archmirror/update-archmirror.sh"
 alias tmux="tmux -u -2"
+command -v dotfiles > /dev/null 2>&1 \
+    && alias radeontop="radeontop -cT"
 
 function ssh-keygen-strong {
     ssh-keygen -t ed25519
