@@ -17,3 +17,4 @@
     1. zsh-syntax-highlighting
     2. zsh-autosuggestions
     3. neovim-symlinks (Replaces vim. vi with Neovim)
+    4. ctags (universal-ctags for Tagbar in Vim/Neovim)
