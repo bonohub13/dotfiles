@@ -142,6 +142,11 @@ let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tmuxline#enabled = 0
 let g:airline_theme = 'dracula'
 let g:airline_powerline_fonts = 1
+
+" Tagbar "
+Plugin 'preservim/tagbar'
+let g:tagbar_ctags_bin = '/usr/bin/ctags'
+
 Plugin 'vim-scripts/AutoComplPop'
 set completeopt=menuone,longest
 
@@ -149,11 +154,12 @@ set completeopt=menuone,longest
 Plugin 'dracula/vim', {'name': 'dracula'}
 
 call vundle#end()
-
 colorscheme dracula
 
 " normal settings " 
-nmap tt :tabnew<CR>
-nmap tn :tabnext<CR>
-nmap tp :tabprevious<CR>
-nmap qq :quit!<CR>
+nmap <F8>   :TagbarToggle<CR>
+nmap tt     :tabnew<CR>
+nmap tn     :tabnext<CR>
+nmap tp     :tabprevious<CR>
+nmap qq     :quit!<CR>
+nmap qa :quitall!<CR>
