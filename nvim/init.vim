@@ -17,9 +17,19 @@ set encoding=utf-8
 set colorcolumn=80
 
 "===== simple stuff ====="
+filetype plugin indent on
 let $RTP=split(&runtimepath, ',')[0]
 let $RC="/home/kensuke/.config/nvim/init.vim"
 set path=.,/usr/include/,**
+
+"===== Autocompletion (vim default feature) ====="
+" To use this feature, run [ ctags -f ~/.config/nvim/stdtags -R --c++-kinds=+p
+" fields=+iaS --extra=+q ] under /usr/include
+set nocp
+map <C-L> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
+set tags=~/.config/nvim/stdtags,tags,.tags,../tags
+
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " ==== for html/xml files, 2 spaces ====="
 augroup fileTypeIndent
@@ -57,9 +67,6 @@ set number
 set cursorline
 
 "===== default settings =====" 
-filetype plugin on
-filetype indent on
-
 set mouse=a
 set nohlsearch
 
@@ -147,14 +154,23 @@ let g:airline_powerline_fonts = 1
 Plugin 'preservim/tagbar'
 let g:tagbar_ctags_bin = '/usr/bin/ctags'
 
-Plugin 'vim-scripts/AutoComplPop'
-set completeopt=menuone,longest
+" Replaced by ddc.vim by Shougo "
+" Plugin 'vim-scripts/AutoComplPop'
+" set completeopt=menuone,longest
+" let g:acp_completeOption='.,w,b,u,t,i'
+Plugin 'Shougo/neoinclude.vim', {'build': {'unix': 'make'}}
+Plugin 'Shougo/ddc.vim'
+Plugin 'Shougo/ddc-around'
+Plugin 'vim-denops/denops.vim'
 
 " dracula "
 Plugin 'dracula/vim', {'name': 'dracula'}
 
 call vundle#end()
 colorscheme dracula
+
+call ddc#custom#patch_global('sources', ['around'])
+call ddc#enable()
 
 " normal settings " 
 nmap <F8>   :TagbarToggle<CR>
