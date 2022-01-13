@@ -155,35 +155,45 @@ Plugin 'preservim/tagbar'
 let g:tagbar_ctags_bin = '/usr/bin/ctags'
 
 " Replaced by ddc.vim by Shougo "
-" Plugin 'vim-scripts/AutoComplPop'
-" set completeopt=menuone,longest
-" let g:acp_completeOption='.,w,b,u,t,i'
 Plugin 'Shougo/neoinclude.vim', {'build': {'unix': 'make'}}
 Plugin 'Shougo/ddc.vim'
 Plugin 'Shougo/ddc-around'
 Plugin 'Shougo/ddc-matcher_head'
 Plugin 'Shougo/ddc-sorter_rank'
+Plugin 'neovim/nvim-lspconfig'
+Plugin 'Shougo/ddc-nvim-lsp'
 Plugin 'vim-denops/denops.vim'
 
 " dracula "
 Plugin 'dracula/vim', {'name': 'dracula'}
 
 call vundle#end()
+
 colorscheme dracula
 
-call ddc#custom#patch_global('sources', ['around'])
+lua << EOF
+require'lspconfig'.clangd.setup{}
+require'lspconfig'.pyright.setup{}
+EOF
+
+filetype plugin indent on
+syntax on
+
+" call ddc#custom#patch_global('sources', ['around', 'nvim-lsp'])
 call ddc#custom#patch_global('sourceOptions', {
     \ '_': {
     \   'matchers': ['matcher_head'],
-    \   'sorters': ['sorter_rank']},
-    \ })
-call ddc#custom#patch_global('sourceOptions', {
+    \   'sorters': ['sorter_rank'] },
     \ 'around': {'mark': 'A'},
+    \ 'nvim-lsp': {
+    \   'mark': 'lsp',
+    \   'forceCompletionPattern': '\.\w*|:\w*|->\w*' },
     \ })
 call ddc#custom#patch_global('sourceParams', {
     \ 'around': {'maxSize': 500},
+    \ 'nvim-lsp': { 'kindLabels': { 'Class': 'c' } },
     \ })
-call ddc#custom#patch_filetype(['c', 'cpp'], 'sources', ['around', 'clangd'])
+call ddc#custom#patch_filetype(['c', 'cpp'], 'sources', ['nvim-lsp'])
 call ddc#custom#patch_filetype(['c', 'cpp'], 'sourceOptions', {
     \   'clangd': {'mark': 'C'},
     \ })
@@ -198,6 +208,8 @@ inoremap <silent><expr> <TAB>
 
 inoremap <expr><S-TAB> ddc#map#pum_visible() ? '<C-p>' : '<C-h>'
 call ddc#enable()
+
+autocmd VimEnter * nested :TagbarOpen
 
 " normal settings " 
 nmap <F8>   :TagbarToggle<CR>
