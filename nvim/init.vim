@@ -164,8 +164,9 @@ Plugin 'neovim/nvim-lspconfig'
 Plugin 'Shougo/ddc-nvim-lsp'
 Plugin 'vim-denops/denops.vim'
 
-" dracula "
+" Colorschemes "
 Plugin 'dracula/vim', {'name': 'dracula'}
+Plugin 'morhetz/gruvbox', {'name': 'gruvbox'}
 
 call vundle#end()
 
@@ -173,7 +174,6 @@ colorscheme dracula
 
 lua << EOF
 require'lspconfig'.clangd.setup{}
-require'lspconfig'.pyright.setup{}
 EOF
 
 filetype plugin indent on
