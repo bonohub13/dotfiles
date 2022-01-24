@@ -27,6 +27,16 @@ map('i', '(', '()<left>')
 map('i', '[', '[]<left>')
 map('i', '{', '{}<left>')
 
+-- Telescope keybinds
+map('n', 'ff',
+    "<cmd>lua require('telescope.builtin').find_files()<CR>")
+map('n', 'fg',
+    "<cmd>lua require('telescope.builtin').live_grep()<CR>")
+map('n', 'fb',
+    "<cmd>lua require('telescope.builtin').buffers()<CR>")
+map('n', 'fh',
+    "<cmd>lua require('telescope.builtin').help_tags()<CR>")
+
 -- Other keybinds
 nmap('<F8>', '<cmd>TagbarToggle<CR>')
 nmap('tt', '<cmd>tabnew<CR>')

@@ -19,6 +19,10 @@
 - clangd, pyright
     - Auto completion addon (Based LSP (Language Server Protocol))[Shougo/ddc-nvim-lsp](https://github.com/Shougo/ddc-nvim-lsp)
 
+- ripgrep
+    - Fuzzy finder addon
+        [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+
 - Packer
     - wbthomason/packer.nvim
         [URL](https://github.com/wbthomason/packer.nvim)

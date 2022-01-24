@@ -9,12 +9,10 @@ highlight NonText guibg=none ctermbg=none
 
 "===== simple stuff ====="
 let $RTP=split(&runtimepath, ',')[0]
-let $RC="~/.config/nvim/init.vim"
+let $RC="/home/kensuke/.config/nvim/init.vim"
 set path=.,/usr/include/,**
 
-"===== Autocompletion (vim default feature) ====="
-" To use this feature, run [ ctags -f ~/.config/nvim/stdtags -R --c++-kinds=+p
-" fields=+iaS --extra=+q ] under /usr/include
+"===== LSP code completion ====="
 
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 

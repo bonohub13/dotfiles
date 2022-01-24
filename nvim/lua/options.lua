@@ -75,14 +75,14 @@ g_var.tagbar_ctags_bin = '/usr/bin/ctags'
 g_var.tagbar_width = 25
 
 -- Markdown preview
-g_var.mkdp_auto_start = 1
+g_var.mkdp_auto_start = 0
 g_var.mkdp_auto_close = 1
 g_var.mkdp_refresh_slow = 0
 g_var.mkdp_command_for_global = 0
 g_var.mkdp_open_to_the_world = 0
 g_var.mkdp_open_ip = ''
 g_var.mkdp_browser = ''
-g_var.mkdp_echo_preview_url = 0
+g_var.mkdp_echo_preview_url = 1
 g_var.mkdp_browserfunc = ''
 g_var.mkdp_port = '8080'
 
