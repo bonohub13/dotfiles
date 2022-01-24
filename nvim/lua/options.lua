@@ -34,8 +34,20 @@ global.showmatch = true
 -- Autocompletion (vim default feature)
 global.compatible = false
 global.tags = '~/.config/nvim/stdtags,tags,.tags,../tags'
-require('lspconfig').clangd.setup{}
-require('lspconfig').cmake.setup{}
+
+local servers = {
+    'clangd',
+    'cmake'
+}
+
+for _, lsp in pairs(servers) do
+    require('lspconfig')[lsp].setup {
+        on_attach = on_attach,
+        flags = {
+            debounce_text_changes = 150,
+        }
+    }
+end
 
 -- nobackup/swap files
 global.backup = false
@@ -60,6 +72,7 @@ g_var.airline_powerline_fonts = 1
 
 -- Tagbar
 g_var.tagbar_ctags_bin = '/usr/bin/ctags'
+g_var.tagbar_width = 25
 
 -- Markdown preview
 g_var.mkdp_auto_start = 1

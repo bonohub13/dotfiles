@@ -17,7 +17,7 @@ end
 -- To use this feature, run the following command under /usr/include
 -- $ ctags -f ~/.config/nvim/stdtags -R --c++-kinds=+p fields=+iaS --extra=+q
 nmap('<C-L>',
-    '<cmd>!tags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>'
+    ':!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>'
 )
 
 -- Closing brackets and quotes
