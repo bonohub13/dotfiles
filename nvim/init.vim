@@ -1,33 +1,20 @@
+lua require 'init'
+
 "===== color settings ====="
 cnoremap 3636 <c-u>undo<CR>
 syntax enable
 set t_Co=256
-set termguicolors
 highlight Normal guibg=NONE ctermbg=NONE
 highlight NonText guibg=none ctermbg=none
 
-"===== indent settings =====" 
-set autoindent
-set smartindent
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab smarttab
-set encoding=utf-8
-set colorcolumn=80
-
 "===== simple stuff ====="
-filetype plugin indent on
 let $RTP=split(&runtimepath, ',')[0]
-let $RC="/home/kensuke/.config/nvim/init.vim"
+let $RC="~/.config/nvim/init.vim"
 set path=.,/usr/include/,**
 
 "===== Autocompletion (vim default feature) ====="
 " To use this feature, run [ ctags -f ~/.config/nvim/stdtags -R --c++-kinds=+p
 " fields=+iaS --extra=+q ] under /usr/include
-set nocp
-map <C-L> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
-set tags=~/.config/nvim/stdtags,tags,.tags,../tags
 
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
@@ -41,13 +28,6 @@ augroup fileTypeIndent
 	autocmd BufNewFile,BufRead *.txt setlocal ts=2 softtabstop=2 sw=2
 augroup END
 
-"===== closing brackets ====="
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-
 "local settings for closing brackets"
 augroup fileTypeClosingBrackets
     autocmd!
@@ -56,33 +36,10 @@ augroup fileTypeClosingBrackets
     autocmd BufNewFile,BufRead .vimrc inoremap < <><left>
 augroup END
 
-set showmatch
-
-"===== nobackup files ====="
-set nobackup
-set noswapfile
-
-"===== show line number =====" 
-set number
-set cursorline
-
-"===== default settings =====" 
-set mouse=a
-set nohlsearch
-
-" neocomplete " 
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#skip_auto_completion_time = ""
-
 " netrw stuff "
 " Special thanks to...
 " Brodie Robertson
 " for this script to use netrw
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3 
-let g:netrw_browse_split = 4
-let g:netrw_winsize = 20
-
 function! OpenToRight()
     :normal v
     let g:path=expand('%:p')
@@ -134,52 +91,12 @@ augroup ProjectDrawer
     autocmd VimEnter * :call ToggleNetrw()
 augroup END
 
-let g:NetrwIsOpen=0
-
-" Vundle initialization "
-set rtp+=~/.config/nvim/bundle/Vundle.vim
-call vundle#begin("~/.config/nvim/bundle/Vundle.vim")
-Plugin 'VundleVim/Vundle.vim'
-
-" Airline-vim "
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'default'
-let g:airline#extensions#tmuxline#enabled = 0
-let g:airline_theme = 'dracula'
-let g:airline_powerline_fonts = 1
-
-" Tagbar "
-Plugin 'preservim/tagbar'
-let g:tagbar_ctags_bin = '/usr/bin/ctags'
-
-" Replaced by ddc.vim by Shougo "
-Plugin 'Shougo/neoinclude.vim', {'build': {'unix': 'make'}}
-Plugin 'Shougo/ddc.vim'
-Plugin 'Shougo/ddc-around'
-Plugin 'Shougo/ddc-matcher_head'
-Plugin 'Shougo/ddc-sorter_rank'
-Plugin 'neovim/nvim-lspconfig'
-Plugin 'Shougo/ddc-nvim-lsp'
-Plugin 'vim-denops/denops.vim'
-
-" Colorschemes "
-Plugin 'dracula/vim', {'name': 'dracula'}
-Plugin 'morhetz/gruvbox', {'name': 'gruvbox'}
-
-call vundle#end()
-
 colorscheme dracula
-
-lua << EOF
-require'lspconfig'.clangd.setup{}
-EOF
 
 filetype plugin indent on
 syntax on
 
-" call ddc#custom#patch_global('sources', ['around', 'nvim-lsp'])
+call ddc#custom#patch_global('sources', ['around', 'nvim-lsp'])
 call ddc#custom#patch_global('sourceOptions', {
     \ '_': {
     \   'matchers': ['matcher_head'],
@@ -210,11 +127,3 @@ inoremap <expr><S-TAB> ddc#map#pum_visible() ? '<C-p>' : '<C-h>'
 call ddc#enable()
 
 autocmd VimEnter * nested :TagbarOpen
-
-" normal settings " 
-nmap <F8>   :TagbarToggle<CR>
-nmap tt     :tabnew<CR>
-nmap tn     :tabnext<CR>
-nmap tp     :tabprevious<CR>
-nmap qq     :quit!<CR>
-nmap qa :quitall!<CR>

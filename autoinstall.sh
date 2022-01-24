@@ -17,10 +17,8 @@ copy_configs() {
                 mv -f "$file" "$HOME"
             done
             cp -rf "$dir_name" "$HOME/.config"
-        elif [ "$dir_name" = "nvim" ] && command -v vim \
-            && [ "$(ls -l '/usr/bin/vim' | awk '{print$NF}')" = "vim" ]; then
-            mv -f "$dir_name/init.vim" "$HOME/.vimrc"
-        else
+        elif [ "$dir_name" = "nvim" ] && command -v nvim \
+            && [ "$(ls -l '/usr/bin/vim' | awk '{print$NF}')" = "nvim" ]; then
             cp -rf "$dir_name" "$HOME/.config"
         fi
     done
@@ -29,19 +27,13 @@ copy_configs() {
 }
 
 neovim_setup() {
-    local vim_or_nvim="$([ -d "$HOME/.config/nvim" ] \
-        && echo "Neovim" || echo Vim)"
+    local nvim="$([ -d "$HOME/.config/nvim" ] && echo "Neovim" || )"
     echo "$vim_or_nvim..."
     [ "$vim_or_nvim" = "Neovim" ] \
-        && git clone https://github.com/VundleVim/Vundle.vim \
-            "$HOME/.config/nvim/bundle/Vundle.vim" \
-        || mkdir -p "$HOME/.vim/bundle" \
-        && git clone https://github.com/VundleVim/Vundle.vim \
-            "$HOME/.vim/bundle/Vundle.vim" \
-        && sed -i "s;config/nvim;vim;" "$HOME/.vimrc"
-    [ "$vim_or_nvim" = "Neovim" ] \
-        && nvim -c PluginInstall -c quit \
-        || vim -c PluginInstall -c quit
+        && git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+            "$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim" \
+        && nvim -c PackerInstall -c quit \
+        && nvim -c PackerCompile -c quit
 
     return 0
 }
@@ -100,8 +92,8 @@ question=""
     && copy_configs \
     && echo "Downloading dependencies..." \
     && sleep 1 \
-    && (command -v vim || command -v nvim \
-        && neovim_setup || echo "Neovim nor Vim is in your system. Skipping...") \
+    && (command -v nvim \
+        && neovim_setup || echo "Neovim is not in your system. Skipping...") \
     && (command -v zsh \
         && ./zsh_setup.zsh || echo "Zsh is not in your system, skipping...") \
     && (command -v tmux \
