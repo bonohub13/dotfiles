@@ -17,8 +17,7 @@ copy_configs() {
                 mv -f "$file" "$HOME"
             done
             cp -rf "$dir_name" "$HOME/.config"
-        elif [ "$dir_name" = "nvim" ] && command -v nvim \
-            && [ "$(ls -l '/usr/bin/vim' | awk '{print$NF}')" = "nvim" ]; then
+        elif [ "$dir_name" = "nvim" ] && command -v nvim > /dev/null; then
             cp -rf "$dir_name" "$HOME/.config"
         fi
     done
@@ -27,13 +26,11 @@ copy_configs() {
 }
 
 neovim_setup() {
-    local nvim="$([ -d "$HOME/.config/nvim" ] && echo "Neovim" || )"
-    echo "$vim_or_nvim..."
-    [ "$vim_or_nvim" = "Neovim" ] \
+    local nvim="$([ -d "$HOME/.config/nvim" ] && echo "Neovim" || true)"
+    echo "$nvim..."
+    [ "$nvim" = "Neovim" ] \
         && git clone --depth 1 https://github.com/wbthomason/packer.nvim \
-            "$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim" \
-        && nvim -c PackerInstall -c quit \
-        && nvim -c PackerCompile -c quit
+            "$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
 
     return 0
 }
@@ -102,3 +99,12 @@ question=""
         && kitty_setup || echo "Kitty is not in your system, skipping...") \
     && (command -v neofetch \
         && neofetch_setup || echo "Neofetch is not in your system. Skipping...")
+
+if [ "$question" = "Y" ] || [ "$question" = "y" ] || [ "$question" = "yes" ]; then
+    command -v nvim > /dev/null \
+        && echo "Run the following command in Neovim to install and compile the packages" \
+        && echo "\t:PackerInstall" \
+        && echo "\t:PackerCompile" \
+        && echo "\t:source %" \
+        && echo "\t:call mkdp#util#install()"
+fi

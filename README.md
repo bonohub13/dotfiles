@@ -1,6 +1,6 @@
 # Dotfiles for my custom setup
 
-# What dotfiles this repository includes
+## What dotfiles this repository includes
 - zsh
 - neovim
 - tmux
@@ -10,6 +10,15 @@
     - The Openbox config is not tested with WM only environment in mind.<br/>
     Therefore cannot ensure that it works out of the box
 - neofetch
+
+## Dependencies
+- For Neovim
+    - ctags (universal-ctags)
+    - clangd
+        - For LSP in C/C++/Objective-C
+    - ripgrep
+    - Deno
+        - [Instruction](https://deno.land)
 
 ## Not a dotfile but...
 - installed\_arch\_pkgs

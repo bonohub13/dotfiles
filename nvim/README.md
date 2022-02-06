@@ -5,11 +5,6 @@
 
 ## Dependencies
 - Version of neovim must be 0.6 or higher to fully utilize this dotfile!
-- Colortheme
-    - dracula/vim
-        [URL](https://github.com/dracula/vim)
-    - morhetz/gruvbox
-        [URL](https://github.com/morhetz/gruvbox.git)
 - deno
     - Auto completion addon [Shougo/ddc.vim](https://github.com/Shougo/ddc.vim) requires this to run.
 
