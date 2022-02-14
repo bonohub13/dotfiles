@@ -25,6 +25,7 @@ buffer.softtabstop = 4
 global.shiftwidth = 4
 global.expandtab = true
 global.smarttab = true
+global.ambiwidth = 'double'
 global.encoding = 'utf-8'
 window.colorcolumn = '80'
 

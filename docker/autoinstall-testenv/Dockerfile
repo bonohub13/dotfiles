@@ -1,19 +1,11 @@
-FROM ubuntu:latest
+FROM archlinux
 
-ENV DEBIAN_FRONTEND=noninteractive
+RUN sed -i "s/#Parallel/Parallel/" /etc/pacman.conf
 
-RUN apt-get update && apt-get install -y \
-    ca-certificates \
-    apt-utils
+RUN pacman -Syu --noconfirm
+RUN pacman -S --noconfirm base-devel
 
-RUN sed -i "s;http://archive.ubuntu.com/ubuntu/;mirror://mirrors.ubuntu.com/mirrors.txt;" /etc/apt/sources.list
-
-RUN apt-get update && apt-get upgrade -y
-
-RUN apt-get install -y software-properties-common
-RUN apt-add-repository ppa:neovim-ppa/stable && apt-get update
-
-RUN apt-get install -y \
+RUN pacman -S --noconfirm \
     git \
     curl \
     neovim \
@@ -21,11 +13,16 @@ RUN apt-get install -y \
     zsh-syntax-highlighting \
     zsh-autosuggestions \
     tmux \
-    neofetch
+    neofetch \
+    ctags \
+    deno \
+    clang \
+    ripgrep
 
 RUN mkdir "$HOME"/repos
 RUN git clone https://github.com/bonohub13/dotfiles "$HOME/repos/dotfiles"
 RUN mkdir -p "$HOME/.config"
 RUN cd "$HOME/repos/dotfiles" && ./autoinstall.sh yes
+RUN mkdir -p "$HOME/.cache/zsh" && touch "$HOME/.cache/zsh/history"
 
 CMD /bin/zsh
