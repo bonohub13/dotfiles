@@ -94,24 +94,21 @@ colorscheme dracula
 filetype plugin indent on
 syntax on
 
-call ddc#custom#patch_global('sources', ['around', 'nvim-lsp'])
+call ddc#custom#patch_global('sources', ['nvim-lsp', 'around'])
 call ddc#custom#patch_global('sourceOptions', {
-    \ '_': {
-    \   'matchers': ['matcher_head'],
-    \   'sorters': ['sorter_rank'] },
-    \ 'around': {'mark': 'A'},
+    \ '_': { 'matchers': ['matcher_head'] },
     \ 'nvim-lsp': {
     \   'mark': 'lsp',
     \   'forceCompletionPattern': '\.\w*|:\w*|->\w*' },
     \ })
 call ddc#custom#patch_global('sourceParams', {
-    \ 'around': {'maxSize': 500},
-    \ 'nvim-lsp': { 'kindLabels': { 'Class': 'c' } },
+    \ 'nvim-lsp': { 'kindLabels': {'Class': 'c'} },
     \ })
 call ddc#custom#patch_filetype(['c', 'cpp'], 'sources', ['nvim-lsp'])
 call ddc#custom#patch_filetype(['c', 'cpp'], 'sourceOptions', {
-    \   'clangd': {'mark': 'C'},
+    \   'clangd': {'mark': 'c'},
     \ })
+call ddc#custom#patch_filetype('java', 'sources', ['nvim-lsp', 'around'])
 call ddc#custom#patch_filetype('markdown', 'sourceParams', {
     \   'around': {'maxSize': 100},
     \ })
