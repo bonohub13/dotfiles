@@ -4,37 +4,40 @@
 -- vim.g  -> global variables
 -- vim.b  -> buffer/local variables
 
-local global = vim.o
-local window = vim.wo
-local buffer = vim.bo
-local g_var = vim.g
-local b_var = vim.b
+local global    = vim.o
+local window    = vim.wo
+local buffer    = vim.bo
+local optional  = vim.opt
+local g_var     = vim.g
+local b_var     = vim.b
 
 -- Color settings
 global.termguicolors = true
 
 -- Indent settings
-global.autoindent = true
-buffer.autoindent = true
-global.smartindent = true
-buffer.smartindent = true
-global.tabstop = 4
-buffer.tabstop = 4
-global.softtabstop = 4
-buffer.softtabstop = 4
-global.shiftwidth = 4
-global.expandtab = true
-global.smarttab = true
-global.ambiwidth = 'double'
-global.encoding = 'utf-8'
-window.colorcolumn = '80'
+global.autoindent   = true
+buffer.autoindent   = true
+global.smartindent  = true
+buffer.smartindent  = true
+global.tabstop      = 4
+buffer.tabstop      = 4
+global.softtabstop  = 4
+buffer.softtabstop  = 4
+global.shiftwidth   = 4
+global.expandtab    = true
+global.smarttab     = true
+optional.listchars  = {space = '_', tab = '|-'}
+global.list         = true
+-- global.ambiwidth = 'double'
+global.encoding     = 'utf-8'
+window.colorcolumn  = '80'
 
 -- Local settings for closing brackets
 global.showmatch = true
 
 -- Autocompletion (vim default feature)
-global.compatible = false
-global.tags = '~/.config/nvim/stdtags,tags,.tags,../tags'
+global.compatible   = false
+global.tags         = '~/.config/nvim/stdtags,tags,.tags,../tags'
 
 local servers = {
     'clangd',
@@ -56,6 +59,8 @@ require('lspconfig').jdtls.setup{
         return require('lspconfig').util.root_pattern('pom.xml', 'gradle.build', '.git')(fname) or vim.fn.getcwd()
     end
 }
+
+require('lspconfig').gopls.setup{}
 
 -- nobackup/swap files
 global.backup = false
