@@ -39,6 +39,7 @@ map('n', 'fh',
 
 -- Other keybinds
 nmap('<F8>', '<cmd>TagbarToggle<CR>')
+nmap('mp', '<cmd>MarkdownPreview<CR>')
 nmap('tt', '<cmd>tabnew<CR>')
 nmap('tn', '<cmd>tabnext<CR>')
 nmap('tp', '<cmd>tabprevious<CR>')

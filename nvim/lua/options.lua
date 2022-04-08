@@ -15,33 +15,37 @@ local b_var     = vim.b
 global.termguicolors = true
 
 -- Indent settings
-global.autoindent   = true
-buffer.autoindent   = true
-global.smartindent  = true
-buffer.smartindent  = true
-global.tabstop      = 4
-buffer.tabstop      = 4
-global.softtabstop  = 4
-buffer.softtabstop  = 4
-global.shiftwidth   = 4
-global.expandtab    = true
-global.smarttab     = true
-optional.listchars  = {space = '_', tab = '|-'}
-global.list         = true
--- global.ambiwidth = 'double'
-global.encoding     = 'utf-8'
-window.colorcolumn  = '80'
+global.autoindent       = true
+buffer.autoindent       = true
+global.smartindent      = true
+buffer.smartindent      = true
+global.tabstop          = 4
+buffer.tabstop          = 4
+global.softtabstop      = 4
+buffer.softtabstop      = 4
+global.shiftwidth       = 4
+global.expandtab        = true
+global.smarttab         = true
+optional.listchars      = {space = '_', tab = '|-'}
+global.list             = true
+-- global.ambiwidth     = 'double'
+global.encoding         = 'utf-8'
+window.colorcolumn      = '80'
 
 -- Local settings for closing brackets
-global.showmatch = true
+global.showmatch    = true
 
 -- Autocompletion (vim default feature)
 global.compatible   = false
 global.tags         = '~/.config/nvim/stdtags,tags,.tags,../tags'
 
+-- LSP setttings
+-- Rust
+g_var.rustfmt_autosave  = 1
+
 local servers = {
     'clangd',
-    'cmake'
+    'cmake',
 }
 
 for _, lsp in pairs(servers) do
@@ -60,7 +64,31 @@ require('lspconfig').jdtls.setup{
     end
 }
 
-require('lspconfig').gopls.setup{}
+local servers = {
+    'gopls',
+    'rust_analyzer'
+}
+for _, lsp in pairs(servers) do
+    require('lspconfig')[lsp].setup{}
+end
+
+require('lspconfig').rust_analyzer.setup({
+    on_attach = on_attach,
+    settings = {
+        ['rust-analyzer'] = {
+            assist = {
+                importantGranularity = "module",
+                importPrefix = "self",
+            },
+            cargo = {
+                lodOutDirsFromCheck = true
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    }
+})
 
 -- nobackup/swap files
 global.backup = false

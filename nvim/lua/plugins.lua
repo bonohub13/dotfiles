@@ -35,5 +35,8 @@ return require('packer').startup(
         -- Colorschemes
         use 'dracula/vim'
         use 'morhetz/gruvbox'
+
+        -- LSP
+        use 'rust-lang/rust.vim'
     end
 )
