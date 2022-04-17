@@ -6,20 +6,23 @@ alias cls=clear
 alias reboot="systemctl reboot -i"
 alias shutdown="systemctl poweroff -i"
 alias vim=nvim
-alias cmake-init=". /home/kensuke/.cmake_init/cmake_init.sh"
+alias cmake-init=". $HOME/.cmake_init/cmake_init.sh"
 alias sudo="sudo "
+[[ -f "$HOME/.config/zsh/hibernate.sh" ]] \
+    && alias hibernate="$HOME/.config/zsh/hibernate.sh"
 command -v pacman > /dev/null 2>&1 \
-    && alias update-archmirror="sudo /home/kensuke/.config/zsh/update_archmirror/update-archmirror.sh"
+    && alias update-archmirror="sudo $HOME/.config/zsh/update_archmirror/update-archmirror.sh"
 alias tmux="tmux -u -2"
 command -v radeontop > /dev/null 2>&1 \
-    && alias radeontop="radeontop -cT"
+    && alias radeontop="radeontop -c -T"
+unalias rm mv cp
 
 function ssh-keygen-strong {
     ssh-keygen -t ed25519
 }
 
 function enable-multithreaded-build {
-if [[ `echo $MAKEFLAGS | grep "j$(nproc)"` = "" ]]; then
+if [[ `echo $MAKEFLAGS | grep "\-j$(nproc)"` = "" ]] || [[ $MAKEFLAGS = "" ]]; then
         export MAKEFLAGS="-j$(nproc) $MAKEFLAGS"
     else
         echo "enable-multithreaded-build already has been loaded."
@@ -70,7 +73,7 @@ function youtube-flac {
 }
 
 function shebang {
-    echo "#!"`which $1`
+    echo '#!'`which $1 | sed "s;/usr;;"`
 }
 
 function clock {
@@ -81,10 +84,21 @@ function pacman-autoremove {
     command -v pacman > /dev/null 2>&1 || return 1
     pkgs="$(pacman -Qdtq)"
 
+    echo "Packages to remove"
+    echo "$pkgs"
+
+    printf "Are you okay? [Y/n] "
+    read ans
+
+    if [[ "$ans" != "y" ]] && [[ "$ans" != "Y" ]]; then
+        echo "Packages not removed"
+        return 1
+    fi
+
     if [ "$(echo $pkgs | grep -E "[A-Z | a-z | 0-9]" | wc -c)" -eq 0 ]; then
         echo "No packages available..."
     else
-        sudo pacman -Rns "$pkgs"
+        echo "$pkgs" | xargs sudo pacman -Rns --noconfirm
     fi
 
     return 0
