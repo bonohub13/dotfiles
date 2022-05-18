@@ -9,7 +9,6 @@ highlight NonText guibg=none ctermbg=none
 
 "===== simple stuff ====="
 let $RTP=split(&runtimepath, ',')[0]
-let $RC="/home/kensuke/.config/nvim/init.vim"
 set path=.,/usr/include/,**
 
 "===== LSP code completion ====="
@@ -29,9 +28,10 @@ augroup END
 "local settings for closing brackets"
 augroup fileTypeClosingBrackets
     autocmd!
-    autocmd BufNewFile,BufRead *.md inoremap < <><left>
-    autocmd BufNewFile,BufRead *.vim inoremap < <><left>
-    autocmd BufNewFile,BufRead .vimrc inoremap < <><left>
+    autocmd BufNewFile,BufRead *.md     inoremap < <><left>
+    autocmd BufNewFile,BufRead *.vim    inoremap < <><left>
+    autocmd BufNewFile,BufRead .vimrc   inoremap < <><left>
+    autocmd BufNewFile,BufRead *.go     inoremap < <
 augroup END
 
 " netrw stuff "
@@ -93,6 +93,7 @@ colorscheme dracula
 
 filetype plugin indent on
 syntax on
+set ignorecase
 
 call ddc#custom#patch_global('sources', ['nvim-lsp', 'around'])
 call ddc#custom#patch_global('sourceOptions', {
@@ -108,7 +109,9 @@ call ddc#custom#patch_filetype(['c', 'cpp'], 'sources', ['nvim-lsp'])
 call ddc#custom#patch_filetype(['c', 'cpp'], 'sourceOptions', {
     \   'clangd': {'mark': 'c'},
     \ })
-call ddc#custom#patch_filetype('java', 'sources', ['nvim-lsp', 'around'])
+call ddc#custom#patch_filetype('go', 'sources', ['nvim-lsp'])
+call ddc#custom#patch_filetype('java', 'sources', ['nvim-lsp'])
+call ddc#custom#patch_filetype(['rust', 'rs'], 'sources', ['nvim-lsp'])
 call ddc#custom#patch_filetype('markdown', 'sourceParams', {
     \   'around': {'maxSize': 100},
     \ })

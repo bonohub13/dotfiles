@@ -15,6 +15,8 @@ command -v pacman > /dev/null 2>&1 \
 alias tmux="tmux -u -2"
 command -v radeontop > /dev/null 2>&1 \
     && alias radeontop="radeontop -c -T"
+command -v bat > /dev/null 2>&1 \
+    && alias cat='bat -pp'
 unalias rm mv cp
 
 function ssh-keygen-strong {
@@ -102,6 +104,16 @@ function pacman-autoremove {
     fi
 
     return 0
+}
+
+function btop {
+    if [[ "$TERM_PROGRAM" = "tmux" ]]; then
+        tmux split -l 30 btop
+    else
+        /usr/bin/btop
+    fi
+
+    return $?
 }
 
 function help {
