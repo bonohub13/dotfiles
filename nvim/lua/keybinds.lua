@@ -48,6 +48,8 @@ nmap('bn', '<cmd>bnext<CR>')
 nmap('bp', '<cmd>bprevious<CR>')
 nmap('qq', '<cmd>quit!<CR>')
 nmap('qa', '<cmd>quitall!<CR>')
+nmap('st', '<cmd>split term:///usr/bin/zsh<CR>')
+nmap('vt', '<cmd>vsplit term:///usr/bin/zsh<CR>')
 
 -- terminal mode
 map('t', '<ESC>', '<C-\\><C-n>')
