@@ -1,5 +1,5 @@
 #
-# logged on Apr-17-2022 #
+# logged on May-31-2022 #
 #
 
 alsa-firmware
@@ -7,27 +7,29 @@ alsa-oss
 amd-ucode
 amf-headers
 appmenu-gtk-module
+asar
 asciiquarium
 autoconf
 automake
 awesome
 barrier
 base
+bat-extras
 bison
 blueman
-breeze-gtk
+boost
 btop
 cmatrix
 cowsay
 cronie
 ctags
 deno
+dfu-util
 discord
 docker
 docker-compose
 doge
 easyeffects
-edk2-ovmf
 fcitx5-configtool
 fcitx5-gtk
 fcitx5-mozc
@@ -36,15 +38,17 @@ flex
 fuse-overlayfs
 gimp
 github-cli
+gn
 gnu-netcat
 go
 gopls
+gperf
 grub-customizer
+gtest
 gtk-engine-murrine
 haxe
 helvum
 htop
-kdecoration
 kernel-modules-hook
 kitty
 kwayland-server
@@ -73,7 +77,7 @@ lxqt-qtplugin
 lxqt-runner
 lxqt-session
 lxqt-sudo
-mpv
+meson
 ncdu
 neofetch
 obconf-qt
@@ -83,15 +87,16 @@ pavucontrol-qt
 pcmanfm-qt
 picom
 piper
-pipewire-media-session-docs
+pkgconf
 plank
 plasma-workspace-wallpapers
+python-build
+python-installer
 python-magic
-python-virtualenv
+python-mako
 qbittorrent
 qjackctl
 qt5ct
-ripgrep
 rust-analyzer
 screenfetch
 screengrab
@@ -99,8 +104,8 @@ sdl2_gfx
 smartmontools
 speedtest-cli
 sshfs
+thefuck
 thunderbird
-tigervnc
 tldr
 tree
 ufw
@@ -147,6 +152,7 @@ xorg-xlsclients
 xorg-xpr
 xorg-xrefresh
 xorg-xvinfo
+xorg-xwayland
 xorg-xwud
 yarn
 zsh-autosuggestions

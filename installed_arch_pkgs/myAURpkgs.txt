@@ -1,5 +1,5 @@
 #
-# logged on Apr-17-2022 #
+# logged on May-31-2022 #
 #
 
 appimagelauncher
@@ -19,11 +19,12 @@ dracula-gtk-theme
 ds4drv
 dxvk-bin
 eclipse-java
+fancontrol-gui
 firefox-hardening
 fmodex
 glmark2
 gotop
-goverlay-bin
+goverlay
 hardinfo-git
 heroic-games-launcher-bin
 keepassx2
@@ -42,6 +43,7 @@ ocs-url
 openrgb
 pandoc-bin
 paru
+pipewire-enable-bluez5
 protontricks
 protonup-git
 protonup-qt
@@ -55,9 +57,12 @@ sticky-git
 teamviewer
 textimg
 tty-clock
+ungoogled-chromium
+unigine-heaven
 unigine-superposition
 uswsusp-git
 virtio-win
 virtualbox-ext-oracle
-wayfire-git
+vlc-plugin-ytdl-git
+xrdp
 zenpower-dkms

@@ -105,7 +105,7 @@ g_var.netrw_winsize = 15
 g_var.NetrwIsOpen = 0
 
 -- Airline-vim
-g_var['airline#extensions#tabnine#enabled'] = 1
+g_var['airline#extensions#tabline#enabled'] = 1
 g_var['airline#extensions#tabline#formatter'] = 'default'
 g_var['airline#extensions#tmuxline#enabled'] = '0'
 g_var.airline_theme = 'dracula'
