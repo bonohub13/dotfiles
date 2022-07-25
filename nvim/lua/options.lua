@@ -91,42 +91,45 @@ require('lspconfig').rust_analyzer.setup({
 })
 
 -- nobackup/swap files
-global.backup = false
+global.backup   = false
 global.swapfile = false
 
 -- Show line numbers
-global.number = true
-global.cursorline = true
+global.number       = true
+global.cursorline   = true
 
 -- Netrw variables
-g_var.netrw_banner = 0
-g_var.netrw_liststyle = 3
-g_var.netrw_winsize = 15
-g_var.NetrwIsOpen = 0
+g_var.netrw_banner      = 0
+g_var.netrw_liststyle   = 3
+g_var.netrw_winsize     = 15
+g_var.NetrwIsOpen       = 0
 
 -- Airline-vim
-g_var['airline#extensions#tabline#enabled'] = 1
-g_var['airline#extensions#tabline#formatter'] = 'default'
-g_var['airline#extensions#tmuxline#enabled'] = '0'
-g_var.airline_theme = 'dracula'
-g_var.airline_powerline_fonts = 1
+g_var['airline#extensions#tabline#enabled']     = 1
+g_var['airline#extensions#tabline#formatter']   = 'default'
+g_var['airline#extensions#tmuxline#enabled']    = '0'
+g_var.airline_theme                             = 'dracula'
+g_var.airline_powerline_fonts                   = 1
 
 -- Tagbar
-g_var.tagbar_ctags_bin = '/usr/bin/ctags'
-g_var.tagbar_width = 25
+g_var.tagbar_ctags_bin  = '/usr/bin/ctags'
+g_var.tagbar_width      = 25
 
 -- Markdown preview
-g_var.mkdp_auto_start = 0
-g_var.mkdp_auto_close = 1
-g_var.mkdp_refresh_slow = 0
-g_var.mkdp_command_for_global = 0
-g_var.mkdp_open_to_the_world = 0
-g_var.mkdp_open_ip = ''
-g_var.mkdp_browser = ''
-g_var.mkdp_echo_preview_url = 1
-g_var.mkdp_browserfunc = ''
-g_var.mkdp_port = '8080'
+g_var.mkdp_auto_start           = 0
+g_var.mkdp_auto_close           = 1
+g_var.mkdp_refresh_slow         = 0
+g_var.mkdp_command_for_global   = 0
+g_var.mkdp_open_to_the_world    = 0
+g_var.mkdp_open_ip              = ''
+g_var.mkdp_browser              = ''
+g_var.mkdp_echo_preview_url     = 1
+g_var.mkdp_browserfunc          = ''
+g_var.mkdp_port                 = '8080'
 
 -- Default settings
-global.mouse = 'a'
-global.hlsearch = false
+global.mouse            = 'a'
+global.hlsearch         = false
+global.ignorecase       = true
+global.smartcase        = true
+global.wildignorecase   = true

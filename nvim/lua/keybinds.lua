@@ -50,6 +50,7 @@ nmap('qq', '<cmd>quit!<CR>')
 nmap('qa', '<cmd>quitall!<CR>')
 nmap('st', '<cmd>split term:///usr/bin/zsh<CR>')
 nmap('vt', '<cmd>vsplit term:///usr/bin/zsh<CR>')
+nmap('nt', '<cmd>tabnew term:///usr/bin/zsh<CR>')
 
 -- terminal mode
 map('t', '<ESC>', '<C-\\><C-n>')

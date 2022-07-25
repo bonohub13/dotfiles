@@ -38,5 +38,6 @@ return require('packer').startup(
 
         -- LSP
         use 'rust-lang/rust.vim'
+        use 'tikhomirov/vim-glsl'
     end
 )

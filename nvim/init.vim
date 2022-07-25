@@ -32,7 +32,6 @@ augroup fileTypeClosingBrackets
     autocmd BufNewFile,BufRead *.md     inoremap < <><left>
     autocmd BufNewFile,BufRead *.vim    inoremap < <><left>
     autocmd BufNewFile,BufRead .vimrc   inoremap < <><left>
-    autocmd BufNewFile,BufRead *.go     inoremap < <><left>
 augroup END
 
 " netrw stuff "
@@ -112,7 +111,7 @@ call ddc#custom#patch_filetype(['c', 'cpp'], 'sourceOptions', {
     \ })
 call ddc#custom#patch_filetype('go', 'sources', ['nvim-lsp'])
 call ddc#custom#patch_filetype('java', 'sources', ['nvim-lsp'])
-call ddc#custom#patch_filetype(['rust', 'rs'], 'sources', ['nvim-lsp'])
+call ddc#custom#patch_filetype(['rust', 'rs', 'Cargo.toml'], 'sources', ['nvim-lsp'])
 call ddc#custom#patch_filetype('markdown', 'sourceParams', {
     \   'around': {'maxSize': 100},
     \ })
@@ -125,4 +124,4 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> ddc#map#pum_visible() ? '<C-p>' : '<C-h>'
 call ddc#enable()
 
-autocmd VimEnter * nested :TagbarOpen
+autocmd VimEnter,TabNew * nested :TagbarOpen
