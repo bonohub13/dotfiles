@@ -13,8 +13,6 @@ alias sudo="sudo "
 command -v pacman > /dev/null 2>&1 \
     && alias update-archmirror="sudo $HOME/.config/zsh/update_archmirror/update-archmirror.sh"
 alias tmux="tmux -u -2"
-command -v radeontop > /dev/null 2>&1 \
-    && alias radeontop="radeontop -c -T"
 command -v bat > /dev/null 2>&1 \
     && alias cat='bat -pp'
 unalias rm mv cp
@@ -78,10 +76,6 @@ function shebang {
     echo '#!'`which $1 | sed "s;/usr;;"`
 }
 
-function clock {
-    tty-clock -s -x -c -b -B
-}
-
 function pacman-autoremove {
     command -v pacman > /dev/null 2>&1 || return 1
     pkgs="$(pacman -Qdtq)"
@@ -89,18 +83,18 @@ function pacman-autoremove {
     echo "Packages to remove"
     echo "$pkgs"
 
-    printf "Are you okay? [Y/n] "
-    read ans
-
-    if [[ "$ans" != "y" ]] && [[ "$ans" != "Y" ]]; then
-        echo "Packages not removed"
-        return 1
-    fi
-
     if [ "$(echo $pkgs | grep -E "[A-Z | a-z | 0-9]" | wc -c)" -eq 0 ]; then
         echo "No packages available..."
     else
-        echo "$pkgs" | xargs sudo pacman -Rns --noconfirm
+
+        printf "Are you okay? [Y/n] "
+        read ans
+
+        if [[ "$ans" != "y" ]] && [[ "$ans" != "Y" ]]; then
+            echo "Packages not removed"
+            return 1
+        fi
+            echo "$pkgs" | xargs sudo pacman -Rns --noconfirm
     fi
 
     return 0
@@ -112,6 +106,38 @@ function btop {
     else
         /usr/bin/btop
     fi
+
+    return $?
+}
+
+function ssh {
+    if [[ "$TERM_PROGRAM" = "tmux" ]]; then
+        tmux split ssh "$@"
+    else
+        /usr/bin/ssh "$@"
+    fi
+
+    return $?
+}
+
+function clock {
+    if [[ "$TERM_PROGRAM" = "tmux" ]]; then
+        tmux split -l 13 tty-clock -s -x -c -b -B
+    else
+        /usr/bin/tty-clock -s -x -c -b -B
+    fi
+
+    return $?
+}
+
+function radeontop {
+    if command -v radeontop > /dev/null 2>&1 {
+        if [[ "$TERM_PROGRAM" = "tmux" ]]; then
+            tmux split -l 19 radeontop -c -T
+        else
+            radeontop -c -T
+        fi
+    }
 
     return $?
 }

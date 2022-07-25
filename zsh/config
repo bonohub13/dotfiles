@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/zsh -eux
 
 # init runs
 . ~/.config/zsh/init.zsh

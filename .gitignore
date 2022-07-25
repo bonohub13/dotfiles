@@ -1,3 +1,4 @@
 nvim/plugin/packer_compiled.lua
 nvim/stdtags
 zsh/update_archmirror
+zsh/bureau
