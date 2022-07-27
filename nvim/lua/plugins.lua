@@ -3,6 +3,13 @@ vim.cmd('packadd packer.nvim')
 return require('packer').startup(
     function()
         use 'wbthomason/packer.nvim'
+
+        use {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            "neovim/nvim-lspconfig",
+        }
+
         -- vim-airline
         use 'vim-airline/vim-airline'
         use 'vim-airline/vim-airline-themes'
@@ -17,7 +24,6 @@ return require('packer').startup(
         use 'Shougo/ddc-matcher_head'
         use 'Shougo/ddc-sorter_rank'
         use 'Shougo/ddc-nvim-lsp'
-        use 'neovim/nvim-lspconfig'
         use 'vim-denops/denops.vim'
 
         -- fuzzy finder
@@ -37,7 +43,13 @@ return require('packer').startup(
         use 'morhetz/gruvbox'
 
         -- LSP
-        use 'rust-lang/rust.vim'
         use 'tikhomirov/vim-glsl'
+        use({
+            "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+            
+            config = function()
+                require("lsp_lines").setup()
+            end,
+        })
     end
 )

@@ -18,7 +18,6 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " ==== for html/xml files, 2 spaces ====="
 augroup fileTypeIndent
     autocmd!
-    autocmd BufNewFile,BufRead *.py setlocal ts=4 softtabstop=4 sw=4
     autocmd BufNewFile,BufRead *.xml setlocal ts=2 softtabstop=2 sw=2
     autocmd BufNewFile,BufRead *.html setlocal ts=2 softtabstop=2 sw=2
     autocmd BufNewFile,BufRead *.yaml setlocal ts=2 softtabstop=2 sw=2

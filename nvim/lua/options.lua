@@ -10,9 +10,30 @@ local buffer    = vim.bo
 local optional  = vim.opt
 local g_var     = vim.g
 local b_var     = vim.b
+local map       = vim.api.nvim_set_keymap
+
+-- Path
+vim.cmd([[
+    let $RTP=split(&runtimepath, ',')[0]
+    set path=.,/usr/include/,**
+]])
 
 -- Color settings
+map('c', '3636', '<c-u>undo<CR>', {noremap = true})
 global.termguicolors = true
+vim.cmd([[
+    syntax enable
+    set t_Co=256
+    highlight Normal  guibg=NONE ctermbg=NONE
+    highlight NonText guibg=NONE ctermbg=NONE
+    colorscheme dracula
+]])
+
+-- filetype
+vim.cmd([[
+    filetype plugin indent on
+    set ignorecase
+]])
 
 -- Indent settings
 global.autoindent       = true
@@ -33,62 +54,70 @@ global.encoding         = 'utf-8'
 window.colorcolumn      = '80'
 
 -- Local settings for closing brackets
-global.showmatch    = true
+global.showmatch        = true
 
 -- Autocompletion (vim default feature)
-global.compatible   = false
-global.tags         = '~/.config/nvim/stdtags,tags,.tags,../tags'
+global.compatible       = false
+global.tags             = '~/.config/nvim/stdtags,tags,.tags,../tags'
 
 -- LSP setttings
+require("mason").setup()
+local mason_lspconfig=require("mason-lspconfig")
+local lspconfig=require("lspconfig")
+
+mason_lspconfig.setup()
+mason_lspconfig.setup_handlers({
+    function(server_name)
+        require("lspconfig")[server_name].setup{}
+    end,
+
+    ["rust_analyzer"] = function()
+        lspconfig.rust_analyzer.setup({
+            on_attach = on_attach,
+            settings = {
+                ['rust-analyzer'] = {
+                    assist = {
+                        importantGranularity = "module",
+                        importPrefix = "self",
+                    },
+                    cargo = {
+                        lodOutDirsFromCheck = true
+                    },
+                    procMacro = {
+                        enable = true
+                    },
+                }
+            }
+        })
+    end,
+    ["clangd"] = function()
+        lspconfig.clangd.setup({
+            on_attach = on_attach,
+            flags = {
+                debounce_text_changes = 150,
+            }
+        })
+    end,
+    ["cmake"] = function()
+        lspconfig.cmake.setup({
+            on_attach = on_attach,
+            flags = {
+                debounce_text_changes = 150,
+            }
+        })
+    end,
+    ["jdtls"] = function()
+        lspconfig.jtdls.setup{
+            cmd = { 'jdtls' },
+            root_dir = function(fname)
+                return require('lspconfig').util.root_pattern('pom.xml', 'gradle.build', '.git')(fname) or vim.fn.getcwd()
+            end
+        }
+    end,
+})
+
 -- Rust
 g_var.rustfmt_autosave  = 1
-
-local servers = {
-    'clangd',
-    'cmake',
-}
-
-for _, lsp in pairs(servers) do
-    require('lspconfig')[lsp].setup {
-        on_attach = on_attach,
-        flags = {
-            debounce_text_changes = 150,
-        }
-    }
-end
-
-require('lspconfig').jdtls.setup{
-    cmd = { 'jdtls' },
-    root_dir = function(fname)
-        return require('lspconfig').util.root_pattern('pom.xml', 'gradle.build', '.git')(fname) or vim.fn.getcwd()
-    end
-}
-
-local servers = {
-    'gopls',
-    'rust_analyzer'
-}
-for _, lsp in pairs(servers) do
-    require('lspconfig')[lsp].setup{}
-end
-
-require('lspconfig').rust_analyzer.setup({
-    on_attach = on_attach,
-    settings = {
-        ['rust-analyzer'] = {
-            assist = {
-                importantGranularity = "module",
-                importPrefix = "self",
-            },
-            cargo = {
-                lodOutDirsFromCheck = true
-            },
-            procMacro = {
-                enable = true
-            },
-        }
-    }
-})
 
 -- nobackup/swap files
 global.backup   = false

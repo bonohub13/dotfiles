@@ -1,11 +1,3 @@
-set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent
-setlocal colorcolumn=80
-
-setlocal path=.,**,/usr/include
-setlocal wildignore=*.pyc
-
-set include=^\\s*\\(from\\\|import\\)\\s*\\zs\\(\\S\\+\\s\\{-}\\)*\\ze\\($\\\|\ as\\)
-
 function! PyInclude(fname)
     let parts = split(a:fname, 'import')
     let l = parts[0]
@@ -22,5 +14,10 @@ function! PyInclude(fname)
     endif
     return substitute(joined, '\.', '/', 'g') . '.py'
 endfunction
-setlocal includeexpr=PyInclude(v:fname)
 
+set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent
+setlocal colorcolumn=80
+setlocal path=.,**,/usr/include
+setlocal wildignore=*.pyc
+set include=^\\s*\\(from\\\|import\\)\\s*\\zs\\(\\S\\+\\s\\{-}\\)*\\ze\\($\\\|\ as\\)
+setlocal includeexpr=PyInclude(v:fname)
