@@ -16,8 +16,8 @@ function! PyInclude(fname)
 endfunction
 
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent
+set include=^\\s*\\(from\\\|import\\)\\s*\\zs\\(\\S\\+\\s\\{-}\\)*\\ze\\($\\\|\ as\\)
 setlocal colorcolumn=80
 setlocal path=.,**,/usr/include
 setlocal wildignore=*.pyc
-set include=^\\s*\\(from\\\|import\\)\\s*\\zs\\(\\S\\+\\s\\{-}\\)*\\ze\\($\\\|\ as\\)
 setlocal includeexpr=PyInclude(v:fname)

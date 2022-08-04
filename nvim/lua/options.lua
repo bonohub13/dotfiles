@@ -114,6 +114,29 @@ mason_lspconfig.setup_handlers({
             end
         }
     end,
+    ["sumneko_lua"] = function()
+        lspconfig.sumneko_lua.setup(require('lua-dev').setup {
+            settings = {
+                format = {
+                    enable = true
+                },
+                hint = {
+                    enable = true,
+                    arrayIndex = "Auto",
+                    await = true,
+                    paramName = "Disable",
+                    paramType = false,
+                    semicolon = "Disable",
+                    setType = true,
+                },
+                Lua = {
+                    diagnostics = {
+                        globals = {'vim', 'use'},
+                    }
+                }
+            }
+        })
+    end,
 })
 
 -- Rust

@@ -43,10 +43,18 @@ return require('packer').startup(
         use 'morhetz/gruvbox'
 
         -- LSP
-        use 'tikhomirov/vim-glsl'
+        use {
+            -- Rust
+            'rust-lang/rust.vim',
+            -- Lua (for Neovim plugin development only)
+            'folke/lua-dev.nvim',
+            -- GLSL
+            'tikhomirov/vim-glsl',
+        }
+
         use({
             "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-            
+
             config = function()
                 require("lsp_lines").setup()
             end,
