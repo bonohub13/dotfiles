@@ -5,7 +5,7 @@
 source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 command -v neofetch > /dev/null 2>&1 \
     && command -v lolcat > /dev/null 2>&1 \
-    && neofetch | lolcat -f -b -r
+    && neofetch | lolcat -f
 ###################
 
 #import_cargo(){
