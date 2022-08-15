@@ -131,13 +131,43 @@ function clock {
 }
 
 function radeontop {
-    if command -v radeontop > /dev/null 2>&1 {
+    if command -v radeontop > /dev/null 2>&1
+    then
         if [[ "$TERM_PROGRAM" = "tmux" ]]; then
             tmux split -l 19 radeontop -c -T
         else
             radeontop -c -T
         fi
-    }
+    fi
+
+    return $?
+}
+
+function optional-deps {
+    if command -v pacman > /dev/null 2>&1
+    then
+        if [[ $1 != "" ]]
+        then
+            pacman -Qi $1 | grep 'Optional Deps' -A100 | while read line
+            do
+                if echo "$line" | grep 'Required By' > /dev/null 2>&1
+                then
+                    break
+                else
+                    echo "$line" \
+                        | grep -v 'Optional Deps' \
+                        | awk '{print$1}' \
+                        | sed "s/:$//"
+                fi
+            done
+        else
+            echo "ERROR: Must provide package name."
+        fi
+    else
+        echo "This command is only available for Archlinux based distro"
+
+        return 1
+    fi
 
     return $?
 }
