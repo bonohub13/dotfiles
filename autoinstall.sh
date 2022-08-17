@@ -11,7 +11,7 @@ copy_configs() {
     echo "$pkgs" | while read dir_name; do
         ([ -d "$HOME.config" ] || mkdir -p "$HOME/.config")
         if [ "$dir_name" = "tmux" ]; then
-            cp "$dir_name/.tmux.conf" "$HOME"
+            cp "$dir_name" "$HOME/.config/$dir_name"
         elif [ "$dir_name" = "zsh" ]; then
             find "$dir_name" -type f -name "\.z*" | while read file; do
                 mv -f "$file" "$HOME"
@@ -37,8 +37,8 @@ neovim_setup() {
 
 tmux_setup() {
     echo "tmux..."
-    mkdir -p "$HOME/.tmux/plugins"
-    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm" \
+    mkdir -p "$HOME/.config/tmux/plugins"
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.config/tmux/plugins/tpm" \
         || return 0
     echo "Press <Ctrl+b> then I in tmux to load plugins"
 
