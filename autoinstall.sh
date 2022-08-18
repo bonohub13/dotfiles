@@ -38,7 +38,7 @@ neovim_setup() {
 tmux_setup() {
     echo "tmux..."
     mkdir -p "$HOME/.config/tmux/plugins"
-    git clone https://github.com/tmux-plugins/tpm "$HOME/.config/tmux/plugins/tpm" \
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm" \
         || return 0
     echo "Press <Ctrl+b> then I in tmux to load plugins"
 
