@@ -14,15 +14,9 @@
 ## Dependencies
 - For Neovim
     - ctags (universal-ctags)
-    - clangd
-        - For LSP in C/C++/Objective-C
     - ripgrep
     - Deno
         - [Instruction](https://deno.land)
-    - jdtls-launcher
-        - For LSP in Java
-        - Needs Java 11+ in order to run
-        - [Instruction](https://github.com/eruizc-dev/jdtls-launcher)
 
 ## Not a dotfile but...
 - installed\_arch\_pkgs
