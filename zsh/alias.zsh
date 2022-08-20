@@ -14,7 +14,8 @@ command -v pacman > /dev/null 2>&1 \
     && alias update-archmirror="sudo $HOME/.config/zsh/update_archmirror/update-archmirror.sh"
 alias tmux="tmux -u -2"
 command -v bat > /dev/null 2>&1 \
-    && alias cat='bat -pp'
+    && alias cat='bat -pp' \
+    && alias less=bat
 unalias rm mv cp
 
 function ssh-keygen-strong {
@@ -79,9 +80,10 @@ function shebang {
 function pacman-autoremove {
     command -v pacman > /dev/null 2>&1 || return 1
     pkgs="$(pacman -Qdtq)"
+    whitelist_pkgs="amf-headers\|spirv-headers"
 
     echo "Packages to remove"
-    echo "$pkgs"
+    echo "$pkgs" | grep -v "$whitelist_pkgs"
 
     if [ "$(echo $pkgs | grep -E "[A-Z | a-z | 0-9]" | wc -c)" -eq 0 ]; then
         echo "No packages available..."
@@ -94,7 +96,9 @@ function pacman-autoremove {
             echo "Packages not removed"
             return 1
         fi
-            echo "$pkgs" | xargs sudo pacman -Rns --noconfirm
+            echo "$pkgs" \
+                | grep -v "$whitelist_pkgs" \
+                | xargs sudo pacman -Rns --noconfirm
     fi
 
     return 0
