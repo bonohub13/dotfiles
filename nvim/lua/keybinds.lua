@@ -48,9 +48,19 @@ nmap('bn', '<cmd>bnext<CR>')
 nmap('bp', '<cmd>bprevious<CR>')
 nmap('qq', '<cmd>quit!<CR>')
 nmap('qa', '<cmd>quitall!<CR>')
-nmap('st', '<cmd>split term:///usr/bin/zsh<CR>')
+--  Terminal stuff
+nmap('ht', '<cmd>split term:///usr/bin/zsh<CR>')
 nmap('vt', '<cmd>vsplit term:///usr/bin/zsh<CR>')
 nmap('nt', '<cmd>tabnew term:///usr/bin/zsh<CR>')
+--  Vimspector Keybinds
+nmap('<F5>', '<cmd>call vimspector#Launch()<CR>')
+nmap('<F6>', '<cmd>call vimspector#Reset()<CR>')
+nmap('<F10>', '<cmd>call vimspector#StepOver()<CR>')
+nmap('<F11>', '<cmd>call vimspector#StepInto()<CR>')
+nmap('<F12>', '<cmd>call vimspector#StepOut()<CR>')
+nmap('<A-b>', ':call vimspector#ToggleBreakpoint()<CR>')
+nmap('<A-w>', ':call vimspector#AddWatch()<CR>')
+nmap('<A-e>', ':call vimspector#Evaluate()<CR>')
 
 -- terminal mode
 map('t', '<ESC>', '<C-\\><C-n>')

@@ -35,12 +35,22 @@ return require('packer').startup(
             }}
         }
 
+        -- Treesitter
+        use {
+            'nvim-treesitter/nvim-treesitter'
+        }
+
         -- Markdown preview
         use 'iamcco/markdown-preview.nvim'
 
         -- Colorschemes
         use 'dracula/vim'
         use 'morhetz/gruvbox'
+
+        -- Debugger
+        use {
+            'puremourning/vimspector'
+        }
 
         -- LSP
         use {
@@ -52,12 +62,12 @@ return require('packer').startup(
             'tikhomirov/vim-glsl',
         }
 
-        use({
-            "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-
-            config = function()
-                require("lsp_lines").setup()
-            end,
-        })
+--        use({
+--            "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+--
+--            config = function()
+--                require("lsp_lines").setup()
+--            end,
+--        })
     end
 )
