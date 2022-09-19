@@ -37,7 +37,8 @@ return require('packer').startup(
 
         -- Treesitter
         use {
-            'nvim-treesitter/nvim-treesitter'
+            'nvim-treesitter/nvim-treesitter',
+            'nvim-treesitter/nvim-treesitter-refactor'
         }
 
         -- Markdown preview
@@ -49,13 +50,15 @@ return require('packer').startup(
 
         -- Debugger
         use {
-            'puremourning/vimspector'
+            'mfussenegger/nvim-dap'
+            -- 'puremourning/vimspector'
         }
 
         -- LSP
         use {
             -- Rust
             'rust-lang/rust.vim',
+            'simrat39/rust-tools.nvim',
             -- Lua (for Neovim plugin development only)
             'folke/lua-dev.nvim',
             -- GLSL
