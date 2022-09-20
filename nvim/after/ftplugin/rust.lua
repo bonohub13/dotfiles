@@ -1,5 +1,18 @@
-local rust_tools = require('rust-tools')
+local function nmap(shortcut, command, buffer)
+    vim.keymap.set("n", shortcut, command, {buffer=buffer})
+end
+local rt = require('rust-tools')
 
-rust_tools.setup()
-rust_tools.inlay_hints.set()
-rust_tools.inlay_hints.enable()
+rt.setup({
+    server = {
+        on_attach = function(_, bufnr)
+            -- Hover actions
+            nmap("<C-space>", rt.hover_actions.hover_actions, bufnr)
+            -- Code action groups
+            nmap("<Leader>a", rt.code_action_group.code_action_group, bufnr)
+        end,
+    },
+})
+
+require('rust-tools').inlay_hints.set()
+require('rust-tools').inlay_hints.enable()
