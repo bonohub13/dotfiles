@@ -16,6 +16,8 @@ alias tmux="tmux -u -2"
 command -v bat > /dev/null 2>&1 \
     && alias cat='bat -pp' \
     && alias less=bat
+command -v lsd > /dev/null 2>&1 \
+    && alias ls=lsd
 unalias rm mv cp
 
 function ssh-keygen-strong {
@@ -79,11 +81,11 @@ function shebang {
 
 function pacman-autoremove {
     command -v pacman > /dev/null 2>&1 || return 1
-    pkgs="$(pacman -Qdtq)"
+    pkgs="$(pacman -Qdtq | grep -v "$whitelist_pkgs")"
     whitelist_pkgs="amf-headers\|spirv-headers"
 
     echo "Packages to remove"
-    echo "$pkgs" | grep -v "$whitelist_pkgs"
+    echo "$pkgs"
 
     if [ "$(echo $pkgs | grep -E "[A-Z | a-z | 0-9]" | wc -c)" -eq 0 ]; then
         echo "No packages available..."
@@ -97,7 +99,6 @@ function pacman-autoremove {
             return 1
         fi
             echo "$pkgs" \
-                | grep -v "$whitelist_pkgs" \
                 | xargs sudo pacman -Rns --noconfirm
     fi
 
@@ -116,7 +117,7 @@ function btop {
 
 function ssh {
     if [[ "$TERM_PROGRAM" = "tmux" ]]; then
-        tmux split ssh "$@"
+        tmux neww ssh "$@"
     else
         /usr/bin/ssh "$@"
     fi
@@ -172,6 +173,18 @@ function optional-deps {
 
         return 1
     fi
+
+    return $?
+}
+
+function rust-builder {
+    git clone https://github.com/bonohub13/docker-rust-builder /tmp/docker-rust-builder \
+        && rm -rf /tmp/docker-rust-builder/.git \
+            /tmp/docker-rust-builder/LICENSE \
+            /tmp/docker-rust-builder/README.md \
+            /tmp/docker-rust-builder/setup.sh \
+        && cp -r /tmp/docker-rust-builder/* ./ \
+        && rm -rf /tmp/docker-rust-builder
 
     return $?
 }
