@@ -99,7 +99,7 @@ function pacman-autoremove {
             return 1
         fi
             echo "$pkgs" \
-                | xargs sudo pacman -Rns --noconfirm
+                | xargs sudo pacman -Rcns --noconfirm
     fi
 
     return 0
@@ -116,7 +116,7 @@ function btop {
 }
 
 function ssh {
-    if [[ "$TERM_PROGRAM" = "tmux" ]]; then
+    if [[ "$TERM_PROGRAM" = "tmux" ]] && echo "$0" | grep -v "scp" > /dev/null 2>&1; then
         tmux neww ssh "$@"
     else
         /usr/bin/ssh "$@"
@@ -173,18 +173,6 @@ function optional-deps {
 
         return 1
     fi
-
-    return $?
-}
-
-function rust-builder {
-    git clone https://github.com/bonohub13/docker-rust-builder /tmp/docker-rust-builder \
-        && rm -rf /tmp/docker-rust-builder/.git \
-            /tmp/docker-rust-builder/LICENSE \
-            /tmp/docker-rust-builder/README.md \
-            /tmp/docker-rust-builder/setup.sh \
-        && cp -r /tmp/docker-rust-builder/* ./ \
-        && rm -rf /tmp/docker-rust-builder
 
     return $?
 }
