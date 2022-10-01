@@ -38,6 +38,7 @@ return require('packer').startup(
         -- Treesitter
         use {
             'nvim-treesitter/nvim-treesitter',
+            'nvim-treesitter/nvim-treesitter-context',
             'nvim-treesitter/nvim-treesitter-refactor'
         }
 
@@ -65,12 +66,12 @@ return require('packer').startup(
             'tikhomirov/vim-glsl',
         }
 
---        use({
---            "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
---
---            config = function()
---                require("lsp_lines").setup()
---            end,
---        })
+        use({
+            "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+
+            config = function()
+                require("lsp_lines").setup()
+            end,
+        })
     end
 )

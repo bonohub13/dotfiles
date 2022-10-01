@@ -37,6 +37,10 @@ require('nvim-treesitter.configs').setup {
         }
     }
 }
+
+--  Treesitter context
+require('treesitter-context').setup {}
+
 --  Treesitter folding
 vim.wo.foldmethod = 'expr'
 vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
