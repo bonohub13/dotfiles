@@ -1,3 +1,5 @@
+call popup_preview#enable()
+
 call ddc#custom#patch_global('sources', ['nvim-lsp', 'around'])
 call ddc#custom#patch_global('sourceOptions', {
     \ '_': { 'matchers': ['matcher_head'] },

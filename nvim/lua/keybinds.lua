@@ -62,5 +62,9 @@ nmap('nt', '<cmd>tabnew term:///usr/bin/zsh<CR>')
 -- nmap('<A-w>', ':call vimspector#AddWatch()<CR>')
 -- nmap('<A-e>', ':call vimspector#Evaluate()<CR>')
 
+--  mini.nvim Keybinds
+-- nmap('mm', '<cmd>MiniMap.toggle()<CR>')
+-- nmap('ms', '<cmd>MiniMap.toggle_side()<CR>')
+
 -- terminal mode
 map('t', '<ESC>', '<C-\\><C-n>')

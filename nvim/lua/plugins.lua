@@ -11,20 +11,27 @@ return require('packer').startup(
         }
 
         -- vim-airline
-        use 'vim-airline/vim-airline'
-        use 'vim-airline/vim-airline-themes'
+        use {
+            'vim-airline/vim-airline',
+            'vim-airline/vim-airline-themes',
+        }
 
-        -- Tagbar
-        use 'preservim/tagbar'
+        -- Ctag stuff
+        use {
+            'preservim/tagbar',
+        }
 
         -- ddc
-        use 'Shougo/neoinclude.vim'
-        use 'Shougo/ddc.vim'
-        use 'Shougo/ddc-around'
-        use 'Shougo/ddc-matcher_head'
-        use 'Shougo/ddc-sorter_rank'
-        use 'Shougo/ddc-nvim-lsp'
-        use 'vim-denops/denops.vim'
+        use {
+            'Shougo/neoinclude.vim',
+            'Shougo/ddc.vim',
+            'Shougo/ddc-around',
+            'Shougo/ddc-matcher_head',
+            'Shougo/ddc-sorter_rank',
+            'Shougo/ddc-nvim-lsp',
+            'vim-denops/denops.vim',
+            'matsui54/denops-popup-preview.vim',
+        }
 
         -- fuzzy finder
         use {
@@ -42,13 +49,6 @@ return require('packer').startup(
             'nvim-treesitter/nvim-treesitter-refactor'
         }
 
-        -- Markdown preview
-        use 'iamcco/markdown-preview.nvim'
-
-        -- Colorschemes
-        use 'dracula/vim'
-        use 'morhetz/gruvbox'
-
         -- Debugger
         use {
             'mfussenegger/nvim-dap'
@@ -64,6 +64,16 @@ return require('packer').startup(
             'folke/lua-dev.nvim',
             -- GLSL
             'tikhomirov/vim-glsl',
+        }
+
+        -- Markdown preview
+        use 'iamcco/markdown-preview.nvim'
+
+        -- Looks
+        --  Colorschemes
+        use {
+            'dracula/vim',
+            'morhetz/gruvbox',
         }
 
         use({
