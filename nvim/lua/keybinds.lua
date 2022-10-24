@@ -22,7 +22,7 @@ nmap('<C-L>',
 
 -- Closing brackets and quotes
 map('i', '\"', '\"\"<left>')
-map('i', '\'', '\'\'<left>')
+-- map('i', '\'', '\'\'<left>')
 map('i', '(', '()<left>')
 map('i', '[', '[]<left>')
 map('i', '{', '{}<left>')
@@ -43,7 +43,7 @@ nmap('mp', '<cmd>MarkdownPreview<CR>')
 nmap('tt', '<cmd>tabnew<CR>')
 nmap('tn', '<cmd>tabnext<CR>')
 nmap('tp', '<cmd>tabprevious<CR>')
-nmap('bb', '<cmd>b <CR>')
+nmap('<a-b>', ':buffer ')
 nmap('bn', '<cmd>bnext<CR>')
 nmap('bp', '<cmd>bprevious<CR>')
 nmap('qq', '<cmd>quit!<CR>')

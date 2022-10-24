@@ -61,7 +61,7 @@ return require('packer').startup(
             'rust-lang/rust.vim',
             'simrat39/rust-tools.nvim',
             -- Lua (for Neovim plugin development only)
-            'folke/lua-dev.nvim',
+            'folke/neodev.nvim',
             -- GLSL
             'tikhomirov/vim-glsl',
         }

@@ -68,8 +68,9 @@ global.backup   = false
 global.swapfile = false
 
 -- Show line numbers
-global.number       = true
-global.cursorline   = true
+global.number           = true
+global.relativenumber   = true
+global.cursorline       = true
 
 -- Netrw variables
 g_var.netrw_banner      = 0

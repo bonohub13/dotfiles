@@ -3,6 +3,18 @@ require("mason").setup()
 local mason_lspconfig=require("mason-lspconfig")
 local lspconfig=require("lspconfig")
 
+require('neodev').setup {
+    setup_jsonls = true,
+    override = function(root_dir, library)
+        if require("neodev.util").has_file(root_dir, "/.config/nvim") then
+            library.enabled = true
+            library.plugins = true
+            library.runtime = true
+            library.types   = true
+        end
+    end,
+}
+
 mason_lspconfig.setup()
 mason_lspconfig.setup_handlers({
     function(server_name)
@@ -53,23 +65,11 @@ mason_lspconfig.setup_handlers({
         }
     end,
     ["sumneko_lua"] = function()
-        lspconfig.sumneko_lua.setup(require('lua-dev').setup {
+        lspconfig.sumneko_lua.setup({
             settings = {
-                format = {
-                    enable = true
-                },
-                hint = {
-                    enable = true,
-                    arrayIndex = "Auto",
-                    await = true,
-                    paramName = "Disable",
-                    paramType = false,
-                    semicolon = "Disable",
-                    setType = true,
-                },
-                lua = {
-                    diagnostics = {
-                        globals = {'vim', 'use'},
+                Lua = {
+                    completion = {
+                        callSnippet = "Replace"
                     }
                 }
             }
