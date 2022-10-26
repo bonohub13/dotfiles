@@ -1,5 +1,6 @@
 call popup_preview#enable()
 
+call ddc#custom#patch_global('ui', 'native')
 call ddc#custom#patch_global('sources', ['nvim-lsp', 'around'])
 call ddc#custom#patch_global('sourceOptions', {
     \ '_': { 'matchers': ['matcher_head'] },
@@ -28,9 +29,9 @@ call ddc#custom#patch_filetype('markdown', 'sourceParams', {
     \ })
 
 inoremap <silent><expr> <TAB>
-\ ddc#map#pum_visible() ? '<C-n>' :
+\ ddc#map#can_complete() ? '<C-n>' :
 \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
 \ '<TAB>' : ddc#map#manual_complete()
 
-inoremap <expr><S-TAB> ddc#map#pum_visible() ? '<C-p>' : '<C-h>'
+inoremap <expr><S-TAB> ddc#map#can_complete() ? '<C-p>' : '<C-h>'
 call ddc#enable()

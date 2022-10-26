@@ -26,7 +26,6 @@ vim.cmd([[
     set t_Co=256
     highlight Normal  guibg=NONE ctermbg=NONE
     highlight NonText guibg=NONE ctermbg=NONE
-    colorscheme dracula
 ]])
 
 -- filetype
@@ -77,13 +76,6 @@ g_var.netrw_banner      = 0
 g_var.netrw_liststyle   = 3
 g_var.netrw_winsize     = 15
 g_var.NetrwIsOpen       = 0
-
--- Airline-vim
-g_var['airline#extensions#tabline#enabled']     = 1
-g_var['airline#extensions#tabline#formatter']   = 'default'
-g_var['airline#extensions#tmuxline#enabled']    = '0'
-g_var.airline_theme                             = 'dracula'
-g_var.airline_powerline_fonts                   = 1
 
 -- Tagbar
 g_var.tagbar_ctags_bin  = '/usr/bin/ctags'

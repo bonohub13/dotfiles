@@ -10,10 +10,10 @@ return require('packer').startup(
             "neovim/nvim-lspconfig",
         }
 
-        -- vim-airline
+        -- lualine
         use {
-            'vim-airline/vim-airline',
-            'vim-airline/vim-airline-themes',
+            'nvim-lualine/lualine.nvim',
+            requires = { 'kyazdani42/nvim-web-devicons', opt = true }
         }
 
         -- Ctag stuff
@@ -25,6 +25,7 @@ return require('packer').startup(
         use {
             'Shougo/neoinclude.vim',
             'Shougo/ddc.vim',
+            'Shougo/ddc-ui-native',
             'Shougo/ddc-around',
             'Shougo/ddc-matcher_head',
             'Shougo/ddc-sorter_rank',
@@ -74,6 +75,7 @@ return require('packer').startup(
         use {
             'dracula/vim',
             'morhetz/gruvbox',
+            'folke/tokyonight.nvim',
         }
 
         use({
