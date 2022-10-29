@@ -1,7 +1,7 @@
 -- LSP setttings
 require("mason").setup()
-local mason_lspconfig=require("mason-lspconfig")
-local lspconfig=require("lspconfig")
+local mason_lspconfig   = require("mason-lspconfig")
+local lspconfig         = require("lspconfig")
 
 require('neodev').setup {
     setup_jsonls = true,
@@ -58,6 +58,7 @@ mason_lspconfig.setup_handlers({
     end,
     ["jdtls"] = function()
         lspconfig.jtdls.setup{
+            on_attach = on_attach,
             cmd = { 'jdtls' },
             root_dir = function(fname)
                 return require('lspconfig').util.root_pattern('pom.xml', 'gradle.build', '.git')(fname) or vim.fn.getcwd()
@@ -66,6 +67,7 @@ mason_lspconfig.setup_handlers({
     end,
     ["sumneko_lua"] = function()
         lspconfig.sumneko_lua.setup({
+            on_attach = on_attach,
             settings = {
                 Lua = {
                     completion = {

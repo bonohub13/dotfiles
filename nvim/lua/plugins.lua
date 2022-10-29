@@ -10,12 +10,6 @@ return require('packer').startup(
             "neovim/nvim-lspconfig",
         }
 
-        -- lualine
-        use {
-            'nvim-lualine/lualine.nvim',
-            requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-        }
-
         -- Ctag stuff
         use {
             'preservim/tagbar',
@@ -26,12 +20,13 @@ return require('packer').startup(
             'Shougo/neoinclude.vim',
             'Shougo/ddc.vim',
             'Shougo/ddc-ui-native',
-            'Shougo/ddc-around',
-            'Shougo/ddc-matcher_head',
-            'Shougo/ddc-sorter_rank',
-            'Shougo/ddc-nvim-lsp',
+            'Shougo/ddc-source-around',
+            'Shougo/ddc-source-nvim-lsp',
+            'Shougo/pum.vim',
+            'tani/ddc-fuzzy',
             'vim-denops/denops.vim',
             'matsui54/denops-popup-preview.vim',
+            'matsui54/denops-signature_help',
         }
 
         -- fuzzy finder
@@ -76,6 +71,12 @@ return require('packer').startup(
             'dracula/vim',
             'morhetz/gruvbox',
             'folke/tokyonight.nvim',
+        }
+
+        --  Tools
+        use {
+            'nvim-lualine/lualine.nvim',
+            requires = { 'kyazdani42/nvim-web-devicons', opt = true }
         }
 
         use({
