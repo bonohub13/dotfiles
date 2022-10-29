@@ -19,14 +19,14 @@ return require('packer').startup(
         use {
             'Shougo/neoinclude.vim',
             'Shougo/ddc.vim',
-            'Shougo/ddc-ui-native',
+            'Shougo/ddc-ui-pum',
+            'Shougo/pum.vim',
             'Shougo/ddc-source-around',
             'Shougo/ddc-source-nvim-lsp',
-            'Shougo/pum.vim',
-            'tani/ddc-fuzzy',
             'vim-denops/denops.vim',
             'matsui54/denops-popup-preview.vim',
             'matsui54/denops-signature_help',
+            'tani/ddc-fuzzy',
         }
 
         -- fuzzy finder
