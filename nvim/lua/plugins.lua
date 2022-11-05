@@ -17,16 +17,18 @@ return require('packer').startup(
 
         -- ddc
         use {
-            'Shougo/neoinclude.vim',
             'Shougo/ddc.vim',
             'Shougo/ddc-ui-pum',
             'Shougo/pum.vim',
             'Shougo/ddc-source-around',
             'Shougo/ddc-source-nvim-lsp',
+            'Shougo/ddc-source-zsh',
+            'Shougo/ddc-matcher_head',
+            'Shougo/ddc-matcher_length',
+            'Shougo/ddc-sorter_rank',
+            'Shougo/ddc-converter_remove_overlap',
             'vim-denops/denops.vim',
-            'matsui54/denops-popup-preview.vim',
             'matsui54/denops-signature_help',
-            'tani/ddc-fuzzy',
         }
 
         -- fuzzy finder
