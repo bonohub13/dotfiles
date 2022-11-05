@@ -13,6 +13,26 @@ local function imap(shortcut, command)
     map('i', shortcut, command)
 end
 
+local disabled_keys = {
+    '<F2>',
+    '<F3>',
+    '<F4>',
+    '<F5>',
+    '<F6>',
+    '<F7>',
+    '<F8>',
+    '<F9>',
+    '<F10>',
+    '<F11>',
+    '<F12>',
+    '<F16>',
+}
+
+for _, k in ipairs(disabled_keys) do
+    map('i', k, '<Nop>')
+    map('c', k, '<Nop>')
+end
+
 -- Generate tags
 -- To use this feature, run the following command under /usr/include
 -- $ ctags -f ~/.config/nvim/stdtags -R --c++-kinds=+p fields=+iaS --extra=+q
@@ -21,20 +41,19 @@ nmap('<C-L>',
 )
 
 -- Closing brackets and quotes
-map('i', '\"', '\"\"<left>')
--- map('i', '\'', '\'\'<left>')
-map('i', '(', '()<left>')
-map('i', '[', '[]<left>')
-map('i', '{', '{}<left>')
+imap('\"', '\"\"<left>')
+imap('(', '()<left>')
+imap('[', '[]<left>')
+imap('{', '{}<left>')
 
 -- Telescope keybinds
-map('n', 'ff',
+nmap('ff',
     "<cmd>lua require('telescope.builtin').find_files()<CR>")
-map('n', 'fg',
+nmap('fg',
     "<cmd>lua require('telescope.builtin').live_grep()<CR>")
-map('n', 'fb',
+nmap('fb',
     "<cmd>lua require('telescope.builtin').buffers()<CR>")
-map('n', 'fh',
+nmap('fh',
     "<cmd>lua require('telescope.builtin').help_tags()<CR>")
 
 -- Other keybinds
@@ -43,28 +62,16 @@ nmap('mp', '<cmd>MarkdownPreview<CR>')
 nmap('tt', '<cmd>tabnew<CR>')
 nmap('tn', '<cmd>tabnext<CR>')
 nmap('tp', '<cmd>tabprevious<CR>')
-nmap('<a-b>', ':buffer ')
+nmap('<A-b>', ':buffer ')
 nmap('bn', '<cmd>bnext<CR>')
 nmap('bp', '<cmd>bprevious<CR>')
 nmap('qq', '<cmd>quit!<CR>')
 nmap('qa', '<cmd>quitall!<CR>')
+
 --  Terminal stuff
 nmap('ht', '<cmd>split term:///usr/bin/zsh<CR>')
 nmap('vt', '<cmd>vsplit term:///usr/bin/zsh<CR>')
 nmap('nt', '<cmd>tabnew term:///usr/bin/zsh<CR>')
---  nvim-dap Keybinds
--- nmap('<F5>', '<cmd>call vimspector#Launch()<CR>')
--- nmap('<F6>', '<cmd>call vimspector#Reset()<CR>')
--- nmap('<F10>', '<cmd>call vimspector#StepOver()<CR>')
--- nmap('<F11>', '<cmd>call vimspector#StepInto()<CR>')
--- nmap('<F12>', '<cmd>call vimspector#StepOut()<CR>')
--- nmap('<A-b>', ':call vimspector#ToggleBreakpoint()<CR>')
--- nmap('<A-w>', ':call vimspector#AddWatch()<CR>')
--- nmap('<A-e>', ':call vimspector#Evaluate()<CR>')
-
---  mini.nvim Keybinds
--- nmap('mm', '<cmd>MiniMap.toggle()<CR>')
--- nmap('ms', '<cmd>MiniMap.toggle_side()<CR>')
 
 -- terminal mode
 map('t', '<ESC>', '<C-\\><C-n>')

@@ -44,7 +44,8 @@ return require('packer').startup(
         use {
             'nvim-treesitter/nvim-treesitter',
             'nvim-treesitter/nvim-treesitter-context',
-            'nvim-treesitter/nvim-treesitter-refactor'
+            'nvim-treesitter/nvim-treesitter-refactor',
+            run = ':TSUpdate',
         }
 
         -- Debugger
@@ -76,9 +77,16 @@ return require('packer').startup(
         }
 
         --  Tools
+        --  lualine
         use {
             'nvim-lualine/lualine.nvim',
             requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+        }
+        --  bufferline
+        use {
+            'akinsho/bufferline.nvim',
+            tag = "v3.*",
+            requires = { 'kyazdani42/nvim-web-devicons' }
         }
 
         use({

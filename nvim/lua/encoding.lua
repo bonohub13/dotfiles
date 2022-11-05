@@ -26,7 +26,6 @@ g_var.blocklist_pattern = {
 --  > This was originally implemented to prevent SJIS and CP932 encoding falsely
 --  > recognized as 'latin1'
 local strip_encoding = function(path, pattern, enc)
-    local cmd       = api.nvim_command
     local enc_      = enc .. ','
     local _enc      = ',' .. enc
     local fenc_tmp  = global.fileencodings

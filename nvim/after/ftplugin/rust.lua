@@ -14,5 +14,7 @@ rt.setup({
     },
 })
 
+vim.g.rustfmt_autosave = 1
+
 require('rust-tools').inlay_hints.set()
 require('rust-tools').inlay_hints.enable()
