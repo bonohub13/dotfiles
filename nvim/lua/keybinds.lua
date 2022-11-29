@@ -67,6 +67,11 @@ nmap('bn', '<cmd>bnext<CR>')
 nmap('bp', '<cmd>bprevious<CR>')
 nmap('qq', '<cmd>quit!<CR>')
 nmap('qa', '<cmd>quitall!<CR>')
+nmap('<S-k>', '<cmd>lua vim.lsp.buf.hover()<CR>')
+
+-- Debugging
+nmap('en', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+nmap('ep', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 
 --  Terminal stuff
 nmap('ht', '<cmd>split term:///usr/bin/zsh<CR>')

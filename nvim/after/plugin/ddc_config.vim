@@ -44,6 +44,7 @@ call ddc#custom#patch_filetype([
     \   'rust',
     \   'go',
     \   'dockerfile',
+    \   'cmake',
     \   'sh',
     \   'bash'
     \ ], 'sources', ['nvim-lsp'])
