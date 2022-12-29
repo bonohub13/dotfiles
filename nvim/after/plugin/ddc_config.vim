@@ -46,7 +46,9 @@ call ddc#custom#patch_filetype([
     \   'dockerfile',
     \   'cmake',
     \   'sh',
-    \   'bash'
+    \   'bash',
+    \   'tex',
+    \   'plaintex',
     \ ], 'sources', ['nvim-lsp'])
 call ddc#custom#patch_filetype('zsh', 'sources', ['zsh'])
 

@@ -1,0 +1,29 @@
+#!/bin/sh -eu
+
+nvim() {
+    rsync -amv \
+        --include 'nvim/' \
+        --include '*.lua' \
+        --include '*.vim' \
+        --exclude 'stdtags' \
+        --exclude '*.md' \
+        ~/.config/nvim ./
+
+    return $?
+}
+
+invalid_args() {
+    echo "[ERROR]: Invalid argument for update-git"
+    echo "available:"
+    echo "  nvim"
+    return 1
+}
+
+case "$1" in
+    "nvim")
+        nvim
+        ;;
+    *)
+        invalid_args
+        ;;
+esac

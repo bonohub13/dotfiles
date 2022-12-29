@@ -2,6 +2,10 @@
 require("mason").setup()
 local mason_lspconfig   = require("mason-lspconfig")
 local lspconfig         = require("lspconfig")
+local rt = require('rust-tools')
+local function nmap(shortcut, command, buffer)
+    vim.keymap.set("n", shortcut, command, {buffer=buffer})
+end
 
 require('neodev').setup {
     setup_jsonls = true,
@@ -22,23 +26,19 @@ mason_lspconfig.setup_handlers({
     end,
 
     ["rust_analyzer"] = function()
-        lspconfig.rust_analyzer.setup({
-            on_attach = on_attach,
-            settings = {
-                ['rust-analyzer'] = {
-                    assist = {
-                        importantGranularity = "module",
-                        importPrefix = "self",
-                    },
-                    cargo = {
-                        lodOutDirsFromCheck = true
-                    },
-                    procMacro = {
-                        enable = true
-                    },
-                }
-            }
+        rt.setup({
+            server = {
+                on_attach = function(_, bufnr)
+                    -- Hover actions
+                    nmap("<C-space>", rt.hover_actions.hover_actions, bufnr)
+                    -- Code action groups
+                    nmap("<Leader>a", rt.code_action_group.code_action_group, bufnr)
+                end,
+            },
         })
+
+        require('rust-tools').inlay_hints.set()
+        require('rust-tools').inlay_hints.enable()
     end,
     ["clangd"] = function()
         lspconfig.clangd.setup({

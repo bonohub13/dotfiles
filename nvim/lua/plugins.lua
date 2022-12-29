@@ -5,9 +5,9 @@ return require('packer').startup(
         use 'wbthomason/packer.nvim'
 
         use {
-            "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
-            "neovim/nvim-lspconfig",
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim',
+            'neovim/nvim-lspconfig',
         }
 
         -- Ctag stuff
@@ -85,15 +85,25 @@ return require('packer').startup(
         --  bufferline
         use {
             'akinsho/bufferline.nvim',
-            tag = "v3.*",
+            tag = 'v3.*',
             requires = { 'kyazdani42/nvim-web-devicons' }
+        }
+        -- undo tree
+        use {
+            'jiaoshijie/undotree',
+            config = function()
+                require('undotree').setup()
+            end,
+            requires = {
+                'nvim-lua/plenary.nvim'
+            }
         }
 
         use({
-            "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+            'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
 
             config = function()
-                require("lsp_lines").setup()
+                require('lsp_lines').setup()
             end,
         })
     end

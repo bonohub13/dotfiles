@@ -68,6 +68,7 @@ nmap('bp', '<cmd>bprevious<CR>')
 nmap('qq', '<cmd>quit!<CR>')
 nmap('qa', '<cmd>quitall!<CR>')
 nmap('<S-k>', '<cmd>lua vim.lsp.buf.hover()<CR>')
+nmap('<leader>u', '<cmd>lua require("undotree").toggle()<CR>')
 
 -- Debugging
 nmap('en', '<cmd>lua vim.diagnostic.goto_next()<CR>')

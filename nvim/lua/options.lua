@@ -56,7 +56,7 @@ local options = {
     smartcase       = true,
     wildignorecase  = true,
     colorcolumn     = '80',
-    path            = {'.', '/usr/include/', '**'}
+    path            = {'.', '/usr/include/', '**'},
 }
 
 for k, v in pairs(options) do
@@ -64,6 +64,9 @@ for k, v in pairs(options) do
 end
 
 local g_var_options = {
+    -- leader key
+    mapleader       = ' ',
+
     -- tagbar stuff
     tagbar_ctags_bin            = '/usr/bin/ctags',
     tagbar_width                = 25,
@@ -85,6 +88,9 @@ local g_var_options = {
     mkdp_echo_preview_url       = 1,
     mkdp_browserfunc            = '',
     mkdp_port                   = '8080',
+
+    -- rust-tools settings
+    rustfmt_autosave            = 1
 }
 
 for k, v in pairs(g_var_options) do
