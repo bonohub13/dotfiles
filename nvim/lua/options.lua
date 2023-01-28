@@ -75,7 +75,7 @@ local g_var_options = {
     netrw_banner                = 0,
     netrw_liststyle             = 3,
     netrw_winsize               = 15,
-    NetrwIsOpen                 = 0,
+    NetrwIsOpen                 = 1,
 
     -- Markdown preview
     mkdp_auto_start             = 0,

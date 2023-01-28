@@ -19,6 +19,43 @@ require('neodev').setup {
     end,
 }
 
+local dap = require('dap')
+local extension_path = vim.env.HOME .. '/.local/share/nvim/mason/packages/codelldb/'
+local codelldb_path  = extension_path .. 'codelldb'
+local liblldb_path   = extension_path .. 'extension/lldb/lib/liblldb.so'
+local opts = {
+    server = {
+        settings = {
+            ["rust-analyzer"] = {
+                inlayHints = { locationLinks = false },
+            },
+        },
+        on_attach = function(_, bufnr)
+            -- Hover actions
+            nmap("<C-space>", rust_tools.hover_actions.hover_actions, bufnr)
+            -- Code action groups
+            nmap("<Leader>a", rust_tools.code_action_group.code_action_group, bufnr)
+        end,
+    },
+    dap = {
+        adapter = require('rust-tools.dap').get_codelldb_adapter(
+            codelldb_path, liblldb_path)
+    }
+}
+
+dap.adapters.codelldb = {
+    type = 'server',
+    port = "${port}",
+    executable = {
+        command = "/home/kensuke/.local/share/nvim/mason/bin/codelldb",
+        args = {"--port",  "${port}"},
+    }
+}
+
+require('rust-tools').setup(opts)
+require('rust-tools').inlay_hints.set()
+require('rust-tools').inlay_hints.enable()
+
 mason_lspconfig.setup()
 mason_lspconfig.setup_handlers({
     function(server_name)
@@ -26,42 +63,6 @@ mason_lspconfig.setup_handlers({
     end,
 
     ["rust_analyzer"] = function()
-        local dap = require('dap')
-        local extension_path = vim.env.HOME .. '/.local/share/nvim/mason/packages/codelldb/'
-        local codelldb_path  = extension_path .. 'codelldb'
-        local liblldb_path   = extension_path .. 'extension/lldb/lib/liblldb.so'
-        local opts = {
-            server = {
-                settings = {
-                    ["rust-analyzer"] = {
-                        inlayHints = { locationLinks = false },
-                    },
-                },
-                on_attach = function(_, bufnr)
-                    -- Hover actions
-                    nmap("<C-space>", rust_tools.hover_actions.hover_actions, bufnr)
-                    -- Code action groups
-                    nmap("<Leader>a", rust_tools.code_action_group.code_action_group, bufnr)
-                end,
-            },
-            dap = {
-                adapter = require('rust-tools.dap').get_codelldb_adapter(
-                    codelldb_path, liblldb_path)
-            }
-        }
-
-        dap.adapters.codelldb = {
-            type = 'server',
-            port = "${port}",
-            executable = {
-                command = "/home/kensuke/.local/share/nvim/mason/bin/codelldb",
-                args = {"--port",  "${port}"},
-            }
-        }
-
-        require('rust-tools').setup(opts)
-        require('rust-tools').inlay_hints.set()
-        require('rust-tools').inlay_hints.enable()
     end,
     ["clangd"] = function()
         lspconfig.clangd.setup({

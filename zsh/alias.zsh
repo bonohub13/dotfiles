@@ -8,6 +8,7 @@ alias shutdown="systemctl poweroff -i"
 alias vim=nvim
 alias cmake-init=". $HOME/.cmake_init/cmake_init.sh"
 alias sudo="sudo "
+alias ip="ip --color "
 [[ -f "$HOME/.config/zsh/hibernate.sh" ]] \
     && alias hibernate="$HOME/.config/zsh/hibernate.sh"
 command -v pacman > /dev/null 2>&1 \
@@ -17,7 +18,8 @@ command -v bat > /dev/null 2>&1 \
     && alias cat='bat -pp' \
     && alias less=bat
 command -v lsd > /dev/null 2>&1 \
-    && alias ls=lsd
+    && alias ls=lsd \
+    && alias tree='lsd --tree'
 unalias rm mv cp
 
 function ssh-keygen-strong {
@@ -168,6 +170,25 @@ function optional-deps {
         else
             echo "ERROR: Must provide package name."
         fi
+    else
+        echo "This command is only available for Archlinux based distro"
+
+        return 1
+    fi
+
+    return $?
+}
+
+function scp-aurpkg {
+    if command -v pacman > /dev/null 2>&1
+    then
+        pacman -Q "`pwd | awk -F/ '{print$NF}'`" \
+            | sed -e "s/ /.*/" -e "s/^/ls | grep \"/" -e "s/$/\\\|PKGBUILD\"/" \
+            | sh - \
+            | while read file
+            do
+                scp "${file}" gorone-chan:"`pwd | sed "s#${HOME}/##"`"
+            done
     else
         echo "This command is only available for Archlinux based distro"
 
