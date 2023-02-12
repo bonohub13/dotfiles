@@ -89,16 +89,4 @@ mason_lspconfig.setup_handlers({
             end
         }
     end,
-    ["sumneko_lua"] = function()
-        lspconfig.sumneko_lua.setup({
-            on_attach = on_attach,
-            settings = {
-                Lua = {
-                    completion = {
-                        callSnippet = "Replace"
-                    }
-                }
-            }
-        })
-    end,
 })
