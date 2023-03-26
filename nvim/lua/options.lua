@@ -56,11 +56,14 @@ local options = {
     smartcase       = true,
     wildignorecase  = true,
     colorcolumn     = '80',
-    path            = {'.', '/usr/include/', '**'},
 }
 
 for k, v in pairs(options) do
     vim.opt[k] = v
+end
+vim.opt.path:append("**")
+for k, v in pairs(vim.opt.path) do
+    print(k, v)
 end
 
 local g_var_options = {
@@ -78,16 +81,18 @@ local g_var_options = {
     NetrwIsOpen                 = 1,
 
     -- Markdown preview
-    mkdp_auto_start             = 0,
+    mkdp_auto_start             = 1,
     mkdp_auto_close             = 1,
     mkdp_refresh_slow           = 0,
     mkdp_command_for_global     = 0,
-    mkdp_open_to_the_world      = 0,
+    mkdp_open_to_the_world      = 1,
     mkdp_open_ip                = '',
     mkdp_browser                = '',
     mkdp_echo_preview_url       = 1,
     mkdp_browserfunc            = '',
     mkdp_port                   = '8080',
+    mkdp_theme                  = 'dark',
+    mkdp_filetypes              = {'markdown'},
 
     -- rust-tools settings
     rustfmt_autosave            = 1
