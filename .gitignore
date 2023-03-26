@@ -4,3 +4,4 @@ nvim/stdtags
 nvim/lua/.luarc.json
 zsh/update_archmirror
 zsh/bureau
+nvim/lazy-lock.json
