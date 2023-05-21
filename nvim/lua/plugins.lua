@@ -32,7 +32,8 @@ require("lazy").setup({
     },
     -- Debugger
     {
-        'mfussenegger/nvim-dap'
+        'mfussenegger/nvim-dap',
+        'rcarriga/nvim-dap-ui',
         -- 'puremourning/vimspector'
     },
     -- Ctag stuff
@@ -77,6 +78,10 @@ require("lazy").setup({
         config = function()
             vim.cmd([[call mkdp#util#install()]])
         end,
+        dependencies = {
+            'zhaozg/vim-diagram',
+            'aklt/plantuml-syntax',
+        },
     },
     -- Looks
     --  Colorschemes

@@ -19,11 +19,15 @@ require('neodev').setup {
     end,
 }
 
-local dap = require('dap')
-local extension_path = vim.env.HOME .. '/.local/share/nvim/mason/packages/codelldb/'
-local codelldb_path  = extension_path .. 'codelldb'
-local liblldb_path   = extension_path .. 'extension/lldb/lib/liblldb.so'
+local mason_registry = require("mason-registry")
+local codelldb = mason_registry.get_package("codelldb")
+local extension_path = codelldb:get_install_path() .. "/extension/"
+local codelldb_path = extension_path .. "adapter/codelldb"
+local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
 local opts = {
+    dap = {
+        adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
+    },
     server = {
         settings = {
             ["rust-analyzer"] = {
@@ -37,24 +41,16 @@ local opts = {
             nmap("<Leader>a", rust_tools.code_action_group.code_action_group, bufnr)
         end,
     },
-    dap = {
-        adapter = require('rust-tools.dap').get_codelldb_adapter(
-            codelldb_path, liblldb_path)
-    }
+    tools = {
+        hover_actions = {
+            auto_focus = true,
+        },
+    },
 }
 
-dap.adapters.codelldb = {
-    type = 'server',
-    port = "${port}",
-    executable = {
-        command = "/home/kensuke/.local/share/nvim/mason/bin/codelldb",
-        args = {"--port",  "${port}"},
-    }
-}
-
-require('rust-tools').setup(opts)
-require('rust-tools').inlay_hints.set()
-require('rust-tools').inlay_hints.enable()
+require("rust-tools").setup(opts)
+rust_tools.inlay_hints.set()
+rust_tools.inlay_hints.enable()
 
 mason_lspconfig.setup()
 mason_lspconfig.setup_handlers({
