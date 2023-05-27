@@ -1,5 +1,9 @@
-local buffer_var = vim.bo
+local options = {
+    tabstop     = 2,
+    softtabstop = 2,
+    shiftwidth  = 2,
+}
 
-buffer_var.tabstop      = 2
-buffer_var.softtabstop  = 2
-buffer_var.shiftwidth   = 2
+for k, v in pairs(options) do
+    vim.bo[k] = v
+end

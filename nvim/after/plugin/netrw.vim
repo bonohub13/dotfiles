@@ -26,11 +26,6 @@ function! NetrwMappings()
     noremap <buffer> H :call OpenBelow()<cr>
 endfunction
 
-augroup netrw_mappings
-    autocmd!
-    autocmd filetype netrw call NetrwMappings()
-augroup END
-
 function! ToggleNetrw()
     if g:NetrwIsOpen
         let i = bufnr("$")
@@ -52,4 +47,10 @@ autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype
 augroup ProjectDrawer
     autocmd!
     autocmd VimEnter * :call ToggleNetrw()
+    autocmd VimEnter * :call NetrwMappings()
+augroup END
+
+augroup netrw_mappings
+    autocmd!
+    autocmd filetype netrw call NetrwMappings()
 augroup END

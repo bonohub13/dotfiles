@@ -1,20 +1,24 @@
-local function nmap(shortcut, command, buffer)
-    vim.keymap.set("n", shortcut, command, {buffer=buffer})
-end
-local rt = require('rust-tools')
-
-rt.setup({
+local rt = require([[rust-tools]])
+local opts = {
+    rustfmt_autosave = 1,
+}
+local rt_opts = {
     server = {
         on_attach = function(_, bufnr)
-            -- Hover actions
-            nmap("<C-space>", rt.hover_actions.hover_actions, bufnr)
-            -- Code action groups
-            nmap("<Leader>a", rt.code_action_group.code_action_group, bufnr)
+            vim.keymap.set([[n]], [[<C-space>]], rt.hover_actions.hover_actions, {
+                buffer = bufnr,
+            })
+            vim.keymap.set([[n]], [[<Leader>a]], rt.code_action_group.code_action_group, {
+                buffer = bufnr,
+            })
         end,
-    },
-})
+    }
+}
 
-vim.g.rustfmt_autosave = 1
+for k, v in pairs(opts) do
+    vim.bo[k] = v
+end
 
-require('rust-tools').inlay_hints.set()
-require('rust-tools').inlay_hints.enable()
+rt.setup(rt_opts)
+rt.inlay_hints.set()
+rt.inlay_hints.enable()

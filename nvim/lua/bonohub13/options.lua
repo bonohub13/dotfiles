@@ -1,26 +1,22 @@
--- Path
 vim.cmd([[
     let $RTP=split(&runtimepath, ',')[0]
 ]])
 
--- Color settings
 vim.cmd([[
     set t_Co=256
     highlight Normal  guibg=NONE ctermbg=NONE
     highlight NonText guibg=NONE ctermbg=NONE
 ]])
 
--- filetype
 vim.cmd([[
     filetype plugin indent on
 ]])
 
 local options = {
-    -- color stuff
     termguicolors   = true,
-    syntax          = 'enable',
+    syntax          = [[enable]],
 
-    -- indent stuff
+    -- indent
     autoindent      = true,
     smartindent     = true,
     tabstop         = 4,
@@ -28,50 +24,62 @@ local options = {
     shiftwidth      = 4,
     expandtab       = true,
     smarttab        = true,
-    listchars       = {space = '_', tab = '|-'},
+    listchars       = {
+        space   = [[_]],
+        tab     = [[|-]],
+    },
 
-    -- encoding stuff
-    encoding        = 'utf-8',
-    -- ambiwidth       = 'double',
+    -- encoding
+    encoding        = [[utf-8]],
+    -- ambiwidth    = [[double]],
 
     -- autocompletion
     compatible      = false,
-    tags            = {'~/.config/nvim/stdtags', 'tags', '.tags', '../tags'},
+    tags            = {
+        [[~/.config/nvim/stdtags]],
+        [[tags]],
+        [[.tags]],
+        [[../tags]],
+    },
 
-    -- nobackup/swapfiles
+    -- backup/swapfiles
     backup          = false,
     swapfile        = false,
 
-    -- Show line numbers
+    -- show line numbers
     number          = true,
     relativenumber  = true,
     cursorline      = true,
 
-    -- other stuff
+    -- other
     list            = true,
     showmatch       = true,
-    mouse           = 'a',
+    mouse           = [[a]],
     hlsearch        = false,
     ignorecase      = true,
     smartcase       = true,
     wildignorecase  = true,
-    colorcolumn     = '80',
+    colorcolumn     = [[80]],
 }
 
-for k, v in pairs(options) do
-    vim.opt[k] = v
-end
-vim.opt.path:append("**")
-for k, v in pairs(vim.opt.path) do
-    print(k, v)
-end
+local global_options = {
+    fileencodings = [[ucs-bom,utf-8,default,latin1,cp932,sjis]]
+}
 
 local g_var_options = {
     -- leader key
-    mapleader       = ' ',
+    mapleader                   = [[ ]],
+
+    blocklist_pattern = {
+    -- This tells Neovim to strip specific file encoding from "fileencodings"
+    -- if full path of buffer inclludes the substring
+    --  This example strips 'latin1' if full path of buffer includes the
+    --  substring 'hoge'
+    -- Ex) ["hoge"] = [[latin1]]
+    },
 
     -- tagbar stuff
-    tagbar_ctags_bin            = '/usr/bin/ctags',
+    tagbar_ctags_bin            = [[/usr/bin/ctags]],
     tagbar_width                = 25,
 
     -- Netrw variables
@@ -86,18 +94,29 @@ local g_var_options = {
     mkdp_refresh_slow           = 0,
     mkdp_command_for_global     = 0,
     mkdp_open_to_the_world      = 1,
-    mkdp_open_ip                = '',
-    mkdp_browser                = '',
-    mkdp_echo_preview_url       = 1,
-    mkdp_browserfunc            = '',
-    mkdp_port                   = '8080',
-    mkdp_theme                  = 'dark',
-    mkdp_filetypes              = {'markdown'},
+    mkdp_open_ip                = [[]],
+    mkdp_port                   = [[8080]],
+    mkdp_filetypes              = {
+        [[markdown]],
+    },
 
     -- rust-tools settings
-    rustfmt_autosave            = 1
+    rustfmt_autosave            = 1,
+
+    -- ddc
+    signature_help_config       = {
+        style = [[virtual]],
+    },
 }
+
+for k, v in pairs(options) do
+    vim.opt[k] = v
+end
 
 for k, v in pairs(g_var_options) do
     vim.g[k] = v
+end
+
+for k, v in pairs(global_options) do
+    vim.o[k] = v
 end

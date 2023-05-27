@@ -1,5 +1,5 @@
-require('tokyonight').setup({
-    style = "moon",
+require([[tokyonight]]).setup({
+    style       = [[moon]],
     transparent = true,
 })
 
