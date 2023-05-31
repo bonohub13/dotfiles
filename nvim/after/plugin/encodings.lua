@@ -22,7 +22,5 @@ end
 local filepath = vim.api.nvim_buf_get_name(0)
 
 for pattern, enc in pairs(vim.g.blocklist_pattern) do
-    print([[pattern: ]] .. pattern)
-    print([[enc: ]] .. enc)
     strip_encoding(filepath, pattern, enc)
 end

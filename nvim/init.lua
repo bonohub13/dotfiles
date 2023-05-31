@@ -1,1 +1,1 @@
-require([[bonohub13]])
+require([[core]])

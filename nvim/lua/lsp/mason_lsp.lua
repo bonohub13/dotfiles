@@ -7,10 +7,10 @@ require([[mason]]).setup()
 local rust_tools        = require([[rust-tools]])
 local lspconfig         = require([[lspconfig]])
 local mason_registry    = require([[mason-registry]])
--- local codelldb          = mason_registry.get_package("codelldb")
--- local extension_path    = codelldb:get_install_path() .. "/extension/"
--- local codelldb_path     = extension_path .. "adapter/codelldb"
--- local liblldb_path      = extension_path .. "lldb/lib/liblldb.so"
+local codelldb          = mason_registry.get_package("codelldb")
+local extension_path    = codelldb:get_install_path() .. "/extension/"
+local codelldb_path     = extension_path .. "adapter/codelldb"
+local liblldb_path      = extension_path .. "lldb/lib/liblldb.so"
 
 local neodev_opts = {
     setup_jsonls    = true,
@@ -25,9 +25,9 @@ local neodev_opts = {
 }
 
 local rust_tools_opts = {
---     dap = {
---         adapter = rust_tools.dap.get_codelldb_adapter(codelldb_path, liblldb_path),
---     },
+    dap = {
+        adapter = require([[rust-tools.dap]]).get_codelldb_adapter(codelldb_path, liblldb_path)
+    },
     server = {
         settings = {
             ["rust-analyzer"] = {
