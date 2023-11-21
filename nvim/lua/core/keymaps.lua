@@ -74,7 +74,7 @@ local normal_mode = {
     {[[qa]], [[<cmd>quitall!<CR>]]},
 
     -- LSP
-    {[[S-k]], [[<cmd>lua vim.buf.hover()<CR>]]},
+    {[[<S-k>]], [[<cmd>lua vim.lsp.buf.hover()<CR>]]},
 
     -- debugging
     {[[<Leader>en]], [[<cmd>lua vim.diagnostic.goto_next()<CR>]]},
