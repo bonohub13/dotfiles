@@ -1,5 +1,46 @@
-local plugins = {
+local lazypath  = vim.fn.stdpath([[data]]) .. [[lazy/lazy.nvim]]
+
+local plugins   = {
     [[folke/lazy.nvim]],
+    -- colorschemes
+    {
+        [[folke/tokyonight.nvim]],
+    },
+    -- lualine
+    {
+        [[nvim-lualine/lualine.nvim]],
+        dependencies = {
+            [[kyazdani42/nvim-web-devicons]],
+        },
+        lazy    = false,
+    },
+    -- bufferline
+    {
+        [[akinsho/bufferline.nvim]],
+        tag = [[v3.0.0]],
+        dependencies = {
+            [[kyazdani42/nvim-web-devicons]],
+        },
+    },
+    -- lsplines
+    {
+        url     = [[https://git.sr.ht/~whynothugo/lsp_lines.nvim]],
+        lazy    = false,
+    },
+    -- Treesitter
+    {
+        [[nvim-treesitter/nvim-treesitter]],
+        [[nvim-treesitter/nvim-treesitter-context]],
+        [[nvim-treesitter/nvim-treesitter-refactor]],
+        lazy    = false,
+    },
+    -- Telescope
+    {
+        [[nvim-telescope/telescope.nvim]],
+        dependencies = {
+            [[nvim-lua/plenary.nvim]],
+        }
+    },
     -- LSP
     {
         [[williamboman/mason.nvim]],
@@ -13,16 +54,7 @@ local plugins = {
         -- GLSL
         [[tikhomirov/vim-glsl]],
     },
-    -- Debugger
-    {
-        [[mfussenegger/nvim-dap]],
-        [[rcarriga/nvim-dap-ui]],
-    },
-    -- Ctags stuff
-    {
-        [[preservim/tagbar]],
-    },
-    -- ddc (autocompletion)
+    -- ddc
     {
         [[Shougo/ddc.vim]],
         [[Shougo/ddc-converter_remove_overlap]],
@@ -37,22 +69,9 @@ local plugins = {
         [[matsui54/denops-signature_help]],
         [[vim-denops/denops.vim]],
     },
-    -- Telescope
+    -- Ctags
     {
-        [[nvim-telescope/telescope.nvim]],
-        dependencies = {
-            [[nvim-lua/plenary.nvim]],
-        },
-    },
-    -- Treesitter
-    {
-        [[nvim-treesitter/nvim-treesitter]],
-        [[nvim-treesitter/nvim-treesitter-context]],
-        [[nvim-treesitter/nvim-treesitter-refactor]],
-        lazy    = false,
-        config  = function()
-            vim.cmd([[TSUpdate]])
-        end,
+        [[preservim/tagbar]],
     },
     -- Markdown preview
     {
@@ -61,60 +80,19 @@ local plugins = {
         config  = function()
             vim.cmd([[call mkdp#util#install()]])
         end,
-        dependencies = {
-            [[zhaozg/vim-diagram]],
-            [[aklt/plantuml-syntax]],
-        },
-    },
-    -- lualine
-    {
-        [[nvim-lualine/lualine.nvim]],
-        dependencies = {
-            [[kyazdani42/nvim-web-devicons]],
-        },
-        lazy    = false,
-        config  = function()
-            require([[lualine]]).setup({
-                theme = [[tokyonight]],
-            })
-        end,
-    },
-    -- bufferline
-    {
-        [[akinsho/bufferline.nvim]],
-        tag = [[v3.0.0]],
-        dependencies = {
-            [[kyazdani42/nvim-web-devicons]],
-        },
     },
     -- undotree
     {
         [[jiaoshijie/undotree]],
-        lazy    = false,
-        config  = function()
-            require([[undotree]]).setup()
-        end,
         dependencies = {
             [[nvim-lua/plenary.nvim]],
         },
-    },
-    -- lsplines
-    {
-        url     = [[https://git.sr.ht/~whynothugo/lsp_lines.nvim]],
         lazy    = false,
         config  = function()
-            require([[lsp_lines]]).setup()
-        end,
-    },
-    -- Colorschemes
-    {
-        [[dracula/vim]],
-        [[morhetz/gruvbox]],
-        [[folke/tokyonight.nvim]],
+            require([[undotree]]).setup()
+        end
     },
 }
-
-local lazypath = vim.fn.stdpath([[data]]) .. [[lazy/lazy.nvim]]
 
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -122,8 +100,8 @@ if not vim.loop.fs_stat(lazypath) then
         [[clone]],
         [[--filter=blob:none]],
         [[https://github.com/folke/lazy.nvim.git]],
-        [[--branch=stable]],    -- latest stable release
-        lazypath,
+        [[--branch=stable]],
+        lazypath
     })
 end
 

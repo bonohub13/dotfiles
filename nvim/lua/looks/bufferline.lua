@@ -1,6 +1,6 @@
 require([[bufferline]]).setup({
     options = {
-        diagnostics     = [[nvim_lsp]],
+        diagnostics     = [[nvim-lsp]],
         separator_style = [[slant]],
-    },
+    }
 })

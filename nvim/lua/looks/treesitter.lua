@@ -1,24 +1,26 @@
-local treesitter_options = {
+local treeitter_options = {
     foldmethod  = [[expr]],
-    foldexpr    = [[nvim_treesitter#foldexpr()]],
+    foldexpr = [[nvim_treesitter#foldexpr()]],
 }
 
-local opts = {
+local options = {
     ensure_installed = {
         [[lua]],
-        [[toml]],
         [[rust]],
+        [[toml]],
         [[c]],
         [[cpp]],
-        [[python]],
+        [[python]]
     },
-    auto_install    = true,
+    auto_install = true,
     highlight = {
         enable  = true,
         disable = {},
-        additional_vim_regex_highlighting = false,
+        additional_vim_regex_highlighting = true,
     },
-    ident = { enable = true },
+    ident = {
+        enable  = true,
+    },
     rainbow = {
         enable          = true,
         extended_mode   = true,
@@ -36,17 +38,17 @@ local opts = {
         navigation = {
             enable  = true,
             keymaps = {
-                goto_definition         = [[<a-d>]],
-                list_definitions        = [[s-l]],
-                list_definitions_toc    = [[<a-t>]],
+                goto_definition         = [[<Leader>gd]],
+                list_definitions        = [[<Leader>ld]],
+                list_definitions_toc    = [[<Leader>ldt]],
             },
         },
     },
 }
 
-require([[nvim-treesitter.configs]]).setup(opts)
+require([[nvim-treesitter.configs]]).setup(options)
 require([[treesitter-context]]).setup()
 
-for k, v in pairs(treesitter_options) do
+for k, v in pairs(treeitter_options) do
     vim.wo[k] = v
 end

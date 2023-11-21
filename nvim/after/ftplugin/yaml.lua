@@ -5,5 +5,5 @@ local options = {
 }
 
 for k, v in pairs(options) do
-    vim.bo[k] = v
+    vim.opt_local[k] = v
 end

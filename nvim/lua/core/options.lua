@@ -1,20 +1,26 @@
-vim.cmd([[
-    let $RTP=split(&runtimepath, ',')[0]
-]])
-
-vim.cmd([[
+-- background
+vim.cmd[[
     set t_Co=256
-    highlight Normal  guibg=NONE ctermbg=NONE
-    highlight NonText guibg=NONE ctermbg=NONE
-]])
+    highlight Normal    guibg=NONE ctermbg=NONE
+    highlight Nontext   guibg=NONE ctermbg=NONE
+]]
 
-vim.cmd([[
+-- filetype detection
+vim.cmd[[
     filetype plugin indent on
-]])
+]]
+
+local clipboard = function()
+    local clipboard = vim.opt.clipboard
+
+    clipboard:append {[[unnamed]], [[unnamedplus]]}
+
+    return clipboard
+end
 
 local options = {
-    termguicolors   = true,
-    syntax          = [[enable]],
+    -- runtimepath
+    runtimepath     = [[~/.config/nvim]],
 
     -- indent
     autoindent      = true,
@@ -28,10 +34,23 @@ local options = {
         space   = [[_]],
         tab     = [[|-]],
     },
+    list            = true,
 
-    -- encoding
-    encoding        = [[utf-8]],
-    -- ambiwidth    = [[double]],
+    -- line numbers
+    number          = true,
+    relativenumber  = true,
+    cursorline      = true,
+
+    -- visualize matching quotes and backets
+    showmatch       = true,
+
+    -- ignore case when using command mode etc.
+    ignorecase      = true,
+    wildignorecase  = true,
+    smartcase       = true,
+
+    -- Disable highlight for search
+    hlsearch        = false,
 
     -- autocompletion
     compatible      = false,
@@ -40,83 +59,76 @@ local options = {
         [[tags]],
         [[.tags]],
         [[../tags]],
+        [[../.tags]],
     },
 
-    -- backup/swapfiles
-    backup          = false,
-    swapfile        = false,
-
-    -- show line numbers
-    number          = true,
-    relativenumber  = true,
-    cursorline      = true,
-
-    -- other
-    list            = true,
-    showmatch       = true,
-    mouse           = [[a]],
-    hlsearch        = false,
-    ignorecase      = true,
-    smartcase       = true,
-    wildignorecase  = true,
+    -- show column limit (default 80 characters)
     colorcolumn     = [[80]],
+
+    -- encoding
+    encoding        = [[utf-8]],
+    -- ambiwidth    = [[double]],
+    fileencodings   = [[ucs-bom,utf-8,default,latin1,cp932,sjis]],
+
+    -- disable folding
+    foldenable      = false,
+
+    -- etc
+    termguicolors   = true,
+    syntax          = [[enable]],
+    mouse           = [[a]],
+    clipboard       = clipboard(),
 }
 
-local global_options = {
-    fileencodings = [[ucs-bom,utf-8,default,latin1,cp932,sjis]]
-}
+local plugin_options = {
+    -- Leader key
+    mapleader               = [[ ]],
 
-local g_var_options = {
-    -- leader key
-    mapleader                   = [[ ]],
-
-    blocklist_pattern = {
-    -- This tells Neovim to strip specific file encoding from "fileencodings"
-    -- if full path of buffer inclludes the substring
-    --  This example strips 'latin1' if full path of buffer includes the
-    --  substring 'hoge'
-    -- Ex) ["hoge"] = [[latin1]]
+    blocklist_pattern       = {
+        -- This tells Neovim to strip specific file encoding from "fileencodings"
+        -- if full path of buffer includes the substring
+        --  This example strips 'latin1' if full path of buffer includes the
+        --  substring 'hoge'
+        -- Ex) ["hoge"] = [[latin1]],
     },
-
-    -- tagbar stuff
-    tagbar_ctags_bin            = [[/usr/bin/ctags]],
-    tagbar_width                = 25,
 
     -- Netrw variables
-    netrw_banner                = 0,
-    netrw_liststyle             = 3,
-    netrw_winsize               = 15,
-    NetrwIsOpen                 = 1,
+    netrw_banner            = 0,
+    netrw_liststyle         = 3,
+    netrw_winsize           = 15,
+    NetrwIsOpen             = 1,
+
+    -- rust-tools settings
+    rustfmt_autosave        = 1,
+
+    -- ctags
+    tagbar_ctags_bin        = [[/usr/bin/ctags]],
+    tagbar_width            = 25,
 
     -- Markdown preview
-    mkdp_auto_start             = 1,
-    mkdp_auto_close             = 1,
-    mkdp_refresh_slow           = 0,
-    mkdp_command_for_global     = 0,
-    mkdp_open_to_the_world      = 1,
-    mkdp_open_ip                = [[]],
-    mkdp_port                   = [[8080]],
-    mkdp_filetypes              = {
+    mkdp_auto_start         = 1,
+    mkdp_auto_close         = 1,
+    mkdp_refresh_slow       = 1,
+    mkdp_command_for_global = 0,
+    mkdp_open_to_the_world  = 1,
+    mkdp_open_ip            = [[]],
+    mkdp_port               = [[8080]],
+    mkdp_filetypes          = {
         [[markdown]],
     },
 
-    -- rust-tools settings
-    rustfmt_autosave            = 1,
-
     -- ddc
-    signature_help_config       = {
-        style = [[virtual]],
+    signature_help_config   = {
+        [[virtual]],
     },
 }
 
+
+-- enable options
 for k, v in pairs(options) do
     vim.opt[k] = v
 end
 
-for k, v in pairs(g_var_options) do
+for k, v in pairs(plugin_options) do
     vim.g[k] = v
-end
-
-for k, v in pairs(global_options) do
-    vim.o[k] = v
 end

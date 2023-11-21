@@ -1,41 +1,46 @@
-local function exists(path)
+local exists = function(path)
     local f = io.open(path, "r")
 
-    if f~=nil then
+    if f ~= nil then
         io.close(f)
         return true
     else
         return false
     end
 end
+local create_user_command = vim.api.nvim_create_user_command
 
-vim.api.nvim_create_user_command([[Make]], function(opts)
+create_user_command([[Make]], function(opts)
+        local splitbelow = vim.opt.splitbelow
+
+        vim.opt.splitbelow = true
         vim.cmd(string.format(
-            [[split term:///usr/bin/make %s]],
+            [[15 sp term:///usr/bin/make %s]],
             opts.fargs[1]
         ))
+        vim.opt.splitbelow = splitbelow
     end,
     { nargs = 1 }
 )
 
 if exists([[/usr/bin/bat]]) then
-    vim.api.nvim_create_user_command([[Bat]], function(opts)
+    create_user_command([[Bat]], function(opts)
             vim.cmd(string.format(
-                [[split term:///usr/bin/bat -pp %s]],
+                [[sp term:///usr/bin/bat -pp %s]],
                 opts.fargs[1]
             ))
         end,
         { nargs = 1, complete = [[file]] }
     )
-    vim.api.nvim_create_user_command([[VBat]], function(opts)
+    create_user_command([[VBat]], function(opts)
             vim.cmd(string.format(
-                [[vsplit term:///usr/bin/bat -pp %s]],
+                [[vs term:///usr/bin/bat -pp %s]],
                 opts.fargs[1]
             ))
         end,
         { nargs = 1, complete = [[file]] }
     )
-    vim.api.nvim_create_user_command([[TBat]], function(opts)
+    create_user_command([[TBat]], function(opts)
             vim.cmd(string.format(
                 [[tabnew term:///usr/bin/bat -pp %s]],
                 opts.fargs[1]

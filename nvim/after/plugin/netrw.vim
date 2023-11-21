@@ -1,7 +1,7 @@
-" netrw stuff "
-" Special thanks to...
-" Brodie Robertson
-" for this script to use netrw
+" netrw stuff
+"   Special thanks to...
+"   Brodie Robertson
+"   for this script to use netrw
 
 function! OpenToRight()
     :normal v
@@ -20,10 +20,10 @@ function! OpenBelow()
 endfunction
 
 function! NetrwMappings()
-    noremap <buffer> <C-l> <C-w>l
-    noremap <silent> <C-f> :call ToggleNetrw()<CR>
-    noremap <buffer> V :call OpenToRight()<cr>
-    noremap <buffer> H :call OpenBelow()<cr>
+    noremap <buffer> <C-l>  <C-w>l
+    noremap <buffer> <C-f>  :call ToggleNetrw()<CR>
+    noremap <buffer> V      :call OpenToRight()<CR>
+    noremap <buffer> H      :call OpenBelow()<CR>
 endfunction
 
 function! ToggleNetrw()
@@ -31,7 +31,7 @@ function! ToggleNetrw()
         let i = bufnr("$")
         while (i >= 1)
             if (getbufvar(i, "&filetype") == "netrw")
-                silent exe "bwipeout " . i
+                silent exe "bwipeout" . i
             endif
             let i-=1
         endwhile

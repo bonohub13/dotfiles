@@ -1,4 +1,2 @@
-require([[lsp.dap]])
+require([[lsp.mason]])
 require([[lsp.ddc]])
-require([[lsp.lsplines]])
-require([[lsp.mason_lsp]])

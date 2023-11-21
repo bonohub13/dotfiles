@@ -1,43 +1,32 @@
-local function augroup(group_name)
+local augroup = function(group_name)
     return vim.api.nvim_create_augroup(group_name, {clear = true})
 end
+local autocmd = vim.api.nvim_create_autocmd
 
-local bracket_or_quote_auto_wrap = augroup([[BracketOrQuoteAutoWrap]])
-local read_current_lua_file = augroup([[ReadCurrentLuaFile]])
+-- groups
+local bracket_or_quotes_auto_wrap = augroup([[BracketOrQuotesAutoWrap]])
+local gnu_make = augroup([[GnuMake]])
 
--- BracketOrQuoteAutoWrap
-vim.api.nvim_create_autocmd({[[FileType]]}, {
+-- BracketOrQuotesAutoWrap
+autocmd({[[FileType]]}, {
     pattern = [[lua,vim,html,xml,markdown]],
-    group   = bracket_or_quote_auto_wrap,
+    group   = bracket_or_quotes_auto_wrap,
     command = [[inoremap <buffer> < <><left>]],
 })
-vim.api.nvim_create_autocmd({[[FileType]]}, {
+autocmd({[[FileType]]}, {
     pattern = [[*]],
-    group   = bracket_or_quote_auto_wrap,
-    command = [[if &ft != 'rust' | inoremap <buffer> ' ''<left>| endif]],
+    group   = bracket_or_quotes_auto_wrap,
+    command = [[if &ft != 'rust' | inoremap <buffer> ' ''<left>]],
 })
 
--- ReadCurrentLuaFile
-vim.api.nvim_create_autocmd({[[FileType]]}, {
-    pattern = [[lua]],
-    group   = read_current_lua_file,
-    command = [[nnoremap <buffer> <C-r> <cmd>luafile %<CR>]]
-})
-
-vim.api.nvim_create_autocmd({[[InsertLeave]]}, {
-    pattern = [[*]],
-    command = [[if pumvisible() == 0|pclose|endif]]
-})
-vim.api.nvim_create_autocmd({[[BufEnter]], [[WinEnter]]}, {
+-- GNU make
+autocmd({[[BufEnter]], [[WinEnter]]}, {
     pattern = [[term:///usr/bin/make]],
-    command = [[:startinsert!]]
+    group   = gnu_make,
+    command = [[:startinsert!]],
 })
-vim.api.nvim_create_autocmd({[[BufLeave]]}, {
+autocmd({[[BufLeave]]}, {
     pattern = [[term:///usr/bin/make]],
-    command = [[:stopinsert!]]
-})
-
-vim.api.nvim_create_autocmd({[[VimEnter]], [[TabNew]]}, {
-    pattern = [[* nested]],
-    command = [[:TagbarOpen]],
+    group   = gnu_make,
+    command = [[:stopinsert!]],
 })

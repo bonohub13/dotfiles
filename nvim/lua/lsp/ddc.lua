@@ -1,26 +1,29 @@
-local function ddc_custom_patch_global(mode, table)
-    vim.api.nvim_call_function([[ddc#custom#patch_global]], {
+local call_function = function(func, opts)
+    vim.api.nvim_call_function(func, opts)
+end
+local ddc_custom_patch_global = function(mode, trigger)
+    call_function([[ddc#custom#patch_global]], {
         mode,
-        table,
+        trigger,
     })
 end
-
-local function ddc_custom_patch_filetype(source, mode, table)
-    vim.api.nvim_call_function([[ddc#custom#patch_filetype]], {
+local ddc_custom_patch_filetype = function(source, mode, trigger)
+    call_function([[ddc#custom#patch_filetype]], {
         source,
         mode,
-        table,
+        trigger,
     })
 end
-
-local function imap(key, cmd)
-    vim.keymap.set([[i]], key, cmd, {
-        noremap = true,
-        silent  = true,
-    })
+local imap = function(key, cmd, opts)
+    vim.keymap.set([[i]], key, cmd, opts)
 end
 
-vim.api.nvim_call_function([[signature_help#enable]], {})
+local opts = {
+    noremap = true,
+    silent  = true,
+}
+
+call_function([[signature_help#enable]], {})
 
 ddc_custom_patch_global([[autoCompleteEvents]], {
     [[InsertEnter]],
@@ -58,27 +61,29 @@ ddc_custom_patch_global([[sourceOptions]], {
     },
     ["zsh"] = {
         mark                    = [[zsh]],
+        forceCompletionPattern  = [[\S/\S*]],
         isVolatile              = true,
-        forceCompletionPattern  = [[\S/\S*]]
-    },
+    }
 })
 ddc_custom_patch_global([[sourceParams]], {
     ["around"] = {
         maxSize = 500,
     },
     ["nvim-lsp"] = {
-        kindLabels = { Class = [[c]] },
-    }
+        kindLabels = {
+            Class = [[c]],
+        },
+    },
 })
 
 ddc_custom_patch_filetype({
     [[lua]],
     [[vim]],
+    [[c]],
+    [[cpp]],
     [[rust]],
     [[go]],
     [[python]],
-    [[c]],
-    [[cpp]],
     [[dockerfile]],
     [[cmake]],
     [[sh]],
@@ -92,18 +97,16 @@ ddc_custom_patch_filetype({[[zsh]]}, [[sources]], {[[zsh]]})
 
 -- Keymaps
 vim.cmd([[
-    inoremap <silent><expr> <TAB>
-        \ pum#visible() ? '<cmd>call pum#map#insert_relative(+1)<CR>' :
-        \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.')-2] =~# '\s') ?
-        \ '<TAB>' : ddc#map#manual_complete()
+    inoremap <silent><expr> <TAB> pum#visible()
+        \ ? '<cmd>call pum#map#insert_relative(+1)<CR>'
+        \ : (col('.') <= 1 <Bar><Bar> getline('.')[col('.')-2] =~# '\s')
+        \ ? '<TAB>'
+        \ : ddc#map#manual_complete()
 ]])
+imap([[<S-Tab>]],   [[<cmd>call pum#map#insert_relative(-1)<CR>]])
+imap([[<C-n>]],     [[<cmd>call pum#map#insert_relative(+1)<CR>]])
+imap([[<C-p>]],     [[<cmd>call pum#map#insert_relative(-1)<CR>]])
+imap([[<PageDown>]],[[<cmd>call pum#map#insert_relative(+1)<CR>]])
+imap([[<PageUp>]],  [[<cmd>call pum#map#insert_relative(-1)<CR>]])
 
-imap([[<S-Tab>]],       [[<cmd>call pum#map#insert_relative(-1)<CR>]])
-imap([[<C-n>]],         [[<cmd>call pum#map#insert_relative(+1)<CR>]])
-imap([[<C-p>]],         [[<cmd>call pum#map#insert_relative(-1)<CR>]])
-imap([[<PageDown>]],    [[<cmd>call pum#map#insert_relative(+1)<CR>]])
-imap([[<PageUp>]],      [[<cmd>call pum#map#insert_relative(-1)<CR>]])
-imap([[<C-y>]],         [[<cmd>call pum#map#confirm()<CR>]])
-imap([[<C-e>]],         [[<cmd>call pum#map#cancel()<CR>]])
-
-vim.api.nvim_call_function([[ddc#enable]], {})
+call_function([[ddc#enable]], {})

@@ -1,2 +1,0 @@
-require([[looks]])
-require([[lsp]])
