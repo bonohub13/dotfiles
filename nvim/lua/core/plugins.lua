@@ -69,6 +69,14 @@ local plugins   = {
         [[matsui54/denops-signature_help]],
         [[vim-denops/denops.vim]],
     },
+    -- hex editor/viewer
+    {
+        [[RaafatTurki/hex.nvim]],
+        lazy    = false,
+        config  = function()
+            require([[hex]]).setup()
+        end,
+    },
     -- Ctags
     {
         [[preservim/tagbar]],
