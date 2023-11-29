@@ -53,11 +53,11 @@ local normal_mode = {
 
     -- tabs
     {[[<Leader>tt]],    [[<cmd>tabnew<CR>]]},
-    {[[<Leader>n]],     [[<cmd>tabnext<CR>]]},
+    {[[<Leader>tn]],    [[<cmd>tabnext<CR>]]},
     {[[<Leader>tp]],    [[<cmd>tabprevious<CR>]]},
 
     -- buffers
-    {[[<A-b>]],         [[<cmd>buffer<CR>]]},
+    {[[<A-b>]],         [[<cmd>buffers<CR>]]},
     {[[<Leader>bn]],    [[<cmd>bnext<CR>]]},
     {[[<Leader>bp]],    [[<cmd>bprevious<CR>]]},
 
