@@ -1,12 +1,12 @@
 local map = function(mode, shortcut, command)
-    vim.api.nvim_set_keymap(mode, shortcut, command, {
+    vim.keymap.set(mode, shortcut, command, {
         noremap = true,
         silent  = true,
     })
 end
 
 local cmap = function(shortcut, command)
-    vim.api.nvim_set_keymap([[c]], shortcut, command, {
+    vim.keymap.set([[c]], shortcut, command, {
         noremap = true,
     })
 end
@@ -23,6 +23,8 @@ local tmap = function(shortcut, command)
     map([[t]], shortcut, command)
 end
 
+local telescope = require([[telescope.builtin]])
+local neogit = require([[neogit]])
 
 -- keys to disable
 local disabled_keys = {
@@ -74,17 +76,21 @@ local normal_mode = {
     {[[qa]], [[<cmd>quitall!<CR>]]},
 
     -- LSP
-    {[[<S-k>]], [[<cmd>lua vim.lsp.buf.hover()<CR>]]},
+    {[[<S-k>]], function() vim.lsp.buf.hover() end},
 
     -- debugging
-    {[[<Leader>en]], [[<cmd>lua vim.diagnostic.goto_next()<CR>]]},
-    {[[<Leader>ep]], [[<cmd>lua vim.diagnostic.goto_previous()<CR>]]},
+    {[[<Leader>en]], function() vim.diagnostic.goto_next() end},
+    {[[<Leader>ep]], function() vim.diagnostic.goto_previous() end},
 
     -- Telescope
-    {[[ff]], [[<cmd>lua require('telescope.builtin').find_files()<CR>]]},
-    {[[fg]], [[<cmd>lua require('telescope.builtin').live_grep()<CR>]]},
-    {[[fb]], [[<cmd>lua require('telescope.builtin').buffers()<CR>]]},
-    {[[fh]], [[<cmd>lua require('telescope.builtin').help_tags()<CR>]]},
+    {[[ff]], function() telescope.find_files() end},
+    {[[fg]], function() telescope.live_grep() end},
+    {[[fb]], function() telescope.buffers() end},
+    {[[fh]], function() telescope.help_tags() end},
+
+    -- Neogit
+    {[[<Leader>no]], function() neogit.open() end},
+    {[[<Leader>nc]], function() neogit.open({ [[commit]] }) end},
 }
 
 local insert_mode = {

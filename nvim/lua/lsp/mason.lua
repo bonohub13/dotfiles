@@ -45,6 +45,9 @@ require([[neodev]]).setup(neodev_opts)
 require([[rust-tools]]).setup(rust_tools_opts)
 require([[mason]]).setup()
 require([[mason-lspconfig]]).setup()
+if vim.fn.executable([[glsl_analyzer]]) == 1 then
+    require([[lspconfig]]).glsl_analyzer.setup{}
+end
 require([[mason-lspconfig]]).setup_handlers({
     function(server_name)
         require([[lspconfig]])[server_name].setup({})

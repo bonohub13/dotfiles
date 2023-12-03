@@ -1,3 +1,7 @@
+local capabilities = require([[ddc_source_lsp]]).make_client_capabilities()
+require([[lspconfig]]).denols.setup({
+    capabilities = capabilities,
+})
 local call_function = function(func, opts)
     vim.api.nvim_call_function(func, opts)
 end
@@ -37,6 +41,12 @@ ddc_custom_patch_global([[ui]], [[pum]])
 ddc_custom_patch_global([[sources]], {
     [[around]],
 })
+ddc_custom_patch_global([[sources]], {
+    [[lsp]]
+})
+ddc_custom_patch_global([[sources]], {
+    [[shell-native]]
+})
 ddc_custom_patch_global([[sourceOptions]], {
     ["_"] = {
         ignoreCase  = true,
@@ -54,12 +64,12 @@ ddc_custom_patch_global([[sourceOptions]], {
     ["around"] = {
         mark = [[A]],
     },
-    ["nvim-lsp"] = {
+    ["lsp"] = {
         mark                    = [[lsp]],
         forceCompletionPattern  = [[\.\w*|:\w*|->\w*]],
-        dup                     = [[force]],
+        -- dup                     = [[force]],
     },
-    ["zsh"] = {
+    ["shell-native"] = {
         mark                    = [[zsh]],
         forceCompletionPattern  = [[\S/\S*]],
         isVolatile              = true,
@@ -69,7 +79,7 @@ ddc_custom_patch_global([[sourceParams]], {
     ["around"] = {
         maxSize = 500,
     },
-    ["nvim-lsp"] = {
+    ["lsp"] = {
         kindLabels = {
             Class = [[c]],
         },
@@ -90,10 +100,11 @@ ddc_custom_patch_filetype({
     [[bash]],
     [[tex]],
     [[plaintex]],
+    [[glsl]],
 }, [[sources]], {
-    [[nvim-lsp]],
+    [[lsp]],
 })
-ddc_custom_patch_filetype({[[zsh]]}, [[sources]], {[[zsh]]})
+ddc_custom_patch_filetype({[[zsh]]}, [[sources]], {[[shell-native]]})
 
 -- Keymaps
 vim.cmd([[

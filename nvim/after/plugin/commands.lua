@@ -49,3 +49,11 @@ if exists([[/usr/bin/bat]]) then
         { nargs = 1, complete = [[file]] }
     )
 end
+
+if exists([[/usr/bin/git]]) then
+    create_user_command([[GitLog]], function()
+            vim.cmd([[sp term:///usr/bin/git log --format=\"\%h \%s\"]])
+        end ,{
+        nargs = 0
+    })
+end

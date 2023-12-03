@@ -57,13 +57,13 @@ local plugins   = {
     -- ddc
     {
         [[Shougo/ddc.vim]],
-        [[Shougo/ddc-converter_remove_overlap]],
-        [[Shougo/ddc-matcher_head]],
-        [[Shougo/ddc-matcher_length]],
+        [[Shougo/ddc-filter-converter_remove_overlap]],
+        [[Shougo/ddc-filter-matcher_head]],
+        [[Shougo/ddc-filter-matcher_length]],
+        [[Shougo/ddc-filter-sorter_rank]],
         [[Shougo/ddc-source-around]],
-        [[Shougo/ddc-source-nvim-lsp]],
-        [[Shougo/ddc-source-zsh]],
-        [[Shougo/ddc-sorter_rank]],
+        [[Shougo/ddc-source-lsp]],
+        [[Shougo/ddc-source-shell-native]],
         [[Shougo/ddc-ui-pum]],
         [[Shougo/pum.vim]],
         [[matsui54/denops-signature_help]],
@@ -100,6 +100,17 @@ local plugins   = {
             require([[undotree]]).setup()
         end
     },
+    -- Neogit
+    {
+        [[NeogitOrg/neogit]],
+        dependencies = {
+            [[nvim-lua/plenary.nvim]],
+            [[nvim-telescope/telescope.nvim]],
+            [[sindrets/diffview.nvim]],
+            [[ibhagwan/fzf-lua]],
+        },
+        config = true,
+    }
 }
 
 if not vim.loop.fs_stat(lazypath) then
