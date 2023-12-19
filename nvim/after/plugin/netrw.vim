@@ -21,7 +21,7 @@ endfunction
 
 function! NetrwMappings()
     noremap <buffer> <C-l>  <C-w>l
-    noremap <buffer> <C-f>  call ToggleNetrw()<CR>
+    noremap <buffer> <C-f>  <cmd>call ToggleNetrw()<CR>
 endfunction
 
 function! ToggleNetrw()
