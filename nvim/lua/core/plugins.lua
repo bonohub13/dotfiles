@@ -46,13 +46,25 @@ local plugins   = {
         [[williamboman/mason.nvim]],
         [[williamboman/mason-lspconfig.nvim]],
         [[neovim/nvim-lspconfig]],
-        -- Rust
-        [[rust-lang/rust.vim]],
-        [[simrat39/rust-tools.nvim]],
         -- Lua (for Neovim plugin development only)
         [[folke/neodev.nvim]],
         -- GLSL
         [[tikhomirov/vim-glsl]],
+    },
+    --  Rust
+    {
+        [[rust-lang/rust.vim]],
+        [[simrat39/rust-tools.nvim]],
+        ft = [[rust]],
+        config = function()
+            require([[lsp.rust_tools]])
+        end
+    },
+    -- Debugger
+    {
+        [[mfussenegger/nvim-dap]],
+        [[rcarriga/nvim-dap-ui]],
+        [[ldelossa/nvim-dap-projects]]
     },
     -- ddc
     {

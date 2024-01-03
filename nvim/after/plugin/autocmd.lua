@@ -6,6 +6,7 @@ local autocmd = vim.api.nvim_create_autocmd
 -- groups
 local bracket_or_quotes_auto_wrap = augroup([[BracketOrQuotesAutoWrap]])
 local gnu_make = augroup([[GnuMake]])
+local auto_start = augroup([[AutoStart]])
 
 -- BracketOrQuotesAutoWrap
 autocmd({[[FileType]]}, {
@@ -29,4 +30,11 @@ autocmd({[[BufLeave]]}, {
     pattern = [[term:///usr/bin/make]],
     group   = gnu_make,
     command = [[:stopinsert!]],
+})
+
+-- AutoStart
+autocmd({[[VimEnter]]}, {
+    pattern = [[*]],
+    group   = auto_start,
+    command = [[:TagbarOpen]],
 })

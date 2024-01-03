@@ -20,8 +20,8 @@ function! OpenBelow()
 endfunction
 
 function! NetrwMappings()
-    noremap <buffer> <C-l>  <C-w>l
-    noremap <buffer> <C-f>  <cmd>call ToggleNetrw()<CR>
+    noremap <buffer><silent> <C-l>  <C-w>l
+    noremap <buffer><silent> <C-f>  :call ToggleNetrw()<CR>
 endfunction
 
 function! ToggleNetrw()
@@ -44,11 +44,11 @@ autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype
 
 augroup ProjectDrawer
     autocmd!
-    autocmd VimEnter * :call ToggleNetrw()
-    autocmd VimEnter * :call NetrwMappings()
+    autocmd VimEnter * :silent! call ToggleNetrw()
+    autocmd VimEnter * :silent! call NetrwMappings()
 augroup END
 
 augroup netrw_mappings
     autocmd!
-    autocmd filetype netrw call NetrwMappings()
+    autocmd filetype netrw :silent! call NetrwMappings()
 augroup END

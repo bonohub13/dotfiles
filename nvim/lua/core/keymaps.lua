@@ -76,7 +76,9 @@ local normal_mode = {
     {[[qa]], [[<cmd>quitall!<CR>]]},
 
     -- LSP
-    {[[<S-k>]], function() vim.lsp.buf.hover() end},
+    {[[<S-k>]], function()
+            vim.lsp.buf.hover()
+    end},
 
     -- debugging
     {[[<Leader>en]], function() vim.diagnostic.goto_next() end},
@@ -91,6 +93,9 @@ local normal_mode = {
     -- Neogit
     {[[<Leader>no]], function() neogit.open() end},
     {[[<Leader>nc]], function() neogit.open({ [[commit]] }) end},
+
+    -- Tagbar
+    {[[<F8>]], [[<cmd>TagbarToggle<CR>]]},
 }
 
 local insert_mode = {
