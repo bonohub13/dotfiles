@@ -33,8 +33,8 @@ autocmd({[[BufLeave]]}, {
 })
 
 -- AutoStart
-autocmd({[[VimEnter]]}, {
-    pattern = [[*]],
-    group   = auto_start,
-    command = [[:TagbarOpen]],
-})
+-- autocmd({[[VimEnter]]}, {
+--     pattern = [[*]],
+--     group   = auto_start,
+--     command = [[:TagbarOpen]],
+-- })

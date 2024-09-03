@@ -17,7 +17,7 @@ local plugins   = {
     -- bufferline
     {
         [[akinsho/bufferline.nvim]],
-        tag = [[v3.0.0]],
+        branch = [[main]],
         dependencies = {
             [[kyazdani42/nvim-web-devicons]],
         },

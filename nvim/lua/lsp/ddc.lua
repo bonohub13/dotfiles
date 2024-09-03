@@ -18,8 +18,18 @@ local ddc_custom_patch_filetype = function(source, mode, trigger)
         trigger,
     })
 end
+local denops_cache_update = function()
+    call_function([[denops#cache#update]], {
+        {
+            reload = true,
+        }
+    })
+end
 local imap = function(key, cmd, opts)
     vim.keymap.set([[i]], key, cmd, opts)
+end
+local nmap = function(key, cmd, opts)
+    vim.keymap.set([[n]], key, cmd, opts)
 end
 
 local opts = {
@@ -121,5 +131,6 @@ imap([[<C-n>]],     [[<cmd>call pum#map#insert_relative(+1)<CR>]])
 imap([[<C-p>]],     [[<cmd>call pum#map#insert_relative(-1)<CR>]])
 imap([[<PageDown>]],[[<cmd>call pum#map#insert_relative(+1)<CR>]])
 imap([[<PageUp>]],  [[<cmd>call pum#map#insert_relative(-1)<CR>]])
+nmap([[<Leader>u]], denops_cache_update)
 
 call_function([[ddc#enable]], {})

@@ -19,9 +19,6 @@ local clipboard = function()
 end
 
 local options = {
-    -- runtimepath
-    runtimepath     = [[~/.config/nvim]],
-
     -- indent
     autoindent      = true,
     smartindent     = true,
