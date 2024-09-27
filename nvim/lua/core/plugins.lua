@@ -10,16 +10,16 @@ local plugins   = {
     {
         [[nvim-lualine/lualine.nvim]],
         dependencies = {
-            [[kyazdani42/nvim-web-devicons]],
+            [[nvim-tree/nvim-web-devicons]],
         },
         lazy    = false,
     },
     -- bufferline
     {
         [[akinsho/bufferline.nvim]],
-        branch = [[main]],
+        version = [[*]],
         dependencies = {
-            [[kyazdani42/nvim-web-devicons]],
+            [[nvim-tree/nvim-web-devicons]],
         },
     },
     -- lsplines
