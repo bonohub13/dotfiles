@@ -99,6 +99,7 @@ ddc_custom_patch_global([[sourceParams]], {
     },
 })
 
+ddc_custom_patch_filetype({[[make]]}, [[sources]], {[[around]]})
 ddc_custom_patch_filetype({
     [[lua]],
     [[vim]],
@@ -109,13 +110,13 @@ ddc_custom_patch_filetype({
     [[go]],
     [[python]],
     [[dockerfile]],
-    [[make]],
     [[cmake]],
     [[sh]],
     [[bash]],
     [[tex]],
     [[plaintex]],
     [[glsl]],
+    [[wgsl]],
 }, [[sources]], {
     [[lsp]],
 })
