@@ -103,7 +103,7 @@ local plugin_options = {
     tagbar_width            = 25,
 
     -- Markdown preview
-    mkdp_auto_start         = 1,
+    mkdp_auto_start         = 0,
     mkdp_auto_close         = 1,
     mkdp_refresh_slow       = 1,
     mkdp_command_for_global = 0,

@@ -57,3 +57,14 @@ if exists([[/usr/bin/git]]) then
         nargs = 0
     })
 end
+
+if exists([[/usr/bin/feh]]) then
+    create_user_command([[Feh]], function(opts)
+            os.execute(string.format(
+                [[feh %s]],
+                opts.fargs[1]
+            ))
+        end, {
+            nargs = 1, complete = [[file]]
+    })
+end

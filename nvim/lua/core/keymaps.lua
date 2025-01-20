@@ -62,6 +62,7 @@ local normal_mode = {
     {[[<A-b>]],         [[<cmd>buffers<CR>]]},
     {[[<Leader>bn]],    [[<cmd>bnext<CR>]]},
     {[[<Leader>bp]],    [[<cmd>bprevious<CR>]]},
+    {[[<Leader>br]],    function() vim.lsp.buf.rename() end},
 
     -- terminal
     {[[ht]], [[<cmd>sp | term<CR>]]},

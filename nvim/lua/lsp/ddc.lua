@@ -19,11 +19,14 @@ local ddc_custom_patch_filetype = function(source, mode, trigger)
     })
 end
 local denops_cache_update = function()
+    local home = os.getenv([[HOME]])
     call_function([[denops#cache#update]], {
         {
             reload = true,
         }
     })
+    os.execute([[deno cache --reload "]] .. home .. [[/.local/share/nvim/lazy/ddc-source-shell-native/denops/@ddc-sources/shell-native.ts"]])
+
 end
 local imap = function(key, cmd, opts)
     vim.keymap.set([[i]], key, cmd, opts)
@@ -96,6 +99,7 @@ ddc_custom_patch_global([[sourceParams]], {
     },
 })
 
+ddc_custom_patch_filetype({[[make]]}, [[sources]], {[[around]]})
 ddc_custom_patch_filetype({
     [[lua]],
     [[vim]],
@@ -106,13 +110,13 @@ ddc_custom_patch_filetype({
     [[go]],
     [[python]],
     [[dockerfile]],
-    [[make]],
     [[cmake]],
     [[sh]],
     [[bash]],
     [[tex]],
     [[plaintex]],
     [[glsl]],
+    [[wgsl]],
 }, [[sources]], {
     [[lsp]],
 })
