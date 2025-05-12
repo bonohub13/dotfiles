@@ -58,7 +58,7 @@ ddc_custom_patch_global([[sources]], {
     [[lsp]]
 })
 ddc_custom_patch_global([[sources]], {
-    [[shell-native]]
+    [[shell_native]]
 })
 ddc_custom_patch_global([[sourceOptions]], {
     ["_"] = {
@@ -82,7 +82,7 @@ ddc_custom_patch_global([[sourceOptions]], {
         forceCompletionPattern  = [[\.\w*|:\w*|->\w*]],
         -- dup                     = [[force]],
     },
-    ["shell-native"] = {
+    ["shell_native"] = {
         mark                    = [[zsh]],
         forceCompletionPattern  = [[\S/\S*]],
         isVolatile              = true,
@@ -120,7 +120,7 @@ ddc_custom_patch_filetype({
 }, [[sources]], {
     [[lsp]],
 })
-ddc_custom_patch_filetype({[[zsh]]}, [[sources]], {[[shell-native]]})
+ddc_custom_patch_filetype({[[zsh]]}, [[sources]], {[[shell_native]]})
 
 -- Keymaps
 vim.cmd([[
