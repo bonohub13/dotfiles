@@ -11,7 +11,7 @@ end
 config.font_size = 12.5
 config.font = wezterm.font_with_fallback {
     -- [[NotoSansMono-Medium]],
-    [[Fira Code]],
+    [[FiraCode Nerd Font Propo]],
     [[JetBrains Mono]],
     [[Symbols Nerd Font Mono]],
     [[Noto Color Emoji]],
@@ -20,7 +20,7 @@ config.font = wezterm.font_with_fallback {
 -- Window decorations
 config.window_decorations = [[NONE]]
 config.window_frame = {
-    font = wezterm.font { family = [[Fira Code]], weight = [[Bold]] },
+    font = wezterm.font { family = [[FiraCode Nerd Font Propo]], weight = [[Bold]] },
     font_size = 10.0,
 }
 -- config.window_background_opacity = 1.0
