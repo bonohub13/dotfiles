@@ -1,5 +1,4 @@
 require([[looks.colorscheme]])
 require([[looks.lualine]])
 require([[looks.bufferline]])
-require([[looks.lsplines]])
 require([[looks.treesitter]])

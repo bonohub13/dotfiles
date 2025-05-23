@@ -22,11 +22,6 @@ local plugins   = {
             [[nvim-tree/nvim-web-devicons]],
         },
     },
-    -- lsplines
-    {
-        url     = [[https://git.sr.ht/~whynothugo/lsp_lines.nvim]],
-        lazy    = false,
-    },
     -- Treesitter
     {
         [[nvim-treesitter/nvim-treesitter]],
@@ -54,10 +49,38 @@ local plugins   = {
     --  Rust
     {
         [[rust-lang/rust.vim]],
-        [[simrat39/rust-tools.nvim]],
-        ft = [[rust]],
-        config = function()
-            require([[lsp.rust_tools]])
+        init = function()
+            vim.g.rustfmt_autosave = 1
+        end
+    },
+    {
+        [[mrcjkb/rustaceanvim]],
+        version = '^6',
+        lazy = false,
+        ft = { [[rust]] },
+        init = function()
+            vim.g.rustaceanvim = {
+                cmd = function()
+                    local mason_registry = require([[mason-registry]])
+
+                    if mason_registry.is_installed([[rust-analyzer]]) then
+                        local ra = mason_registry.get_package([[rust-analyzer]])
+                        local ra_filename = ra:get_receipt():get().links.bin["rust-analyzer"]
+
+                        return { ([[%s/%s]]):format(ra:get_install_path(), ra_filename or [[rust-analyzer]]) }
+                    else
+                        return { [[rust-analyzer]] }
+                    end
+                end,
+                tools = {},
+                server = {
+                    on_attach = function(client, bufnr)
+                    end,
+                    default_settings = {
+                        ["rust-analyzer"] = {},
+                    },
+                },
+            }
         end
     },
     -- Debugger

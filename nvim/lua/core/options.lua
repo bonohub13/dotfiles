@@ -95,9 +95,6 @@ local plugin_options = {
     netrw_winsize           = 15,
     NetrwIsOpen             = 1,
 
-    -- rust-tools settings
-    rustfmt_autosave        = 1,
-
     -- ctags
     tagbar_ctags_bin        = [[/usr/bin/ctags]],
     tagbar_width            = 25,

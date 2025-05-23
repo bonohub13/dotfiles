@@ -4,9 +4,22 @@ end
 local autocmd = vim.api.nvim_create_autocmd
 
 -- groups
+local diagnostic = augroup([[Diagnostic]])
 local bracket_or_quotes_auto_wrap = augroup([[BracketOrQuotesAutoWrap]])
 local gnu_make = augroup([[GnuMake]])
 local auto_start = augroup([[AutoStart]])
+
+-- Virtual Text
+autocmd({[[WinEnter]]}, {
+    callback = function()
+        local floating = vim.api.nvim_win_get_config(0).relative ~= [[]]
+
+        vim.diagnostic.config({
+            virtual_text = floating,
+            virtual_lines = not floating,
+        })
+    end,
+})
 
 -- BracketOrQuotesAutoWrap
 autocmd({[[FileType]]}, {
