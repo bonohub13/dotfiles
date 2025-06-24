@@ -97,6 +97,9 @@ ddc_custom_patch_global([[sourceParams]], {
             Class = [[c]],
         },
     },
+    ["shell_native"] = {
+        shell = [[zsh]],
+    }
 })
 
 ddc_custom_patch_filetype({[[make]]}, [[sources]], {[[around]]})
