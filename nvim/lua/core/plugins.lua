@@ -98,7 +98,7 @@ local plugins   = {
         [[Shougo/ddc-filter-sorter_rank]],
         [[Shougo/ddc-source-around]],
         [[Shougo/ddc-source-lsp]],
-        [[Shougo/ddc-source-shell-native]],
+        [[Shougo/ddc-source-shell_native]],
         [[Shougo/ddc-ui-pum]],
         [[Shougo/pum.vim]],
         [[matsui54/denops-signature_help]],

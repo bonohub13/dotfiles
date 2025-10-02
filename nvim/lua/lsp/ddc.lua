@@ -1,7 +1,8 @@
 local capabilities = require([[ddc_source_lsp]]).make_client_capabilities()
-require([[lspconfig]]).denols.setup({
+vim.lsp.config([[denols]], {
     capabilities = capabilities,
 })
+vim.lsp.enable([[denols]])
 local call_function = function(func, opts)
     vim.api.nvim_call_function(func, opts)
 end
@@ -25,7 +26,7 @@ local denops_cache_update = function()
             reload = true,
         }
     })
-    os.execute([[deno cache --reload "]] .. home .. [[/.local/share/nvim/lazy/ddc-source-shell-native/denops/@ddc-sources/shell-native.ts"]])
+    os.execute([[deno cache --reload "]] .. home .. [[/.local/share/nvim/lazy/ddc-source-shell_native/denops/@ddc-sources/shell_native/main.ts"]])
 
 end
 local imap = function(key, cmd, opts)
@@ -84,8 +85,8 @@ ddc_custom_patch_global([[sourceOptions]], {
     },
     ["shell_native"] = {
         mark                    = [[zsh]],
-        forceCompletionPattern  = [[\S/\S*]],
-        isVolatile              = true,
+        -- forceCompletionPattern  = [[\S/\S*]],
+        -- isVolatile              = true,
     }
 })
 ddc_custom_patch_global([[sourceParams]], {

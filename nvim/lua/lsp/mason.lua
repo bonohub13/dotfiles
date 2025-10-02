@@ -1,4 +1,3 @@
-local lspconfig         = require([[lspconfig]])
 local neodev_opts   = {
     setup_jsonls = true,
     override = function(root_dir, lib)
@@ -21,5 +20,5 @@ require([[mason-lspconfig]]).setup({
     ensure_installed = { "rust_analyzer", "clangd" },
 })
 if vim.fn.executable([[glsl_analyzer]]) == 1 then
-    require([[lspconfig]]).glsl_analyzer.setup{}
+    vim.lsp.enable([[glsl_analyzer]])
 end
