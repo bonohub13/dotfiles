@@ -51,3 +51,11 @@ autocmd({[[VimEnter]]}, {
     group   = auto_start,
     command = [[:TagbarOpen]],
 })
+autocmd({[[FileType]]}, {
+    pattern = {[[rust]]},
+    group   = auto_start,
+    callback = function()
+        vim.treesitter.start()
+        vim.bo.syntax = [[on]]
+    end
+})

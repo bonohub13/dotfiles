@@ -1,1 +1,1 @@
-require([[neogit]])
+require([[utils.neogit]])

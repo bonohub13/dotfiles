@@ -80,6 +80,9 @@ local normal_mode = {
     {[[<S-k>]], function()
             vim.lsp.buf.hover()
     end},
+    {[[C-r]], function()
+        vim.lsp.buf.rename()
+    end},
 
     -- debugging
     {[[<Leader>en]], function() vim.diagnostic.goto_next() end},
