@@ -1,3 +1,3 @@
-require([[core]])
-require([[looks]])
-require([[lsp]])
+require('core')
+require('looks')
+require('lsp')

@@ -1,18 +1,16 @@
-local augroup = function(group_name)
-    return vim.api.nvim_create_augroup(group_name, {clear = true})
-end
 local autocmd = vim.api.nvim_create_autocmd
-
--- groups
-local diagnostic = augroup([[Diagnostic]])
-local bracket_or_quotes_auto_wrap = augroup([[BracketOrQuotesAutoWrap]])
-local gnu_make = augroup([[GnuMake]])
-local auto_start = augroup([[AutoStart]])
+local map = function(mode, shortcut, command)
+    vim.keymap.set(mode, shortcut, command, {
+        noremap = true,
+        silent  = true,
+        buffer  = true,
+    })
+end
 
 -- Virtual Text
-autocmd({[[WinEnter]]}, {
+autocmd({ 'WinEnter' }, {
     callback = function()
-        local floating = vim.api.nvim_win_get_config(0).relative ~= [[]]
+        local floating = vim.api.nvim_win_get_config(0).relative ~= ''
 
         vim.diagnostic.config({
             virtual_text = floating,
@@ -22,40 +20,55 @@ autocmd({[[WinEnter]]}, {
 })
 
 -- BracketOrQuotesAutoWrap
-autocmd({[[FileType]]}, {
-    pattern = [[lua,vim,html,xml,markdown]],
-    group   = bracket_or_quotes_auto_wrap,
-    command = [[inoremap <buffer> < <><left>]],
+autocmd({ 'FileType' }, {
+    pattern = { 'lua', 'vim', 'html', 'xml', 'markdown' },
+    callback = function()
+        map('i', '<', '<><left>')
+    end,
 })
-autocmd({[[FileType]]}, {
-    pattern = [[*]],
-    group   = bracket_or_quotes_auto_wrap,
-    command = [[if &ft != 'rust' | inoremap <buffer> ' ''<left>]],
+autocmd({ 'FileType' }, {
+    pattern = '*',
+    callback = function()
+        if vim.bo.filetype ~= 'rust' then
+            map('i', '\'', '\'\'<left>')
+        end
+    end,
 })
 
 -- GNU make
-autocmd({[[BufEnter]], [[WinEnter]]}, {
-    pattern = [[term:///usr/bin/make]],
-    group   = gnu_make,
-    command = [[:startinsert!]],
+autocmd({ 'BufEnter', 'WinEnter' }, {
+    pattern = 'term:///usr/bin/make',
+    callback = function()
+        vim.cmd('startinsert!')
+    end,
 })
-autocmd({[[BufLeave]]}, {
-    pattern = [[term:///usr/bin/make]],
-    group   = gnu_make,
-    command = [[:stopinsert!]],
+autocmd({ 'BufLeave' }, {
+    pattern = 'term:///usr/bin/make',
+    callback = function()
+        vim.cmd('stopinsert!')
+    end,
 })
 
--- AutoStart
-autocmd({[[VimEnter]]}, {
-    pattern = [[*]],
-    group   = auto_start,
-    command = [[:TagbarOpen]],
+autocmd({ 'VimEnter', 'TabNewEntered' }, {
+    pattern = { '*' },
+    callback = function()
+        if vim.bo.filetype ~= 'gitcommit' then
+            require('outline').open({ focus_outline = false })
+        end
+    end
 })
-autocmd({[[FileType]]}, {
-    pattern = {[[rust]]},
-    group   = auto_start,
+autocmd({ 'FileType' }, {
+    pattern = { 'rust', 'wgsl' },
     callback = function()
         vim.treesitter.start()
-        vim.bo.syntax = [[on]]
+        vim.bo.syntax = 'on'
+    end
+})
+
+-- RunOnWrite
+autocmd({ 'BufWritePre' }, {
+    pattern = { '*.wgsl', '*.go', '*.rs', '*.lua', '*.vim', '*.c', '*.py', '*.sh', '*.slang' },
+    callback = function()
+        vim.lsp.buf.format()
     end
 })

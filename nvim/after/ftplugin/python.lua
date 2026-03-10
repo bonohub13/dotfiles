@@ -1,6 +1,6 @@
 local options = {
-    path        = [[.,**,/usr/include]],
-    wildignore  = [[*.pyc]],
+    path       = '.,**,/usr/include',
+    wildignore = '*.pyc',
 }
 
 for k, v in pairs(options) do

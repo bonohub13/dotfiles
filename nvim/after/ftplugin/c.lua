@@ -1,5 +1,5 @@
 local options = {
-    path = [[.,**,/usr/include,../include/**]],
+    path = '.,**,/usr/include,../include/**',
 }
 
 for k, v in pairs(options) do

@@ -1,1 +1,1 @@
-vim.cmd([[!feh %]])
+vim.cmd('!feh %')

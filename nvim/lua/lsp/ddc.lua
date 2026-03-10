@@ -1,130 +1,126 @@
-local capabilities = require([[ddc_source_lsp]]).make_client_capabilities()
-vim.lsp.config([[denols]], {
+local capabilities = require('ddc_source_lsp').make_client_capabilities()
+vim.lsp.config('denols', {
     capabilities = capabilities,
 })
-vim.lsp.enable([[denols]])
+vim.lsp.enable('denols')
 local call_function = function(func, opts)
     vim.api.nvim_call_function(func, opts)
 end
 local ddc_custom_patch_global = function(mode, trigger)
-    call_function([[ddc#custom#patch_global]], {
+    call_function('ddc#custom#patch_global', {
         mode,
         trigger,
     })
 end
 local ddc_custom_patch_filetype = function(source, mode, trigger)
-    call_function([[ddc#custom#patch_filetype]], {
+    call_function('ddc#custom#patch_filetype', {
         source,
         mode,
         trigger,
     })
 end
 local denops_cache_update = function()
-    local home = os.getenv([[HOME]])
-    call_function([[denops#cache#update]], {
+    local home = os.getenv('HOME')
+    call_function('denops#cache#update', {
         {
             reload = true,
         }
     })
-    os.execute([[deno cache --reload "]] .. home .. [[/.local/share/nvim/lazy/ddc-source-shell_native/denops/@ddc-sources/shell_native/main.ts"]])
+    os.execute('deno cache --reload "' .. home .. '/.local/share/nvim/lazy/ddc-source-shell_native/denops/@ddc-sources/shell_native/main.ts"')
 
 end
 local imap = function(key, cmd, opts)
-    vim.keymap.set([[i]], key, cmd, opts)
+    vim.keymap.set('i', key, cmd, opts)
 end
 local nmap = function(key, cmd, opts)
-    vim.keymap.set([[n]], key, cmd, opts)
+    vim.keymap.set('n', key, cmd, opts)
 end
 
-local opts = {
-    noremap = true,
-    silent  = true,
-}
+call_function('signature_help#enable', {})
 
-call_function([[signature_help#enable]], {})
-
-ddc_custom_patch_global([[autoCompleteEvents]], {
-    [[InsertEnter]],
-    [[TextChangedI]],
-    [[TextChangedP]],
-    [[TextChangedT]],
-    [[CmdlineEnter]],
-    [[CmdlineChanged]],
+ddc_custom_patch_global('autoCompleteEvents', {
+    'InsertEnter',
+    'TextChangedI',
+    'TextChangedP',
+    'TextChangedT',
+    'CmdlineEnter',
+    'CmdlineChanged',
 })
-ddc_custom_patch_global([[ui]], [[pum]])
-ddc_custom_patch_global([[sources]], {
-    [[around]],
+ddc_custom_patch_global('ui', 'pum')
+ddc_custom_patch_global('sources', {
+    'around',
 })
-ddc_custom_patch_global([[sources]], {
-    [[lsp]]
+ddc_custom_patch_global('sources', {
+    'lsp'
 })
-ddc_custom_patch_global([[sources]], {
-    [[shell_native]]
+ddc_custom_patch_global('sources', {
+    'shell_native'
 })
-ddc_custom_patch_global([[sourceOptions]], {
+ddc_custom_patch_global('sourceOptions', {
     ["_"] = {
         ignoreCase  = true,
         matchers    = {
-            [[matcher_head]],
-            [[matcher_length]],
+            'matcher_head',
+            'matcher_length',
         },
         sorters     = {
-            [[sorter_rank]],
+            'sorter_rank',
         },
         converters  = {
-            [[converter_remove_overlap]],
+            'converter_remove_overlap',
         },
     },
     ["around"] = {
-        mark = [[A]],
+        mark = 'A',
     },
     ["lsp"] = {
-        mark                    = [[lsp]],
-        forceCompletionPattern  = [[\.\w*|:\w*|->\w*]],
-        -- dup                     = [[force]],
+        mark                    = 'lsp',
+        forceCompletionPattern  = '\\.\\w*|:\\w*|->\\w*',
+        -- dup                     = 'force',
     },
     ["shell_native"] = {
-        mark                    = [[zsh]],
-        -- forceCompletionPattern  = [[\S/\S*]],
+        mark                    = 'zsh',
+        -- forceCompletionPattern  = '\S/\S*',
         -- isVolatile              = true,
     }
 })
-ddc_custom_patch_global([[sourceParams]], {
+ddc_custom_patch_global('sourceParams', {
     ["around"] = {
         maxSize = 500,
     },
     ["lsp"] = {
         kindLabels = {
-            Class = [[c]],
+            Class = 'c',
         },
     },
     ["shell_native"] = {
-        shell = [[zsh]],
+        shell = 'zsh',
     }
 })
 
-ddc_custom_patch_filetype({[[make]]}, [[sources]], {[[around]]})
+ddc_custom_patch_filetype({'make'}, 'sources', {'around'})
 ddc_custom_patch_filetype({
-    [[lua]],
-    [[vim]],
-    [[c]],
-    [[cpp]],
-    [[rust]],
-    [[toml]],
-    [[go]],
-    [[python]],
-    [[dockerfile]],
-    [[cmake]],
-    [[sh]],
-    [[bash]],
-    [[tex]],
-    [[plaintex]],
-    [[glsl]],
-    [[wgsl]],
-}, [[sources]], {
-    [[lsp]],
+    'lua',
+    'vim',
+    'c',
+    'cpp',
+    'rust',
+    'toml',
+    'go',
+    'python',
+    'dockerfile',
+    'cmake',
+    'sh',
+    'bash',
+    'tex',
+    'plaintex',
+    'glsl',
+    'wgsl',
+    'shaderslang',
+}, 'sources', {
+    'lsp',
 })
-ddc_custom_patch_filetype({[[zsh]]}, [[sources]], {[[shell_native]]})
+ddc_custom_patch_filetype({'zsh'}, 'sources', {'shell_native'})
 
 -- Keymaps
 vim.cmd([[
@@ -134,11 +130,11 @@ vim.cmd([[
         \ ? '<TAB>'
         \ : ddc#map#manual_complete()
 ]])
-imap([[<S-Tab>]],   [[<cmd>call pum#map#insert_relative(-1)<CR>]])
-imap([[<C-n>]],     [[<cmd>call pum#map#insert_relative(+1)<CR>]])
-imap([[<C-p>]],     [[<cmd>call pum#map#insert_relative(-1)<CR>]])
-imap([[<PageDown>]],[[<cmd>call pum#map#insert_relative(+1)<CR>]])
-imap([[<PageUp>]],  [[<cmd>call pum#map#insert_relative(-1)<CR>]])
-nmap([[<Leader>u]], denops_cache_update)
+imap('<S-Tab>',   '<cmd>call pum#map#insert_relative(-1)<CR>')
+imap('<C-n>',     '<cmd>call pum#map#insert_relative(+1)<CR>')
+imap('<C-p>',     '<cmd>call pum#map#insert_relative(-1)<CR>')
+imap('<PageDown>','<cmd>call pum#map#insert_relative(+1)<CR>')
+imap('<PageUp>',  '<cmd>call pum#map#insert_relative(-1)<CR>')
+nmap('<Leader>u', denops_cache_update)
 
-call_function([[ddc#enable]], {})
+call_function('ddc#enable', {})

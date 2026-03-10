@@ -1,2 +1,1 @@
-require([[lsp.mason]])
-require([[lsp.ddc]])
+require('lsp.mason')

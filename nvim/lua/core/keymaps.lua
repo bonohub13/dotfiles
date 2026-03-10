@@ -6,117 +6,111 @@ local map = function(mode, shortcut, command)
 end
 
 local cmap = function(shortcut, command)
-    vim.keymap.set([[c]], shortcut, command, {
+    vim.keymap.set('c', shortcut, command, {
         noremap = true,
     })
 end
 
 local imap = function(shortcut, command)
-    map([[i]], shortcut, command)
+    map('i', shortcut, command)
 end
 
 local nmap = function(shortcut, command)
-    map([[n]], shortcut, command)
+    map('n', shortcut, command)
 end
 
 local tmap = function(shortcut, command)
-    map([[t]], shortcut, command)
+    map('t', shortcut, command)
 end
 
-local telescope = require([[telescope.builtin]])
-local neogit = require([[neogit]])
+local telescope = require('telescope.builtin')
+local neogit = require('neogit')
 
 -- keys to disable
 local disabled_keys = {
-    [[F2]],
-    [[F3]],
-    [[F4]],
-    [[F5]],
-    [[F6]],
-    [[F7]],
-    [[F8]],
-    [[F9]],
-    [[F10]],
-    [[F11]],
-    [[F12]],
-    [[F13]],
-    [[F14]],
-    [[F15]],
-    [[F16]],
+    'F2',
+    'F3',
+    'F4',
+    'F5',
+    'F6',
+    'F7',
+    'F8',
+    'F9',
+    'F10',
+    'F11',
+    'F12',
+    'F13',
+    'F14',
+    'F15',
+    'F16',
 }
 
 -- keymaps for normal mode
 local normal_mode = {
-    -- Generate ctags
-    {
-        [[<C-l>]],
-        [[<cmd>!ctags -R --c++-kinds=+p --fields=+iaS --extras=+q .<CR>]]
-    },
-
     -- tabs
-    {[[<Leader>tt]],    [[<cmd>tabnew<CR>]]},
-    {[[<Leader>tn]],    [[<cmd>tabnext<CR>]]},
-    {[[<Leader>tp]],    [[<cmd>tabprevious<CR>]]},
+    { '<Leader>tt', '<cmd>tabnew<CR>' },
+    { '<Leader>tn', '<cmd>tabnext<CR>' },
+    { '<Leader>tp', '<cmd>tabprevious<CR>' },
 
     -- buffers
-    {[[<A-b>]],         [[<cmd>buffers<CR>]]},
-    {[[<Leader>bn]],    [[<cmd>bnext<CR>]]},
-    {[[<Leader>bp]],    [[<cmd>bprevious<CR>]]},
-    {[[<Leader>br]],    function() vim.lsp.buf.rename() end},
+    { '<A-b>',      '<cmd>buffers<CR>' },
+    { '<Leader>bn', '<cmd>bnext<CR>' },
+    { '<Leader>bp', '<cmd>bprevious<CR>' },
+    { '<Leader>br', function() vim.lsp.buf.rename() end },
 
     -- terminal
-    {[[ht]], [[<cmd>sp | term<CR>]]},
-    {[[vt]], [[<cmd>vs | term<CR>]]},
-    {[[nt]], [[<cmd>tabnew | term<CR>]]},
+    { 'ht',         '<cmd>sp | term<CR>' },
+    { 'vt',         '<cmd>vs | term<CR>' },
+    { 'nt',         '<cmd>tabnew | term<CR>' },
 
     -- window mode
-    {[[<Leader>w]], [[<C-w>]]},
+    { '<Leader>w',  '<C-w>' },
 
     -- quit
-    {[[qq]], [[<cmd>quit!<CR>]]},
-    {[[qa]], [[<cmd>quitall!<CR>]]},
+    { 'qq',         '<cmd>quit!<CR>' },
+    { 'qa',         '<cmd>quitall!<CR>' },
 
     -- LSP
-    {[[<S-k>]], function()
-            vim.lsp.buf.hover()
-    end},
-    {[[C-r]], function()
+    { '<S-k>', function()
+        vim.lsp.buf.hover()
+    end },
+    { 'C-r', function()
         vim.lsp.buf.rename()
-    end},
+    end },
 
     -- debugging
-    {[[<Leader>en]], function() vim.diagnostic.goto_next() end},
-    {[[<Leader>ep]], function() vim.diagnostic.goto_previous() end},
+    { '<Leader>en', function() vim.diagnostic.jump({ count = 1, float = true }) end },
+    { '<Leader>ep', function() vim.diagnostic.jump({ count = -1, float = true }) end },
 
     -- Telescope
-    {[[ff]], function() telescope.find_files() end},
-    {[[fg]], function() telescope.live_grep() end},
-    {[[fb]], function() telescope.buffers() end},
-    {[[fh]], function() telescope.help_tags() end},
+    { 'ff',         function() telescope.find_files() end },
+    { 'fg',         function() telescope.live_grep() end },
+    { 'fb',         function() telescope.buffers() end },
+    { 'fh',         function() telescope.help_tags() end },
 
     -- Neogit
-    {[[<Leader>no]], function() neogit.open() end},
-    {[[<Leader>nc]], function() neogit.open({ [[commit]] }) end},
+    { '<Leader>no', function() neogit.open() end },
+    { '<Leader>nc', function() neogit.open({ 'commit' }) end },
 
-    -- Tagbar
-    {[[<F8>]], [[<cmd>TagbarToggle<CR>]]},
+    -- Outline
+    { '<F8>',       function() require('outline').toggle({ focus_outline = false }) end },
 }
 
 local insert_mode = {
     -- closing brackets and quotes
-    {[["]], [[""<left>]]},
-    {[[(]], [[()<left>]]},
-    {[[[]], [[[]<left>]]},
-    {[[{]], [[{}<left>]]},
+    { '"', '""<left>' },
+    { '(', '()<left>' },
+    { '[', '[]<left>' },
+    { '{', '{}<left>' },
 }
 
 local terminal_mode = {
-    {[[<ESC>]], [[<C-\><C-n>]]},
+    { '<ESC>', '<C-\\><C-n>' },
 }
 
 for _, key in ipairs(disabled_keys) do
-    imap(key, [[<Nop>]])
-    cmap(key, [[<Nop>]])
+    imap(key, '<Nop>')
+    cmap(key, '<Nop>')
 end
 
 for _, set in ipairs(normal_mode) do

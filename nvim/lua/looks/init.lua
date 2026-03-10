@@ -1,2 +1,2 @@
-require([[looks.colorscheme]])
-require([[looks.treesitter]])
+require('looks.colorscheme')
+require('looks.treesitter')
