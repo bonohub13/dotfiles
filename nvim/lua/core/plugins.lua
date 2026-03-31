@@ -1,5 +1,4 @@
 local lazypath = vim.fn.stdpath('data') .. 'lazy/lazy.nvim'
-
 local plugins  = {
     'folke/lazy.nvim',
     -- colorschemes
@@ -166,7 +165,9 @@ local plugins  = {
             },
         },
         -- GLSL
-        'tikhomirov/vim-glsl',
+        {
+            'tikhomirov/vim-glsl',
+        },
         --  Rust
         {
             'rust-lang/rust.vim',
@@ -209,12 +210,6 @@ local plugins  = {
             opts_extend = { 'sources.default' },
         },
     },
-    -- Debugger
-    {
-        'mfussenegger/nvim-dap',
-        'rcarriga/nvim-dap-ui',
-        'ldelossa/nvim-dap-projects'
-    },
     -- autocompletion
     {
         'saghen/blink.cmp',
@@ -252,24 +247,26 @@ local plugins  = {
     },
     -- Markdown preview
     {
-        'OXY2DEV/markview.nvim',
-        opts = {
-            preview = {
-                icon_provider = 'devicons',
+        {
+            'OXY2DEV/markview.nvim',
+            opts = {
+                preview = {
+                    icon_provider = 'devicons',
+                },
+            },
+            opts_extend = { 'sources.default' },
+            dependencies = {
+                'nvim-tree/nvim-web-devicons',
             },
         },
-        opts_extend = { 'sources.default' },
-        dependencies = {
-            'nvim-tree/nvim-web-devicons',
+        {
+            'selimacerbas/markdown-preview.nvim',
+            opts = {},
+            opts_extend = { 'sources.default' },
+            dependencies = {
+                'selimacerbas/live-server.nvim',
+            }
         },
-    },
-    {
-        'selimacerbas/markdown-preview.nvim',
-        opts = {},
-        opts_extend = { 'sources.default' },
-        dependencies = {
-            'selimacerbas/live-server.nvim',
-        }
     },
     -- undotree
     {
@@ -309,5 +306,4 @@ if not vim.uv.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
-
 require('lazy').setup(plugins)
