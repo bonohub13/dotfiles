@@ -47,42 +47,42 @@ local plugins  = {
         },
     },
     -- Treesitter
-    {
-        {
-            'nvim-treesitter/nvim-treesitter',
-            lazy = false,
-            opts = {
-                ensure_installed = {
-                    'lua',
-                    'rust',
-                    'toml',
-                    'c',
-                    'cpp',
-                    'python'
-                },
-                auto_install = true,
-                highlight = {
-                    enable                            = true,
-                    additional_vim_regex_highlighting = false,
-                },
-                ident = {
-                    enable = true,
-                },
-                rainbow = {
-                    enable         = true,
-                    extended_mode  = true,
-                    max_file_lines = nil,
-                },
-            },
-            opts_extend = { 'sources.default' },
-            dependencies = {
-                {
-                    'nvim-treesitter/nvim-treesitter-context',
-                    opts = {},
-                },
-            }
-        },
-    },
+    --    {
+    --        {
+    --            'nvim-treesitter/nvim-treesitter',
+    --            lazy = false,
+    --            opts = {
+    --                ensure_installed = {
+    --                    'lua',
+    --                    'rust',
+    --                    'toml',
+    --                    'c',
+    --                    'cpp',
+    --                    'python'
+    --                },
+    --                auto_install = true,
+    --                highlight = {
+    --                    enable                            = true,
+    --                    additional_vim_regex_highlighting = false,
+    --                },
+    --                ident = {
+    --                    enable = true,
+    --                },
+    --                rainbow = {
+    --                    enable         = true,
+    --                    extended_mode  = true,
+    --                    max_file_lines = nil,
+    --                },
+    --            },
+    --            opts_extend = { 'sources.default' },
+    --            dependencies = {
+    --                {
+    --                    'nvim-treesitter/nvim-treesitter-context',
+    --                    opts = {},
+    --                },
+    --            }
+    --        },
+    --    },
     -- Telescope
     {
         'nvim-telescope/telescope.nvim',
@@ -177,7 +177,7 @@ local plugins  = {
         },
         {
             'mrcjkb/rustaceanvim',
-            version = '^6',
+            version = '^9',
             lazy = false,
             ft = 'rust',
             init = function()
@@ -213,31 +213,16 @@ local plugins  = {
     -- autocompletion
     {
         'saghen/blink.cmp',
+        dependencies = {
+            'rafamadriz/friendly-snippets',
+        },
         version = '1.*',
         opts = {
             sources = {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
             },
-            per_filetype = {
-                lua = { inherit_defaults = true, 'lazydev' },
-            },
-            providers = {
-                lazydev = {
-                    name = 'LazyDev',
-                    module = 'lazydev.integrations.blink',
-                    score_offset = 100,
-                },
-                snippets = {
-                    opts = {
-                        friendly_snippets = true,
-                    }
-                }
-            }
         },
         opts_extend = { 'sources.default' },
-        dependencies = {
-            'rafamadriz/friendly-snippets',
-        },
     },
     -- hex editor/viewer
     {
