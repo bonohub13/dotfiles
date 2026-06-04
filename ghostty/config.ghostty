@@ -1,0 +1,10 @@
+theme = "Catppuccin Frappe"
+
+font-family = "FiraCode Nerd Font Propo"
+
+background-opacity = 0.625
+alpha-blending = "linear-corrected"
+
+keybind = ctrl+b>t=new_tab
+keybind = ctrl+b>n=next_tab
+keybind = ctrl+b>p=previous_tab
