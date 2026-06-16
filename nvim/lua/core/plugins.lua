@@ -47,42 +47,18 @@ local plugins  = {
         },
     },
     -- Treesitter
-    --    {
-    --        {
-    --            'nvim-treesitter/nvim-treesitter',
-    --            lazy = false,
-    --            opts = {
-    --                ensure_installed = {
-    --                    'lua',
-    --                    'rust',
-    --                    'toml',
-    --                    'c',
-    --                    'cpp',
-    --                    'python'
-    --                },
-    --                auto_install = true,
-    --                highlight = {
-    --                    enable                            = true,
-    --                    additional_vim_regex_highlighting = false,
-    --                },
-    --                ident = {
-    --                    enable = true,
-    --                },
-    --                rainbow = {
-    --                    enable         = true,
-    --                    extended_mode  = true,
-    --                    max_file_lines = nil,
-    --                },
-    --            },
-    --            opts_extend = { 'sources.default' },
-    --            dependencies = {
-    --                {
-    --                    'nvim-treesitter/nvim-treesitter-context',
-    --                    opts = {},
-    --                },
-    --            }
-    --        },
-    --    },
+    {
+        'romus204/tree-sitter-manager.nvim',
+        config = function()
+            require('tree-sitter-manager').setup({
+                auto_install = true,
+                highlight = false,
+            })
+        end,
+        opts_extend = { 'sources.default' },
+        dependencies = {
+        }
+    },
     -- Telescope
     {
         'nvim-telescope/telescope.nvim',
@@ -213,10 +189,13 @@ local plugins  = {
     -- autocompletion
     {
         'saghen/blink.cmp',
+        build = function()
+            require('blink.cmp').build():pwait()
+        end,
         dependencies = {
+            'saghen/blink.lib',
             'rafamadriz/friendly-snippets',
         },
-        version = '1.*',
         opts = {
             sources = {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
