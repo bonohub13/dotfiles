@@ -1,7 +1,8 @@
 # dotfile for tmux
 
 ## Where to place
-- Copy the .tmux.conf file to $HOME directory
+- Copy tmux.conf as `$HOME/.tmux.conf`
+- Copy tmux as `$HOME/.tmux`
 
 ## Dependencies
 1. [Dracula theme by Dane Williams and Ethan Edwards](https://draculatheme.com/tmux)
